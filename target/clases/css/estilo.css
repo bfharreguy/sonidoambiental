@@ -1,0 +1,25 @@
+/*
+Sistema creado por bfhsoftware para musica ambiental
+Bernardo harreguy, Derechos reservados
+and open the template in the editor.
+*/
+/* 
+    Created on : 03/10/2017, 14:25:32
+    Author     : Usuario
+*/
+
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+  background-color: #f2f2f2;
+}
+.ordenar:after {
+  content: '\25b2';
+}
+.ordenar.invertir:after {
+  content: '\25bc';
+}
+#alertas {
+  position: fixed;
+  top: 2em;
+  right: 2em;
+  z-index: 1000;
+}

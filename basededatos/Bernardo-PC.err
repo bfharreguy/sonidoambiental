@@ -1,0 +1,107 @@
+2017-11-21  9:22:13 6496 [Note] InnoDB: Using mutexes to ref count buffer pool pages
+2017-11-21  9:22:13 6496 [Note] InnoDB: The InnoDB memory heap is disabled
+2017-11-21  9:22:13 6496 [Note] InnoDB: Mutexes and rw_locks use Windows interlocked functions
+2017-11-21  9:22:13 6496 [Note] InnoDB: _mm_lfence() and _mm_sfence() are used for memory barrier
+2017-11-21  9:22:13 6496 [Note] InnoDB: Compressed tables use zlib 1.2.3
+2017-11-21  9:22:13 6496 [Note] InnoDB: Using generic crc32 instructions
+2017-11-21  9:22:13 6496 [Note] InnoDB: Initializing buffer pool, size = 128.0M
+2017-11-21  9:22:13 6496 [Note] InnoDB: Completed initialization of buffer pool
+2017-11-21  9:22:13 6496 [Note] InnoDB: The first specified data file .\ibdata1 did not exist: a new database to be created!
+2017-11-21  9:22:13 6496 [Note] InnoDB: Setting file .\ibdata1 size to 12 MB
+2017-11-21  9:22:13 6496 [Note] InnoDB: Database physically writes the file full: wait...
+2017-11-21  9:22:14 6496 [Note] InnoDB: Setting log file .\ib_logfile101 size to 48 MB
+2017-11-21  9:22:14 6496 [Note] InnoDB: Setting log file .\ib_logfile1 size to 48 MB
+2017-11-21  9:22:15 6496 [Note] InnoDB: Renaming log file .\ib_logfile101 to .\ib_logfile0
+2017-11-21  9:22:15 6496 [Warning] InnoDB: New log files created, LSN=45883
+2017-11-21  9:22:15 6496 [Note] InnoDB: Doublewrite buffer not found: creating new
+2017-11-21  9:22:15 6496 [Note] InnoDB: Doublewrite buffer created
+2017-11-21  9:22:16 6496 [Note] InnoDB: 128 rollback segment(s) are active.
+2017-11-21  9:22:16 6496 [Warning] InnoDB: Creating foreign key constraint system tables.
+2017-11-21  9:22:16 6496 [Note] InnoDB: Foreign key constraint system tables created
+2017-11-21  9:22:16 6496 [Note] InnoDB: Creating tablespace and datafile system tables.
+2017-11-21  9:22:16 6496 [Note] InnoDB: Tablespace and datafile system tables created.
+2017-11-21  9:22:16 6496 [Note] InnoDB: Creating zip_dict and zip_dict_cols system tables.
+2017-11-21  9:22:16 6496 [Note] InnoDB: zip_dict and zip_dict_cols system tables created.
+2017-11-21  9:22:16 6496 [Note] InnoDB: Waiting for purge to start
+2017-11-21  9:22:16 6496 [Note] InnoDB:  Percona XtraDB (http://www.percona.com) 5.6.34-79.1 started; log sequence number 0
+2017-11-21  9:22:16 5644 [Note] InnoDB: Dumping buffer pool(s) not yet started
+2017-11-21  9:22:16 6496 [Note] Plugin 'FEEDBACK' is disabled.
+2017-11-21  9:23:11 6940 [Note] InnoDB: Using mutexes to ref count buffer pool pages
+2017-11-21  9:23:11 6940 [Note] InnoDB: The InnoDB memory heap is disabled
+2017-11-21  9:23:11 6940 [Note] InnoDB: Mutexes and rw_locks use Windows interlocked functions
+2017-11-21  9:23:11 6940 [Note] InnoDB: _mm_lfence() and _mm_sfence() are used for memory barrier
+2017-11-21  9:23:11 6940 [Note] InnoDB: Compressed tables use zlib 1.2.3
+2017-11-21  9:23:11 6940 [Note] InnoDB: Using generic crc32 instructions
+2017-11-21  9:23:11 6940 [Note] InnoDB: Initializing buffer pool, size = 128.0M
+2017-11-21  9:23:11 6940 [Note] InnoDB: Completed initialization of buffer pool
+2017-11-21  9:23:11 6940 [Note] InnoDB: Highest supported file format is Barracuda.
+2017-11-21  9:23:11 6940 [Note] InnoDB: The log sequence numbers 1622818 and 1622818 in ibdata files do not match the log sequence number 1623062 in the ib_logfiles!
+2017-11-21  9:23:11 6940 [Note] InnoDB: Database was not shutdown normally!
+2017-11-21  9:23:11 6940 [Note] InnoDB: Starting crash recovery.
+2017-11-21  9:23:11 6940 [Note] InnoDB: Reading tablespace information from the .ibd files...
+2017-11-21  9:23:11 6940 [Note] InnoDB: Restoring possible half-written data pages 
+2017-11-21  9:23:11 6940 [Note] InnoDB: from the doublewrite buffer...
+2017-11-21  9:23:12 6940 [Note] InnoDB: 128 rollback segment(s) are active.
+2017-11-21  9:23:12 6940 [Note] InnoDB: Waiting for purge to start
+2017-11-21  9:23:12 6940 [Note] InnoDB:  Percona XtraDB (http://www.percona.com) 5.6.34-79.1 started; log sequence number 1623062
+2017-11-21  9:23:12 10752 [Note] InnoDB: Dumping buffer pool(s) not yet started
+2017-11-21  9:23:12 6940 [Note] Plugin 'FEEDBACK' is disabled.
+2017-11-21  9:26:48 11876 [Note] InnoDB: Using mutexes to ref count buffer pool pages
+2017-11-21  9:26:48 11876 [Note] InnoDB: The InnoDB memory heap is disabled
+2017-11-21  9:26:48 11876 [Note] InnoDB: Mutexes and rw_locks use Windows interlocked functions
+2017-11-21  9:26:48 11876 [Note] InnoDB: _mm_lfence() and _mm_sfence() are used for memory barrier
+2017-11-21  9:26:48 11876 [Note] InnoDB: Compressed tables use zlib 1.2.3
+2017-11-21  9:26:48 11876 [Note] InnoDB: Using generic crc32 instructions
+2017-11-21  9:26:48 11876 [Note] InnoDB: Initializing buffer pool, size = 128.0M
+2017-11-21  9:26:48 11876 [Note] InnoDB: Completed initialization of buffer pool
+2017-11-21  9:26:48 11876 [ERROR] InnoDB: .\ibdata1 can't be opened in read-write mode
+2017-11-21  9:26:48 11876 [ERROR] InnoDB: The system tablespace must be writable!
+2017-11-21  9:26:48 11876 [ERROR] Plugin 'InnoDB' init function returned error.
+2017-11-21  9:26:48 11876 [ERROR] Plugin 'InnoDB' registration as a STORAGE ENGINE failed.
+2017-11-21  9:26:48 11876 [Note] Plugin 'FEEDBACK' is disabled.
+2017-11-21  9:27:17 10568 [Note] InnoDB: Using mutexes to ref count buffer pool pages
+2017-11-21  9:27:17 10568 [Note] InnoDB: The InnoDB memory heap is disabled
+2017-11-21  9:27:17 10568 [Note] InnoDB: Mutexes and rw_locks use Windows interlocked functions
+2017-11-21  9:27:17 10568 [Note] InnoDB: _mm_lfence() and _mm_sfence() are used for memory barrier
+2017-11-21  9:27:17 10568 [Note] InnoDB: Compressed tables use zlib 1.2.3
+2017-11-21  9:27:17 10568 [Note] InnoDB: Using generic crc32 instructions
+2017-11-21  9:27:17 10568 [Note] InnoDB: Initializing buffer pool, size = 128.0M
+2017-11-21  9:27:17 10568 [Note] InnoDB: Completed initialization of buffer pool
+2017-11-21  9:27:17 10568 [ERROR] InnoDB: .\ibdata1 can't be opened in read-write mode
+2017-11-21  9:27:17 10568 [ERROR] InnoDB: The system tablespace must be writable!
+2017-11-21  9:27:17 10568 [ERROR] Plugin 'InnoDB' init function returned error.
+2017-11-21  9:27:17 10568 [ERROR] Plugin 'InnoDB' registration as a STORAGE ENGINE failed.
+2017-11-21  9:27:17 10568 [Note] Plugin 'FEEDBACK' is disabled.
+2017-11-21  9:28:28 10492 [Note] InnoDB: Using mutexes to ref count buffer pool pages
+2017-11-21  9:28:28 10492 [Note] InnoDB: The InnoDB memory heap is disabled
+2017-11-21  9:28:28 10492 [Note] InnoDB: Mutexes and rw_locks use Windows interlocked functions
+2017-11-21  9:28:28 10492 [Note] InnoDB: _mm_lfence() and _mm_sfence() are used for memory barrier
+2017-11-21  9:28:28 10492 [Note] InnoDB: Compressed tables use zlib 1.2.3
+2017-11-21  9:28:28 10492 [Note] InnoDB: Using generic crc32 instructions
+2017-11-21  9:28:28 10492 [Note] InnoDB: Initializing buffer pool, size = 128.0M
+2017-11-21  9:28:28 10492 [Note] InnoDB: Completed initialization of buffer pool
+2017-11-21  9:28:28 10492 [ERROR] InnoDB: .\ibdata1 can't be opened in read-write mode
+2017-11-21  9:28:28 10492 [ERROR] InnoDB: The system tablespace must be writable!
+2017-11-21  9:28:28 10492 [ERROR] Plugin 'InnoDB' init function returned error.
+2017-11-21  9:28:28 10492 [ERROR] Plugin 'InnoDB' registration as a STORAGE ENGINE failed.
+2017-11-21  9:28:28 10492 [Note] Plugin 'FEEDBACK' is disabled.
+2017-11-21 12:41:05 9280 [Note] InnoDB: Using mutexes to ref count buffer pool pages
+2017-11-21 12:41:05 9280 [Note] InnoDB: The InnoDB memory heap is disabled
+2017-11-21 12:41:05 9280 [Note] InnoDB: Mutexes and rw_locks use Windows interlocked functions
+2017-11-21 12:41:05 9280 [Note] InnoDB: _mm_lfence() and _mm_sfence() are used for memory barrier
+2017-11-21 12:41:05 9280 [Note] InnoDB: Compressed tables use zlib 1.2.3
+2017-11-21 12:41:05 9280 [Note] InnoDB: Using generic crc32 instructions
+2017-11-21 12:41:05 9280 [Note] InnoDB: Initializing buffer pool, size = 128.0M
+2017-11-21 12:41:05 9280 [Note] InnoDB: Completed initialization of buffer pool
+2017-11-21 12:41:06 9280 [Note] InnoDB: Highest supported file format is Barracuda.
+2017-11-21 12:41:06 9280 [Note] InnoDB: The log sequence numbers 1623072 and 1623072 in ibdata files do not match the log sequence number 1623574 in the ib_logfiles!
+2017-11-21 12:41:06 9280 [Note] InnoDB: Database was not shutdown normally!
+2017-11-21 12:41:06 9280 [Note] InnoDB: Starting crash recovery.
+2017-11-21 12:41:06 9280 [Note] InnoDB: Reading tablespace information from the .ibd files...
+2017-11-21 12:41:06 9280 [Note] InnoDB: Restoring possible half-written data pages 
+2017-11-21 12:41:06 9280 [Note] InnoDB: from the doublewrite buffer...
+2017-11-21 12:41:07 9280 [Note] InnoDB: 128 rollback segment(s) are active.
+2017-11-21 12:41:07 9280 [Note] InnoDB: Waiting for purge to start
+2017-11-21 12:41:07 9280 [Note] InnoDB:  Percona XtraDB (http://www.percona.com) 5.6.34-79.1 started; log sequence number 1623574
+2017-11-21 12:41:07 7320 [Note] InnoDB: Dumping buffer pool(s) not yet started
+2017-11-21 12:41:08 9280 [Note] Plugin 'FEEDBACK' is disabled.
