@@ -16,6 +16,8 @@ import java.net.HttpURLConnection;
 import java.net.InetSocketAddress;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -26,9 +28,9 @@ public class servidorhttp {
     private class RespuestaMensaje {
         private String mensaje;
         private boolean error = false;
-        public void cambiarmensaje(String mensaje){
-            this.mensaje = mensaje;
-        }
+        /*  public void cambiarmensaje(String mensaje){
+        this.mensaje = mensaje;
+        }*/
         public RespuestaMensaje(String mensaje, boolean error) {
             this.mensaje = mensaje;
             this.error = error;
@@ -41,6 +43,19 @@ public class servidorhttp {
         
         public String getMensaje() {
             return mensaje;
+        }
+    }
+    private class RespuestaMatriz {
+        private List<String> mensajes;
+        private boolean error = false;
+        
+        public RespuestaMatriz(String mensaje, boolean error) {
+            this.mensajes = new ArrayList<String>();
+            mensajes.add(mensaje);
+            mensajes.add("Primero");
+            mensajes.add("Segundo");
+            mensajes.add("Tercero");
+            this.error = error;
         }
     }
     
@@ -149,21 +164,7 @@ public class servidorhttp {
                     case "GET":
                         /* Creamos una instancia de Respuesta para ser convertida en JSON */
                         respuesta = new RespuestaMensaje(he.getRequestURI().getPath().substring(he.getHttpContext().getPath().length()), false);
-                        reproductor repo  = new reproductor();
-                        switch (respuesta.mensaje){
-                            case "musica":
-                                respuesta.cambiarmensaje(repo.cancion());
-                                break;
-                            case "estado":
-                                respuesta.cambiarmensaje(repo.estado());
-                                break;
-                                /*case "pausar-reproducir":
-                                repo.pausar();
-                                System.out.println("pausa");
-                                break;*/
-                        }
-                        
-                        /* Creamos un JSON usando GSON */
+                         /* Creamos un JSON usando GSON */
                         responseBody = gson.toJson(respuesta);
                         /* Enviamos la cabecera HTTP para indicar que la respuesta serán datos JSON */
                         he.getResponseHeaders().set("Content-Type", String.format("application/json; charset=%s", StandardCharsets.UTF_8));
