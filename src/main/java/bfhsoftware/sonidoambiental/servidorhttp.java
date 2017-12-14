@@ -4,20 +4,13 @@
 * and open the template in the editor.
 */
 package bfhsoftware.sonidoambiental;
+import com.sun.net.httpserver.*;
+import java.io.*;
+import java.net.*;
 import java.nio.charset.*;
+import java.nio.file.*;
+import java.util.*;
 import com.google.gson.*;
-import com.sun.net.httpserver.HttpServer;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.InetSocketAddress;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
@@ -32,6 +25,23 @@ public class servidorhttp {
         this.mensaje = mensaje;
         }*/
         public RespuestaMensaje(String mensaje, boolean error) {
+         //  System.out.println(mensaje);
+                                reproductor repo  = new reproductor();
+                        switch (mensaje){
+                            case "musica":
+                                mensaje = repo.cancion();
+                                break;
+                            case "estado":
+                                mensaje =repo.estado();
+                                break;
+                                /*case "pausar-reproducir":
+                                repo.pausar();
+                                System.out.println("pausa");
+                                break;*/
+                        }
+            /*if (mensaje.equals("musica")){
+                System.out.println("funciona puto");
+            }*/
             this.mensaje = mensaje;
             this.error = error;
         }
@@ -42,6 +52,7 @@ public class servidorhttp {
         private String mensaje;
         
         public String getMensaje() {
+            
             return mensaje;
         }
     }
@@ -64,59 +75,18 @@ public class servidorhttp {
         servidorhttp http = new servidorhttp();
         http.ejecutame();
     }
-    
-    public void ejecutame() throws IOException {
-        final HttpServer server = HttpServer.create(new InetSocketAddress("0.0.0.0", 80), 10);
-        /* Controlamos el contexto general para descargar archivos estáticos en la ruta actual */
-        server.createContext("/", he -> {
+    class raiz implements HttpHandler {
+        @Override
+        public void handle(HttpExchange he) throws IOException {
             try {
                 String archivo =he.getRequestURI().getPath();
                 ClassLoader classLoader = servidorhttp.class.getClassLoader();
                 if (archivo.equals("/") ) {
                     archivo = "/index.html";
-                } else if (archivo.startsWith("/")) {
-                    //archivo = archivo.substring(1,archivo.length());
                 }
-                /*
-                
-                InputStream in = getClass().getResourceAsStream("archivo_en_jar");
-                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-                in.available();
-                System.out.println(he.getRequestURI().getPath());
-                
-                File file;
-                if (classLoader.getResource(he.getRequestURI().getPath().substring(1,he.getRequestURI().getPath().length()))==null) {
-                System.out.println("archivo no existe");
-                }
-                
-                if (he.getRequestURI().getPath().equals("/") ) {
-                file = new File((classLoader.getResource("index.html")).getFile());
-                //System.out.println("!");
-                }else{
-                //System.out.println("!!");
-                // if (he.getRequestURI().getPath().startsWith("/")){
-                file = new File((classLoader.getResource(he.getRequestURI().getPath().substring(1,he.getRequestURI().getPath().length()))).getFile());/*
-                }else{
-                file = new File((classLoader.getResource(he.getRequestURI().getPath())).getFile());
-                }
-                
-                }
-                System.out.println(file.length());
-                
-                /* Comprobamos la existencia del archivo a partir de la ruta www del directorio actual ("./www") */
-                //File file = new File("./www", he.getRequestURI().getPath());
-                /* Si es un directorio cargamos el index.html (dará "not found" si éste no existe) */
-                
-                /*if ((file.isDirectory()) || (he.getRequestURI().getPath().equals("/") )) {
-                file = new File((classLoader.getResource("index.html")).getFile());
-                //file = new File(file, "index.html");
-                System.out.println("aqui");
-                }*/
                 InputStream fs = getClass().getResourceAsStream(archivo);
-                if (fs!=null) {
-                    
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(fs));
-                    
+                if (fs!=null) {                    
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(fs));                    
                     /* Obtenemos el tipo mime del archivo para enviarlo en la cabecera correspondiente */
                     he.getResponseHeaders().set("Content-Type", Files.probeContentType(Paths.get(archivo)));
                     /* Enviamos las cabeceras HTTP OK junto con la longitud del contenido */
@@ -138,33 +108,34 @@ public class servidorhttp {
                     /* Si el archivo no existe lo indicamos así en el código de respuesta y el mensaje */
                     String response = "Error 404: El archivo \"" + he.getRequestURI().getPath() + "\" no existe.";
                     he.sendResponseHeaders(HttpURLConnection.HTTP_NOT_FOUND, response.length());
-                    OutputStream output = he.getResponseBody();
-                    output.write(response.getBytes());
-                    output.flush();
-                    output.close();
+                    try (OutputStream output = he.getResponseBody()) {
+                        output.write(response.getBytes());
+                        output.flush();
+                    }
                     
-                }} catch (Exception e) {
+                }} catch (IOException e) {
                     System.out.println(e.getLocalizedMessage() +e.getMessage());
                 } finally {
                 he.close();
             }
-        });
-        /* Controlamos el contexto que hará peticiones REST/JSON a nuestro servicio */
-        server.createContext("/json/", he -> {
+        }}
+    class json implements HttpHandler {
+        public void handle(HttpExchange he) throws IOException {
             try {
                 /* Definimos las variables de uso común */
                 Gson gson = new Gson();
                 final String responseBody;
                 final byte[] rawResponseBody;
                 RespuestaMensaje respuesta;
+                RespuestaMatriz respuesta2;
                 /* Agregamos un mínimo de información de depuración */
-                //System.out.println(he.getRequestMethod() + " \"" + he.getRequestURI().getPath() + "\"");
+               // System.out.println(he.getRequestMethod() + " \"" + he.getRequestURI().getPath() + "\"");
                 /* Obtenemos el método usado (en mayúsculas, por si se recibe de otra forma) para saber qué hacer */
                 switch (he.getRequestMethod().toUpperCase()) {
                     case "GET":
                         /* Creamos una instancia de Respuesta para ser convertida en JSON */
                         respuesta = new RespuestaMensaje(he.getRequestURI().getPath().substring(he.getHttpContext().getPath().length()), false);
-                         /* Creamos un JSON usando GSON */
+                        /* Creamos un JSON usando GSON */
                         responseBody = gson.toJson(respuesta);
                         /* Enviamos la cabecera HTTP para indicar que la respuesta serán datos JSON */
                         he.getResponseHeaders().set("Content-Type", String.format("application/json; charset=%s", StandardCharsets.UTF_8));
@@ -175,7 +146,7 @@ public class servidorhttp {
                         break;
                     case "POST":
                         /* Obtenemos el mensaje enviado mediante POST */
-                        java.util.Scanner s = new java.util.Scanner(he.getRequestBody(), StandardCharsets.UTF_8.toString()).useDelimiter("\\A");
+                        Scanner s = new Scanner(he.getRequestBody(), StandardCharsets.UTF_8.toString()).useDelimiter("\\A");
                         /* Si no hay ningún problema */
                         if (s.hasNext()) {
                             ConsultaMensaje consulta = gson.fromJson(s.next(), ConsultaMensaje.class);
@@ -192,7 +163,16 @@ public class servidorhttp {
                         he.getResponseBody().write(rawResponseBody);
                         break;
                     case "DELETE":
-                        he.sendResponseHeaders(HttpURLConnection.HTTP_OK, -1);
+                        /* Creamos una instancia de Respuesta para ser convertida en JSON */
+                        respuesta2 = new RespuestaMatriz(he.getRequestURI().getPath().substring(he.getHttpContext().getPath().length()), false);
+                        /* Creamos un JSON usando GSON */
+                        responseBody = gson.toJson(respuesta2);
+                        /* Enviamos la cabecera HTTP para indicar que la respuesta serán datos JSON */
+                        he.getResponseHeaders().set("Content-Type", String.format("application/json; charset=%s", StandardCharsets.UTF_8));
+                        /* Convertimos la cadena JSON en una matriz de bytes para ser entregados al navegador */
+                        rawResponseBody = responseBody.getBytes(StandardCharsets.UTF_8);
+                        he.sendResponseHeaders(HttpURLConnection.HTTP_OK, rawResponseBody.length);
+                        he.getResponseBody().write(rawResponseBody);
                         break;
                     case "OPTIONS":
                         he.getResponseHeaders().set("Allow", "GET,POST,DELETE,OPTIONS");
@@ -209,15 +189,28 @@ public class servidorhttp {
             } finally {
                 he.close();
             }
-        });
+        }
+    }
+    
+    public void ejecutame() throws IOException {
+         final HttpServer server = HttpServer.create(new InetSocketAddress("0.0.0.0", 80), 10);
+        /* Controlamos el contexto general para descargar archivos estáticos en la ruta actual */
+        server.createContext("/", new raiz());
+        /* Controlamos el contexto que hará peticiones REST/JSON a nuestro servicio */
+        server.createContext("/json/", new json());
         /* Controlamos el contexto que hará peticiones en texto a nuestro servicio */
-        server.createContext("/texto/", he -> {
+        server.createContext("/texto/", new texto());
+        /* Efectuamos el arranque del servidor, quedando la ejecución bloqueada a partir de aquí */
+        server.start();
+    }
+    class texto implements HttpHandler {
+        public void handle(HttpExchange he) throws IOException {
             try {
                 /* Definimos las variables de uso común */
                 final String responseBody;
                 final byte[] rawResponseBody;
                 /* Agregamos un mínimo de información de depuración */
-                System.out.println(he.getRequestMethod() + " \"" + he.getRequestURI().getPath() + "\"");
+                //System.out.println(he.getRequestMethod() + " \"" + he.getRequestURI().getPath() + "\"");
                 /* Obtenemos el método usado (en mayúsculas, por si se recibe de otra forma) para saber qué hacer */
                 switch (he.getRequestMethod().toUpperCase()) {
                     case "GET":
@@ -232,7 +225,7 @@ public class servidorhttp {
                         break;
                     case "POST":
                         /* Obtenemos el mensaje enviado mediante POST */
-                        java.util.Scanner s = new java.util.Scanner(he.getRequestBody(), StandardCharsets.UTF_8.toString()).useDelimiter("\\A");
+                        Scanner s = new Scanner(he.getRequestBody(), StandardCharsets.UTF_8.toString()).useDelimiter("\\A");
                         /* Si no hay ningún problema */
                         if (s.hasNext()) {
                             responseBody = s.next();
@@ -264,8 +257,6 @@ public class servidorhttp {
             } finally {
                 he.close();
             }
-        });
-        /* Efectuamos el arranque del servidor, quedando la ejecución bloqueada a partir de aquí */
-        server.start();
+        }
     }
 }

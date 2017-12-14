@@ -19,11 +19,12 @@ import java.util.logging.Logger;
 public class comunicacion {
     String ultimotema ="";
     String directoriodemusica = ".\\";
-    static Connection conn;
+    static Connection conn ;
     Connection conexion() {
         try {
             if (conn == null){
-                conn = DriverManager.getConnection("jdbc:sqlite:database.db");
+                
+                conn = DriverManager.getConnection("jdbc:sqlite:./database.db");
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -62,7 +63,10 @@ public class comunicacion {
         return rs;
     }
     public void ejecutarquery (String sql){
-        try (Statement stmt = conexion().createStatement();){
+        try {
+            Connection connnn = conexion();       
+            //if (connnn != null){
+            Statement stmt = connnn.createStatement();
             stmt.execute(sql);
         }catch (SQLException e) {
             System.out.println(e.getMessage());

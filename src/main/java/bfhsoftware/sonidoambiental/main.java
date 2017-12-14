@@ -35,7 +35,26 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.io.*;
 public class main {
 
+    private static boolean isandroid() {
+         try {
+        Class.forName("main");
+        return true;
+    } catch(ClassNotFoundException e) {
+        return false;
+    }
+    } 
     public static void main(final String... args) throws IOException {
+            System.out.println(System.getProperty("os.name"));
+            if (isandroid()){
+                System.out.println("es android");
+            }
+           /*  Properties p = System.getProperties();
+    Enumeration keys = p.keys();
+    while(keys.hasMoreElements()) {
+    String key = (String) keys.nextElement();
+    String value = (String) p.get(key);
+    System.out.println(key + " >>>> " + value);
+   }*/
        comunicacion con = new comunicacion();
        reproductor sistemaprincipal = new reproductor();
         Thread t = new Thread(sistemaprincipal);
