@@ -122,6 +122,7 @@ public class servidorhttp {
     class json implements HttpHandler {
         public void handle(HttpExchange he) throws IOException {
             try {
+                //jaja
                 /* Definimos las variables de uso común */
                 Gson gson = new Gson();
                 final String responseBody;
