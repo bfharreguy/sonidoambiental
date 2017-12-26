@@ -19,18 +19,24 @@ import java.util.logging.Logger;
 public class comunicacion {
     String ultimotema ="";
     String directoriodemusica = ".\\";
+    
     static Connection conn ;
     Connection conexion() {
+        
         try {
             if (conn == null){
-                
-                conn = DriverManager.getConnection("jdbc:sqlite:./database.db");
+                if (main.isandroid()){
+                   
+                    //conn = DriverManager.getConnection("jdbc:sqlite:"+ getExternalFilesDir("./") +"database.db");
+                } else {
+                    conn = DriverManager.getConnection("jdbc:sqlite:./database.db");
+                }
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        
         return conn;
+        
     }
     public void verificarbasededatos(){
         try {
@@ -64,7 +70,7 @@ public class comunicacion {
     }
     public void ejecutarquery (String sql){
         try {
-            Connection connnn = conexion();       
+            Connection connnn = conexion();
             //if (connnn != null){
             Statement stmt = connnn.createStatement();
             stmt.execute(sql);
@@ -112,7 +118,7 @@ public class comunicacion {
                     return opcionnumero(nombre);
                 case 2:
                     return opcioncadena(nombre);
-            }            
+            }
         }
         return null;
     }
@@ -127,11 +133,11 @@ public class comunicacion {
             while (rs.next()) {
                 entro = true;
                 preparar = rs.getInt("numero");
-            }            
+            }
         }catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        if (!entro){    
+        if (!entro){
             guardaropcion(nombre, predeterminado);
             return predeterminado;
         }
@@ -139,30 +145,30 @@ public class comunicacion {
     }
     public boolean opcionboolean(String nombre) {
         int preparar = 0;
-       PreparedStatement consulta;
+        PreparedStatement consulta;
         try {
             consulta = conexion().prepareStatement("SELECT numero FROM opciones WHERE nombre = ?;");
             consulta.setString(1, nombre);
             ResultSet rs = consulta.executeQuery();
             while (rs.next()) {
-                 preparar = rs.getInt("numero");
-            }            
+                preparar = rs.getInt("numero");
+            }
         }catch (SQLException e) {
             System.out.println(e.getMessage());
         }
         
         return  !( preparar == 0 );
     }
-     public int opcionnumero(String nombre, Integer predeterminado) {
-         Boolean entro=false;
-                int preparar = 0;
+    public int opcionnumero(String nombre, Integer predeterminado) {
+        Boolean entro=false;
+        int preparar = 0;
         PreparedStatement consulta;
         try {consulta = conexion().prepareStatement("SELECT numero FROM opciones WHERE nombre = ?;");
         consulta.setString(1, nombre);
         ResultSet rs = consulta.executeQuery();
         while (rs.next()) {
             entro=Boolean.TRUE;
-           preparar = rs.getInt("numero");
+            preparar = rs.getInt("numero");
         }
         
         }catch (SQLException e) {
@@ -175,13 +181,13 @@ public class comunicacion {
         return  preparar;
     }
     public int opcionnumero(String nombre) {
-                int preparar = 0;
+        int preparar = 0;
         PreparedStatement consulta;
         try {consulta = conexion().prepareStatement("SELECT numero FROM opciones WHERE nombre = ?;");
         consulta.setString(1, nombre);
         ResultSet rs = consulta.executeQuery();
         while (rs.next()) {
-           preparar = rs.getInt("numero");
+            preparar = rs.getInt("numero");
         }
         
         }catch (SQLException e) {
@@ -211,7 +217,7 @@ public class comunicacion {
         return  preparar;
     }
     public String opcioncadena(String nombre) {
-                String preparar = "";
+        String preparar = "";
         PreparedStatement consulta;
         try {consulta = conexion().prepareStatement("SELECT texto FROM opciones WHERE nombre = ?;");
         consulta.setString(1, nombre);
@@ -223,7 +229,7 @@ public class comunicacion {
         }catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-         return  preparar;
+        return  preparar;
     }
     public void guardaropcion(String nombre, String texto ) {
         PreparedStatement consulta;
@@ -431,4 +437,6 @@ while (rs.next()) {
         File file = new File(nombre);
         return file.exists();
     }
+    
+    
 }

@@ -29,6 +29,13 @@
             <artifactId>sqlite-jdbc</artifactId>
             <version>3.20.0</version>    
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.google.android/android -->
+        <dependency>
+            <groupId>com.google.android</groupId>
+            <artifactId>android</artifactId>
+            <version>4.1.1.4</version>
+            <scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>javazoom</groupId>
             <artifactId>jlayer</artifactId>

@@ -80,8 +80,10 @@ public class servidorhttp {
         public void handle(HttpExchange he) throws IOException {
             try {
                 String archivo =he.getRequestURI().getPath();
-                ClassLoader classLoader = servidorhttp.class.getClassLoader();
+                //ClassLoader classLoader = servidorhttp.class.getClassLoader();
+                 //System.out.println(archivo);
                 if (archivo.equals("/") ) {
+                    //System.out.println("es raiz");
                     archivo = "/index.html";
                 }
                 InputStream fs = getClass().getResourceAsStream(archivo);
@@ -106,7 +108,7 @@ public class servidorhttp {
                     fs.close();
                 } else {
                     /* Si el archivo no existe lo indicamos así en el código de respuesta y el mensaje */
-                    String response = "Error 404: El archivo \"" + he.getRequestURI().getPath() + "\" no existe.";
+                    String response = "Error 404loco: El archivo \"" + he.getRequestURI().getPath() + "\" no existe.";
                     he.sendResponseHeaders(HttpURLConnection.HTTP_NOT_FOUND, response.length());
                     try (OutputStream output = he.getResponseBody()) {
                         output.write(response.getBytes());
@@ -195,7 +197,7 @@ public class servidorhttp {
     }
     
     public void ejecutame() throws IOException {
-         final HttpServer server = HttpServer.create(new InetSocketAddress("0.0.0.0", 80), 10);
+         final HttpServer server = HttpServer.create(new InetSocketAddress("0.0.0.0", 81), 10);
         /* Controlamos el contexto general para descargar archivos estáticos en la ruta actual */
         server.createContext("/", new raiz());
         /* Controlamos el contexto que hará peticiones REST/JSON a nuestro servicio */
