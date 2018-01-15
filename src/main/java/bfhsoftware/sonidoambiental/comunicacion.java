@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 //Instalacion y configuracion de sistema de camaras
 
 public class comunicacion {
-    String ultimotema ="";
+    String ultimotema = "";
     String directoriodemusica = ".\\";
     
     static Connection conn ;
@@ -26,14 +26,13 @@ public class comunicacion {
         try {
             if (conn == null){
                 if (main.isandroid()){
-                   
+                    
                     //conn = DriverManager.getConnection("jdbc:sqlite:"+ getExternalFilesDir("./") +"database.db");
                 } else {
                     conn = DriverManager.getConnection("jdbc:sqlite:./database.db");
                 }
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
         }
         return conn;
         
@@ -349,13 +348,19 @@ public class comunicacion {
                 while (rs1.next()) {
                     temaelegido = rs1.getString("nombreyruta");
                 }
-                //System.err.println("Verificando tema :"+ temaelegido);
-                if (verificararchivo(temaelegido)) {
-                    archivoencontrado = true ;
-                    marcarreproducido(temaelegido);
+                if  (temaelegido.equals("")) {
+                    
                 }else{
-                    System.err.println("temaeliminado");
-                    eliminarmusica(temaelegido);
+                    //System.err.println("Verificando tema :"+ temaelegido);
+                    if (verificararchivo(temaelegido)) {
+                        archivoencontrado = true ;
+                        marcarreproducido(temaelegido);
+                    }else{
+                        System.err.println("temaeliminado");
+                        eliminarmusica(temaelegido);
+                    }
+                    
+                    
                 }
             } while (!archivoencontrado) ;
             
@@ -386,23 +391,26 @@ public class comunicacion {
         return direccioncompleta.substring(direccioncompleta.lastIndexOf("\\")+1);
     }
     void verificaralbumdesdedirectorio (String directorioaverificar){
+         System.out.println("Verificando directorio");
         //verificar los archivos que estan en el directorio y faltan en la base de datos
         String files;
 //        String directorio;
 File folder = new File(directorioaverificar);
 File[] listOfFiles = folder.listFiles();
-for (File listOfFile : listOfFiles) {
-    if (listOfFile.isFile()) {
-        files = listOfFile.getAbsolutePath();
-        
-        if (files.endsWith(".mp3") || files.endsWith(".MP3")|| files.endsWith(".mP3") || files.endsWith(".Mp3"))
-        {
-            System.out.println(" obtenido "+ obtenernombredecancion(listOfFile.getAbsolutePath()));
-            registrarmusica(files);
+if (!(listOfFiles == null)){
+    for (File listOfFile : listOfFiles) {
+        if (listOfFile.isFile()) {
+            files = listOfFile.getAbsolutePath();
+            
+            if (files.endsWith(".mp3") || files.endsWith(".MP3")|| files.endsWith(".mP3") || files.endsWith(".Mp3"))
+            {
+                System.out.println(" obtenido "+ obtenernombredecancion(listOfFile.getAbsolutePath()));
+                registrarmusica(files);
+            }
+        } else if (listOfFile.isDirectory()) {
+            verificaralbumdesdedirectorio(listOfFile.getPath());
+            
         }
-    } else if (listOfFile.isDirectory()) {
-        verificaralbumdesdedirectorio(listOfFile.getPath());
-        
     }
 }
 //verificar los que estan en la base de datos y no en el directorio y eliminarlos

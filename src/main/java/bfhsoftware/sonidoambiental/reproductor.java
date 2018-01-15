@@ -4,23 +4,13 @@
 * and open the template in the editor.
 */
 package bfhsoftware.sonidoambiental;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.sql.SQLException;
-import java.util.EventListener;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javazoom.jl.decoder.JavaLayerException;
-import javazoom.jl.player.AudioDevice;
-import javazoom.jl.player.JavaSoundAudioDevice;
 import javazoom.jl.player.advanced.AdvancedPlayer;
 import javazoom.jl.player.advanced.PlaybackEvent;
 import javazoom.jl.player.advanced.PlaybackListener;
@@ -49,7 +39,7 @@ public class reproductor implements Runnable {
         @Override
         public void run()
         {
-            // System.err.println("si");
+             System.err.println("si");
         }
     };
     public void reiniciar(){
@@ -63,15 +53,24 @@ public class reproductor implements Runnable {
             if ((reproductor == null) || (! pausado)) {
                 do{
                     try {
-                        reproductor = new AdvancedPlayer(new FileInputStream(com.proximotema()));
+                        String proximotema = com.proximotema();
+                        if (proximotema.equals("")){
+                            reproduciendo = false;
+                            break;
+                            
+                        }else{
+                            reproductor = new AdvancedPlayer(new FileInputStream(proximotema));
                         temaactual = com.Ultimotema();
+                        }
+                        
                     } catch (FileNotFoundException ex) {
                         Logger.getLogger(reproductor.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 } while (reproductor == null);
+                if (reproductor != null){
                 reproductor.setPlayBackListener(escuchar);
                 reproductor.play();
-                reproduciendo = true;
+                reproduciendo = true;}
                 // System.out.println(reproductor.toString() + "algo");
             } else if(reproductor != null || pausado || ordendereproducir){
                 if (posiciondepausa != 0) {
@@ -89,7 +88,9 @@ public class reproductor implements Runnable {
     }
     @Override
     public void run (){
-        if (verificador ==null) {verificador = new Timer();}
+        if (verificador ==null) {
+            System.out.println( "temporizador 1");
+            verificador = new Timer();}
         verificador.scheduleAtFixedRate(controlado, 0, 1000);
         while (!muerto) {
             reproducir();
