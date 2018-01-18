@@ -39,7 +39,7 @@ public class reproductor implements Runnable {
         @Override
         public void run()
         {
-             System.err.println("si");
+            System.err.println("si");
         }
     };
     public void reiniciar(){
@@ -48,29 +48,30 @@ public class reproductor implements Runnable {
             reproductor.close();
         reproductor = null;
     }
-    public void reproducir(){        
+    public void reproducir(){
         try {
             if ((reproductor == null) || (! pausado)) {
                 do{
                     try {
                         String proximotema = com.proximotema();
                         if (proximotema.equals("")){
+                            ordendereproducir = false;
                             reproduciendo = false;
                             break;
                             
                         }else{
                             reproductor = new AdvancedPlayer(new FileInputStream(proximotema));
-                        temaactual = com.Ultimotema();
+                            temaactual = com.Ultimotema();
                         }
                         
                     } catch (FileNotFoundException ex) {
                         Logger.getLogger(reproductor.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                } while (reproductor == null);
+                } while (reproductor == null || !ordendereproducir);
                 if (reproductor != null){
-                reproductor.setPlayBackListener(escuchar);
-                reproductor.play();
-                reproduciendo = true;}
+                    reproductor.setPlayBackListener(escuchar);
+                    reproductor.play();
+                    reproduciendo = true;}
                 // System.out.println(reproductor.toString() + "algo");
             } else if(reproductor != null || pausado || ordendereproducir){
                 if (posiciondepausa != 0) {
@@ -81,7 +82,8 @@ public class reproductor implements Runnable {
                     reproductor.play();
                     reproduciendo = true;
                 }
-            }}
+            }
+        }
         catch (JavaLayerException ex) {
             Logger.getLogger(reproductor.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -89,11 +91,12 @@ public class reproductor implements Runnable {
     @Override
     public void run (){
         if (verificador ==null) {
-            System.out.println( "temporizador 1");
+            
             verificador = new Timer();}
         verificador.scheduleAtFixedRate(controlado, 0, 1000);
-        while (!muerto) {
+        while (!muerto || !ordendereproducir) {
             reproducir();
+            System.out.println( "reproducir");
         }
     }
     
