@@ -32,14 +32,14 @@ public class reproductor implements Runnable {
     volatile boolean reproduciendo = false;
     //PlaybackListener escuchar = playbackFinished();
     PlaybackListener escuchar = new escuchaevento();
-    static AdvancedPlayer reproductor;
+    static AdvancedPlayer reproductor;    
     static Timer verificador;
     static TimerTask controlado = new TimerTask()
     {
         @Override
         public void run()
         {
-            System.err.println("si");
+            //System.err.println("si");
         }
     };
     public void reiniciar(){
@@ -51,12 +51,15 @@ public class reproductor implements Runnable {
     public void reproducir(){
         try {
             if ((reproductor == null) || (! pausado)) {
-                do{
-                    try {
+                System.out.println("proximotema:''");                
+                do{                    
+                    try {                        
                         String proximotema = com.proximotema();
+                        System.out.println("proximotema:'" + proximotema + "'");
                         if (proximotema.equals("")){
                             ordendereproducir = false;
                             reproduciendo = false;
+                            System.out.println("tratando de detener");
                             break;
                             
                         }else{
@@ -68,6 +71,7 @@ public class reproductor implements Runnable {
                         Logger.getLogger(reproductor.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 } while (reproductor == null || !ordendereproducir);
+                
                 if (reproductor != null){
                     reproductor.setPlayBackListener(escuchar);
                     reproductor.play();
@@ -94,6 +98,8 @@ public class reproductor implements Runnable {
             
             verificador = new Timer();}
         verificador.scheduleAtFixedRate(controlado, 0, 1000);
+        //el error esta a continuacion, un bucle que vuelve loca a la memoria
+        
         while (!muerto || !ordendereproducir) {
             reproducir();
             System.out.println( "reproducir");

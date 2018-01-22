@@ -395,6 +395,7 @@ public class comunicacion {
         //verificar los archivos que estan en el directorio y faltan en la base de datos
         String files;
 //        String directorio;
+
 File folder = new File(directorioaverificar);
 File[] listOfFiles = folder.listFiles();
 if (!(listOfFiles == null)){
