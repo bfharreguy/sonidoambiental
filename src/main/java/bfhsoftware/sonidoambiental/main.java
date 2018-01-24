@@ -59,6 +59,8 @@ public class main {
        reproductor sistemaprincipal = new reproductor();
         Thread t = new Thread(sistemaprincipal);
         t.start();
+        /*con.guardaropcion("prueba", "prueba");
+        System.out.println(con.opcion("prueba"));*/
         con.verificaralbum();
         con.verificarmusica();
         con = null;

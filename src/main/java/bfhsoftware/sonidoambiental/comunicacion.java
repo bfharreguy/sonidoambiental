@@ -6,40 +6,19 @@
 package bfhsoftware.sonidoambiental;
 
 import java.io.File;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-//Instalacion y configuracion de sistema de camaras
 
 public class comunicacion {
     String ultimotema = "";
     String directoriodemusica = ".\\";
-    
-    static Connection conn ;
-    Connection conexion() {
-        
-        try {
-            if (conn == null){
-                if (main.isandroid()){
-                    
-                    //conn = DriverManager.getConnection("jdbc:sqlite:"+ getExternalFilesDir("./") +"database.db");
-                } else {
-                    conn = DriverManager.getConnection("jdbc:sqlite:./database.db");
-                }
-            }
-        } catch (SQLException e) {
-        }
-        return conn;
-        
-    }
     public void verificarbasededatos(){
         try {
-            ResultSet rs = regresardatos("select DISTINCT tbl_name from sqlite_master where tbl_name = 'musica';");
+            basededatos regre = new basededatos();
+            ResultSet rs = regre.regresardatos("select DISTINCT tbl_name from sqlite_master where tbl_name = 'musica';");
             if (! rs.next()) {
                 //InputStream fstream = this.getClass().getClassLoader().getResourceAsStream("abc.txt");
                 //ejecutarquery(String.getClassLoader().getResourceAsStream("myfile.txt") );
@@ -48,39 +27,47 @@ public class comunicacion {
             Logger.getLogger(comunicacion.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public PreparedStatement consulta(String sql) {
-        PreparedStatement consult=null;
-        try {
-            consult = conexion().prepareStatement(sql);
-        }catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        return consult;
+    /*public PreparedStatement consulta(String sql) {
+    PreparedStatement consult=null;
+    try {
+    basededatos conexion = new basededatos();
+    consult = conexion.conexion().prepareStatement(sql);
+    } catch (SQLException e) {
+    System.out.println(e.getMessage());
+    }
+    return consult;
     }
     public ResultSet regresardatos(String sql){
-        ResultSet rs=null;
-        PreparedStatement consulta;
-        try {consulta = conexion().prepareStatement(sql);
-        rs = consulta.executeQuery();
-        }catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        return rs;
+    ResultSet rs=null;
+    PreparedStatement consulta;
+    try {
+    basededatos conexion = new basededatos();
+    consulta = conexion.conexion().prepareStatement(sql);
+    rs = consulta.executeQuery();
+    }catch (SQLException e) {
+    System.out.println(e.getMessage());
+    }
+    return rs;
     }
     public void ejecutarquery (String sql){
-        try {
-            Connection connnn = conexion();
-            //if (connnn != null){
-            Statement stmt = connnn.createStatement();
-            stmt.execute(sql);
-        }catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
+    try {
+    basededatos conexion = new basededatos();
+    Connection connnn = conexion.conexion();
+    //if (connnn != null){
+    Statement stmt = connnn.createStatement();
+    stmt.execute(sql);
+    }catch (SQLException e) {
+    System.out.println(e.getMessage());
     }
+    }*/
     public void verificaralbum() {
-        ejecutarquery("INSERT INTO albums (nombre) SELECT 'album1' WHERE ( SELECT COUNT(id) FROM albums ) = 0;");
-        ejecutarquery("INSERT INTO reproduccion (idalbum) SELECT (SELECT id FROM albums LIMIT 1) WHERE (SELECT Count(id) FROM reproduccion)= 0;");
-        ejecutarquery("UPDATE reproduccion SET habilitado = 1 WHERE (SELECT Count(id) FROM reproduccion)= 0 LIMIT 1;");
+        basededatos regre = new basededatos();
+        regre.ejecutarquery("INSERT INTO albums (nombre) SELECT 'album1' WHERE ( SELECT COUNT(id) FROM albums ) = 0;");
+        
+        regre.ejecutarquery("INSERT INTO reproduccion (idalbum) SELECT (SELECT id FROM albums LIMIT 1) WHERE (SELECT Count(id) FROM reproduccion)= 0;");
+//System.out.println("inicio");
+        regre.ejecutarquery("UPDATE reproduccion SET habilitado = 1 WHERE (SELECT Count(id) FROM reproduccion)= 0 ;");
+  //      System.out.println("fin");
         /*try (
         Statement stmt = conexion().createStatement()
         ){
@@ -98,6 +85,61 @@ public class comunicacion {
     System.out.println(e.getMessage());
     }
     }*/
+    public Object opcion (String nombre) {
+        try{
+            PreparedStatement consulta;
+            ResultSet rs;
+            basededatos regre = new basededatos();
+            consulta = regre.consulta("SELECT COUNT(id) FROM opciones WHERE nombre = ? AND texto IS NOT NULL ;");
+            consulta.setString(1, nombre);
+            rs = consulta.executeQuery();
+            if (rs.next()) {
+                if ((rs.getInt(1) != 0)){
+                    return opcioncadena(nombre, "");
+                }
+            }
+            rs.close();
+            consulta.close();
+            consulta = regre.consulta("SELECT COUNT(id) FROM opciones WHERE nombre = ? AND numero IS NOT NULL ;");
+            consulta.setString(1, nombre);
+            rs = consulta.executeQuery();
+            if (rs.next()) {
+                if ((rs.getInt(1) != 0)){
+                    return opcionnumero(nombre, 0);
+                }
+            }
+            rs.close();
+            consulta.close();
+            consulta = regre.consulta("SELECT COUNT(id) FROM opciones WHERE nombre = ? AND binario IS NOT NULL ;");
+            consulta.setString(1, nombre);
+            rs = consulta.executeQuery();
+            if (rs.next()) {
+                if ((rs.getInt(1) != 0)){
+                    return opcionboolean(nombre, false);
+                }
+            }
+            rs.close();
+            consulta.close();
+        } catch (SQLException ex) {
+            //System.out.println("error aca");
+            Logger.getLogger(comunicacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    public Object opcion (String nombre, Object predeterminado) {
+        if (predeterminado != null ){
+            if (predeterminado instanceof Integer) {
+                return opcionnumero(nombre, (Integer) predeterminado);
+            }
+            if (predeterminado instanceof String) {
+                return opcioncadena(nombre, (String) predeterminado);
+            }
+            if (predeterminado instanceof Boolean) {
+                return opcionboolean(nombre, (Boolean) predeterminado);
+            }
+        }
+        return null;
+    }
     public Object opcion (String nombre, Object predeterminado, Integer tipo) {
         if (predeterminado != null ){
             if (predeterminado instanceof Integer) {
@@ -126,12 +168,13 @@ public class comunicacion {
         boolean entro=false;
         PreparedStatement consulta;
         try {
-            consulta = conexion().prepareStatement("SELECT numero FROM opciones WHERE nombre = ?;");
+            basededatos regre = new basededatos();
+            consulta = regre.consulta("SELECT binario FROM opciones WHERE nombre = ?;");
             consulta.setString(1, nombre);
             ResultSet rs = consulta.executeQuery();
             while (rs.next()) {
                 entro = true;
-                preparar = rs.getInt("numero");
+                preparar = rs.getInt("binario");
             }
         }catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -146,11 +189,12 @@ public class comunicacion {
         int preparar = 0;
         PreparedStatement consulta;
         try {
-            consulta = conexion().prepareStatement("SELECT numero FROM opciones WHERE nombre = ?;");
+            basededatos regre = new basededatos();
+            consulta = regre.consulta("SELECT binario FROM opciones WHERE nombre = ?;");
             consulta.setString(1, nombre);
             ResultSet rs = consulta.executeQuery();
             while (rs.next()) {
-                preparar = rs.getInt("numero");
+                preparar = rs.getInt("binario");
             }
         }catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -162,14 +206,16 @@ public class comunicacion {
         Boolean entro=false;
         int preparar = 0;
         PreparedStatement consulta;
-        try {consulta = conexion().prepareStatement("SELECT numero FROM opciones WHERE nombre = ?;");
-        consulta.setString(1, nombre);
-        ResultSet rs = consulta.executeQuery();
-        while (rs.next()) {
-            entro=Boolean.TRUE;
-            preparar = rs.getInt("numero");
-        }
-        
+        try {
+            basededatos regre = new basededatos();
+            consulta = regre.consulta("SELECT numero FROM opciones WHERE nombre = ?;");
+            consulta.setString(1, nombre);
+            ResultSet rs = consulta.executeQuery();
+            while (rs.next()) {
+                entro=Boolean.TRUE;
+                preparar = rs.getInt("numero");
+            }
+            
         }catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -182,13 +228,15 @@ public class comunicacion {
     public int opcionnumero(String nombre) {
         int preparar = 0;
         PreparedStatement consulta;
-        try {consulta = conexion().prepareStatement("SELECT numero FROM opciones WHERE nombre = ?;");
-        consulta.setString(1, nombre);
-        ResultSet rs = consulta.executeQuery();
-        while (rs.next()) {
-            preparar = rs.getInt("numero");
-        }
-        
+        try {
+            basededatos regre = new basededatos();
+            consulta = regre.consulta("SELECT numero FROM opciones WHERE nombre = ?;");
+            consulta.setString(1, nombre);
+            ResultSet rs = consulta.executeQuery();
+            while (rs.next()) {
+                preparar = rs.getInt("numero");
+            }
+            
         }catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -198,14 +246,16 @@ public class comunicacion {
         Boolean entro =false;
         String preparar = "";
         PreparedStatement consulta;
-        try {consulta = conexion().prepareStatement("SELECT texto FROM opciones WHERE nombre = ?;");
-        consulta.setString(1, nombre);
-        ResultSet rs = consulta.executeQuery();
-        while (rs.next()) {
-            entro =true;
-            preparar = rs.getString("numero");
-        }
-        
+        try {
+            basededatos regre = new basededatos();
+            consulta = regre.consulta("SELECT texto FROM opciones WHERE nombre = ?;");
+            consulta.setString(1, nombre);
+            ResultSet rs = consulta.executeQuery();
+            while (rs.next()) {
+                entro =true;
+                preparar = rs.getString("texto");
+            }
+            
         }catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -218,11 +268,12 @@ public class comunicacion {
     public String opcioncadena(String nombre) {
         String preparar = "";
         PreparedStatement consulta;
-        try {consulta = conexion().prepareStatement("SELECT texto FROM opciones WHERE nombre = ?;");
+        try {basededatos regre = new basededatos();
+        consulta = regre.consulta("SELECT texto FROM opciones WHERE nombre = ?;");
         consulta.setString(1, nombre);
         ResultSet rs = consulta.executeQuery();
         while (rs.next()) {
-            preparar = rs.getString("numero");
+            preparar = rs.getString("texto");
         }
         
         }catch (SQLException e) {
@@ -232,13 +283,18 @@ public class comunicacion {
     }
     public void guardaropcion(String nombre, String texto ) {
         PreparedStatement consulta;
-        try {consulta = conexion().prepareStatement("INSERT INTO opciones (nombre) SELECT ? WHERE (SELECT count(id) FROM opciones WHERE nombre = ?) = 0; " +
-                "UPDATE optiones SET texto = ? WHERE nombre = ?;");
+        try {basededatos regre = new basededatos();
+        consulta = regre.consulta("INSERT INTO opciones (nombre) SELECT ? WHERE (SELECT count(id) FROM opciones WHERE nombre = ?) = 0;");
         consulta.setString(1, nombre);
         consulta.setString(2, nombre);
-        consulta.setString(3, texto);
-        consulta.setString(4, nombre);
-        consulta.execute();
+        consulta.executeUpdate();
+        consulta.close();
+        consulta = regre.consulta("UPDATE opciones SET texto = ? WHERE nombre = ?;");
+        consulta.setString(1, texto);
+        consulta.setString(2, nombre);
+        consulta.executeUpdate();
+        consulta.close();
+        
         }catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -246,33 +302,40 @@ public class comunicacion {
     
     public void guardaropcion(String nombre, int numero ) {
         PreparedStatement consulta;
-        try {consulta = conexion().prepareStatement("INSERT INTO opciones (nombre) SELECT ? WHERE (SELECT count(id) FROM opciones WHERE nombre = ?) = 0; " +
-                "UPDATE optiones SET numero = ? WHERE nombre = ?;");
-        consulta.setString(1, nombre);
-        consulta.setString(2, nombre);
-        consulta.setInt(3, numero);
-        consulta.setString(4, nombre);
-        consulta.execute();
+        try {
+            basededatos regre = new basededatos();
+            consulta = regre.consulta("INSERT INTO opciones (nombre) SELECT ? WHERE (SELECT count(id) FROM opciones WHERE nombre = ?) = 0; " );
+            consulta.setString(1, nombre);
+            consulta.setString(2, nombre);
+            consulta.executeUpdate();
+            consulta.close();
+            consulta = regre.consulta("UPDATE opciones SET numero = ? WHERE nombre = ?;");
+            consulta.setInt(1, numero);
+            consulta.setString(2, nombre);
+            consulta.executeUpdate();
+            consulta.close();
         }catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
     void marcarreproducido(String cancion){
         
-        try {
-            PreparedStatement consult=consulta("UPDATE musica SET reproducido = 1, ultimareproduccion = datetime('now','localtime') WHERE nombreyruta = ?;");
-            consult.setString(1, cancion);
-            consult.execute();
+        try {basededatos regre = new basededatos();
+        PreparedStatement consult=regre.consulta("UPDATE musica SET reproducido = 1, ultimareproduccion = datetime('now','localtime') WHERE nombreyruta = ?;");
+        consult.setString(1, cancion);
+        consult.execute();
         }catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
     void desmarcarreproducido(){
-        ejecutarquery("UPDATE musica SET reproducido = 0;");
+        basededatos regre = new basededatos();
+        regre.ejecutarquery("UPDATE musica SET reproducido = 0;");
     }
     void registrarmusica (String nombre){
         
-        try {PreparedStatement consulta = consulta("INSERT INTO musica (nombreyruta, album) SELECT ?, (SELECT id FROM albums LIMIT 1) WHERE (SELECT count(id) FROM musica WHERE nombreyruta = ?) = 0;");
+        try {basededatos regre = new basededatos();
+        PreparedStatement consulta = regre.consulta("INSERT INTO musica (nombreyruta, album) SELECT ?, (SELECT id FROM albums LIMIT 1) WHERE (SELECT count(id) FROM musica WHERE nombreyruta = ?) = 0;");
         consulta.setString(1, nombre);
         consulta.setString(2, nombre);
         consulta.execute();
@@ -282,7 +345,8 @@ public class comunicacion {
     }
     void eliminarmusica (String nombre){
         
-        try {PreparedStatement consulta = consulta("DELETE FROM musica WHERE nombreyruta = ?;");
+        try {basededatos regre = new basededatos();
+        PreparedStatement consulta = regre.consulta("DELETE FROM musica WHERE nombreyruta = ?;");
         consulta.setString(1, nombre);
         consulta.execute();
         }catch (SQLException e) {
@@ -296,13 +360,17 @@ public class comunicacion {
         } else {
             numero = 0;
         }
-        try {PreparedStatement consulta=consulta("INSERT INTO opciones (nombre) SELECT ? WHERE (SELECT count(id) FROM opciones WHERE nombre = ?) = 0; " +
-                "UPDATE optiones SET numero = ? WHERE nombre = ?;");
+        try {basededatos regre = new basededatos();
+        PreparedStatement consulta=regre.consulta("INSERT INTO opciones (nombre) SELECT ? WHERE (SELECT count(id) FROM opciones WHERE nombre = ?) = 0; ");
         consulta.setString(1, nombre);
         consulta.setString(2, nombre);
-        consulta.setInt(3, numero);
-        consulta.setString(4, nombre);
-        consulta.execute();
+        consulta.executeUpdate();
+        consulta.close();
+        consulta = regre.consulta("UPDATE opciones SET binario = ? WHERE nombre = ?;");
+        consulta.setInt(1, numero);
+        consulta.setString(2, nombre);
+        consulta.executeUpdate();
+        consulta.close();
         }catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -310,6 +378,7 @@ public class comunicacion {
     public String proximotema () {
         String temaelegido ="";
         try {
+            basededatos regre = new basededatos();
             boolean sinarchivos = false;
             boolean archivoencontrado = false;
             comprobardirectorio();
@@ -340,36 +409,36 @@ public class comunicacion {
             }*/
             do{
                 
-                ResultSet rs2 = regresardatos("SELECT COUNT(musica.id) from musica inner join reproduccion on musica.album = reproduccion.idalbum  WHERE reproduccion.habilitado = 1;");
+                ResultSet rs2 = regre.regresardatos("SELECT COUNT(musica.id) from musica inner join reproduccion on musica.album = reproduccion.idalbum  WHERE reproduccion.habilitado = 1;");
                 if (rs2.next()) {
                     if ( rs2.getInt(1) != 0) {
                         
-                        ResultSet rs = regresardatos("SELECT COUNT(musica.id) from musica inner join reproduccion on musica.album = reproduccion.idalbum  WHERE musica.reproducido = 0 AND reproduccion.habilitado = 1;");
+                        ResultSet rs = regre.regresardatos("SELECT COUNT(musica.id) from musica inner join reproduccion on musica.album = reproduccion.idalbum  WHERE musica.reproducido = 0 AND reproduccion.habilitado = 1;");
                         while (rs.next()) {
                             if ( rs.getInt(1) ==0) {
                                 desmarcarreproducido();
                             }
                         }
-                        ResultSet rs1 = regresardatos("SELECT c.nombreyruta FROM (SELECT m.nombreyruta FROM musica m inner join reproduccion on m.album = reproduccion.idalbum WHERE m.reproducido = 0 AND reproduccion.habilitado = 1 ORDER BY datetime(ultimareproduccion, 'localtime') LIMIT (SELECT CAST(COUNT(musica.id) * 0.4 AS int) + 1 FROM musica inner join reproduccion on musica.album = reproduccion.idalbum WHERE musica.reproducido = 0 AND reproduccion.habilitado = 1)) c ORDER BY RANDOM() LIMIT 1;");
+                        ResultSet rs1 = regre.regresardatos("SELECT c.nombreyruta FROM (SELECT m.nombreyruta FROM musica m inner join reproduccion on m.album = reproduccion.idalbum WHERE m.reproducido = 0 AND reproduccion.habilitado = 1 ORDER BY datetime(ultimareproduccion, 'localtime') LIMIT (SELECT CAST(COUNT(musica.id) * 0.4 AS int) + 1 FROM musica inner join reproduccion on musica.album = reproduccion.idalbum WHERE musica.reproducido = 0 AND reproduccion.habilitado = 1)) c ORDER BY RANDOM() LIMIT 1;");
                         while (rs1.next()) {
                             temaelegido = rs1.getString("nombreyruta");
                         }
                         if  (temaelegido.equals("")) {
                             sinarchivos = true;
                         }else{
-                            //System.err.println("Verificando tema :"+ temaelegido);
-                            if (verificararchivo(temaelegido)) {
-                                archivoencontrado = true ;
-                                marcarreproducido(temaelegido);
-                            }else{
-                                System.err.println("temaeliminado");
-                                eliminarmusica(temaelegido);
-                            }
+//System.err.println("Verificando tema :"+ temaelegido);
+if (verificararchivo(temaelegido)) {
+    archivoencontrado = true ;
+    marcarreproducido(temaelegido);
+}else{
+    System.err.println("temaeliminado");
+    eliminarmusica(temaelegido);
+}
                         }
                     } else { sinarchivos = true;
                     System.err.println("buscandocancion");
                     this.ultimotema="";
-                    // System.err.println(sinarchivos);
+// System.err.println(sinarchivos);
                     }
                 } else { sinarchivos = true;
                 this.ultimotema="";
@@ -393,7 +462,8 @@ public class comunicacion {
         verificaralbumdesdedirectorio(directoriodemusica);
         System.out.println("Fin");
     }
-    void comprobardirectorio (){
+    void comprobardirectorio (){        
+        opcion("directoriodemusica", ".\\");        
         File f = new File(directoriodemusica);
         if (!f.exists()){
             System.out.println("No existe el directorio seleccionado previamente");
@@ -405,8 +475,8 @@ public class comunicacion {
     }
     void verificaralbumdesdedirectorio (String directorioaverificar){
         System.out.println("Verificando directorio");
-        //verificar los archivos que estan en el directorio y faltan en la base de datos
-        String files;
+//verificar los archivos que estan en el directorio y faltan en la base de datos
+String files;
 //        String directorio;
 
 File folder = new File(directorioaverificar);
@@ -429,7 +499,8 @@ if (!(listOfFiles == null)){
 }
 //verificar los que estan en la base de datos y no en el directorio y eliminarlos
 PreparedStatement consulta;
-try {consulta = conexion().prepareStatement("SELECT nombreyruta FROM musica ;");
+try {basededatos regre = new basededatos();
+consulta = regre.consulta("SELECT nombreyruta FROM musica ;");
 ResultSet rs = consulta.executeQuery();
 while (rs.next()) {
     if  ( ! verificararchivo(rs.getString(1)) ){
@@ -444,7 +515,8 @@ while (rs.next()) {
     
     void verificarlistadereproduccion(){
         PreparedStatement consulta;
-        try {consulta = conexion().prepareStatement("SELECT COUNT(musica.id) FROM musica INNER JOIN reproduccion ON musica.album = reproduccion.idalbum WHERE reproduccion.habilitado =1;");
+        try {  basededatos regre = new basededatos();
+        consulta = regre.consulta("SELECT COUNT(musica.id) FROM musica INNER JOIN reproduccion ON musica.album = reproduccion.idalbum WHERE reproduccion.habilitado =1;");
         ResultSet rs = consulta.executeQuery();
         if (rs.next()) {
             if ( rs.getInt(1)==0);{
@@ -454,7 +526,7 @@ while (rs.next()) {
         }catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        //SELECT COUNT(musica.id) FROM musica INNER JOIN reproduccion ON musica.album = reproduccion.idalbum WHERE reproduccion.habilitado	=1;
+//SELECT COUNT(musica.id) FROM musica INNER JOIN reproduccion ON musica.album = reproduccion.idalbum WHERE reproduccion.habilitado	=1;
     }
     public boolean verificararchivo ( String nombre){
         File file = new File(nombre);
