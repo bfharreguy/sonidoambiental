@@ -32,7 +32,7 @@ public class reproductor implements Runnable {
     volatile boolean reproduciendo = false;
     //PlaybackListener escuchar = playbackFinished();
     PlaybackListener escuchar = new escuchaevento();
-    static AdvancedPlayer reproductor;    
+    static AdvancedPlayer reproductor;
     static Timer verificador;
     static TimerTask controlado = new TimerTask()
     {
@@ -50,12 +50,12 @@ public class reproductor implements Runnable {
     }
     public void reproducir(){
         try {
-            if ((reproductor == null) || (! pausado)) {
-                System.out.println("proximotema:''");                
-                do{                    
-                    try {                        
+            if ((reproductor == null) && (! pausado)) {
+                //System.out.println("proximotema:''");
+                do{
+                    try {
                         String proximotema = com.proximotema();
-                        System.out.println("proximotema:'" + proximotema + "'");
+                        //      System.out.println("proximotema:'" + proximotema + "'");
                         if (proximotema.equals("")){
                             ordendereproducir = false;
                             reproduciendo = false;
@@ -70,14 +70,14 @@ public class reproductor implements Runnable {
                     } catch (FileNotFoundException ex) {
                         Logger.getLogger(reproductor.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                } while (reproductor == null || !ordendereproducir);
+                } while (reproductor == null && ordendereproducir);
                 
                 if (reproductor != null){
                     reproductor.setPlayBackListener(escuchar);
                     reproductor.play();
                     reproduciendo = true;}
                 // System.out.println(reproductor.toString() + "algo");
-            } else if(reproductor != null || pausado || ordendereproducir){
+            } else if(reproductor != null && pausado && ordendereproducir){
                 if (posiciondepausa != 0) {
                     reproductor.play(posiciondepausa, Integer.MAX_VALUE);
                     //reproductor.play();
@@ -100,9 +100,9 @@ public class reproductor implements Runnable {
         verificador.scheduleAtFixedRate(controlado, 0, 1000);
         //el error esta a continuacion, un bucle que vuelve loca a la memoria
         
-        while (!muerto || !ordendereproducir) {
+        while (!muerto && ordendereproducir) {
             reproducir();
-            System.out.println( "reproducir");
+            // System.out.println( "reproducir");
         }
     }
     

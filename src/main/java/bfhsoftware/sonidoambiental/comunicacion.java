@@ -310,6 +310,7 @@ public class comunicacion {
     public String proximotema () {
         String temaelegido ="";
         try {
+            boolean sinarchivos = false;
             boolean archivoencontrado = false;
             comprobardirectorio();
             /*do {
@@ -338,31 +339,43 @@ public class comunicacion {
             System.out.println(e.getMessage());
             }*/
             do{
-                ResultSet rs = regresardatos("SELECT COUNT(musica.id) from musica inner join reproduccion on musica.album = reproduccion.idalbum  WHERE musica.reproducido = 0 AND reproduccion.habilitado = 1;");
-                while (rs.next()) {
-                    if ( rs.getInt(1) ==0) {
-                        desmarcarreproducido();
+                
+                ResultSet rs2 = regresardatos("SELECT COUNT(musica.id) from musica inner join reproduccion on musica.album = reproduccion.idalbum  WHERE reproduccion.habilitado = 1;");
+                if (rs2.next()) {
+                    if ( rs2.getInt(1) != 0) {
+                        
+                        ResultSet rs = regresardatos("SELECT COUNT(musica.id) from musica inner join reproduccion on musica.album = reproduccion.idalbum  WHERE musica.reproducido = 0 AND reproduccion.habilitado = 1;");
+                        while (rs.next()) {
+                            if ( rs.getInt(1) ==0) {
+                                desmarcarreproducido();
+                            }
+                        }
+                        ResultSet rs1 = regresardatos("SELECT c.nombreyruta FROM (SELECT m.nombreyruta FROM musica m inner join reproduccion on m.album = reproduccion.idalbum WHERE m.reproducido = 0 AND reproduccion.habilitado = 1 ORDER BY datetime(ultimareproduccion, 'localtime') LIMIT (SELECT CAST(COUNT(musica.id) * 0.4 AS int) + 1 FROM musica inner join reproduccion on musica.album = reproduccion.idalbum WHERE musica.reproducido = 0 AND reproduccion.habilitado = 1)) c ORDER BY RANDOM() LIMIT 1;");
+                        while (rs1.next()) {
+                            temaelegido = rs1.getString("nombreyruta");
+                        }
+                        if  (temaelegido.equals("")) {
+                            sinarchivos = true;
+                        }else{
+                            //System.err.println("Verificando tema :"+ temaelegido);
+                            if (verificararchivo(temaelegido)) {
+                                archivoencontrado = true ;
+                                marcarreproducido(temaelegido);
+                            }else{
+                                System.err.println("temaeliminado");
+                                eliminarmusica(temaelegido);
+                            }
+                        }
+                    } else { sinarchivos = true;
+                    System.err.println("buscandocancion");
+                    this.ultimotema="";
+                    // System.err.println(sinarchivos);
                     }
+                } else { sinarchivos = true;
+                this.ultimotema="";
                 }
-                ResultSet rs1 = regresardatos("SELECT c.nombreyruta FROM (SELECT m.nombreyruta FROM musica m inner join reproduccion on m.album = reproduccion.idalbum WHERE m.reproducido = 0 AND reproduccion.habilitado = 1 ORDER BY datetime(ultimareproduccion, 'localtime') LIMIT (SELECT CAST(COUNT(musica.id) * 0.4 AS int) + 1 FROM musica inner join reproduccion on musica.album = reproduccion.idalbum WHERE musica.reproducido = 0 AND reproduccion.habilitado = 1)) c ORDER BY RANDOM() LIMIT 1;");
-                while (rs1.next()) {
-                    temaelegido = rs1.getString("nombreyruta");
-                }
-                if  (temaelegido.equals("")) {
-                    
-                }else{
-                    //System.err.println("Verificando tema :"+ temaelegido);
-                    if (verificararchivo(temaelegido)) {
-                        archivoencontrado = true ;
-                        marcarreproducido(temaelegido);
-                    }else{
-                        System.err.println("temaeliminado");
-                        eliminarmusica(temaelegido);
-                    }
-                    
-                    
-                }
-            } while (!archivoencontrado) ;
+                
+            } while (!archivoencontrado && !sinarchivos) ;
             
             this.ultimotema = new File(temaelegido).getName();
             System.err.println(this.ultimotema);
@@ -391,7 +404,7 @@ public class comunicacion {
         return direccioncompleta.substring(direccioncompleta.lastIndexOf("\\")+1);
     }
     void verificaralbumdesdedirectorio (String directorioaverificar){
-         System.out.println("Verificando directorio");
+        System.out.println("Verificando directorio");
         //verificar los archivos que estan en el directorio y faltan en la base de datos
         String files;
 //        String directorio;
@@ -434,7 +447,8 @@ while (rs.next()) {
         try {consulta = conexion().prepareStatement("SELECT COUNT(musica.id) FROM musica INNER JOIN reproduccion ON musica.album = reproduccion.idalbum WHERE reproduccion.habilitado =1;");
         ResultSet rs = consulta.executeQuery();
         if (rs.next()) {
-            if ( rs.getInt(1)==0 );{
+            if ( rs.getInt(1)==0);{
+            
         }
         }
         }catch (SQLException e) {
