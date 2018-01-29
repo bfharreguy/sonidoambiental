@@ -4,13 +4,13 @@
 * and open the template in the editor.
 */
 package bfhsoftware.sonidoambiental;
+import com.google.gson.*;
 import com.sun.net.httpserver.*;
 import java.io.*;
 import java.net.*;
 import java.nio.charset.*;
 import java.nio.file.*;
 import java.util.*;
-import com.google.gson.*;
 
 /**
  *
@@ -20,27 +20,37 @@ public class servidorhttp {
     /* Clase privada necesaria para generar un mensaje de respuesta en JSON */
     private class RespuestaMensaje {
         private String mensaje;
+        private List<List<String>> mensajes;
         private boolean error = false;
         /*  public void cambiarmensaje(String mensaje){
         this.mensaje = mensaje;
         }*/
         public RespuestaMensaje(String mensaje, boolean error) {
-         //  System.out.println(mensaje);
-                                reproductor repo  = new reproductor();
-                        switch (mensaje){
-                            case "musica":
-                                mensaje = repo.cancion();
-                                break;
-                            case "estado":
-                                mensaje =repo.estado();
-                                break;
-                                /*case "pausar-reproducir":
-                                repo.pausar();
-                                System.out.println("pausa");
-                                break;*/
-                        }
+            //  System.out.println(mensaje);
+            this.mensajes = new ArrayList<List<String>>();
+            reproductor repo  = new reproductor();
+            switch (mensaje){
+                case "musica":
+                    mensaje = repo.cancion();
+                    break;
+                case "estado":
+                    mensaje =repo.estado();
+                    break;
+                    /*case "pausar-reproducir":
+                    repo.pausar();
+                    System.out.println("pausa");
+                    break;*/
+                     case "listado":                         
+                    comunicacion lis = new comunicacion();
+                    this.mensajes = lis.listadodecanciones(true);                    
+                    /*      mensajes.get(0).add(mensaje);
+                    mensajes.get(0).add("Primero");
+                    mensajes.get(0).add("Segundo");
+                    mensajes.get(0).add("Tercero");*/
+                    break;                    
+            }
             /*if (mensaje.equals("musica")){
-                System.out.println("funciona puto");
+            System.out.println("funciona puto");
             }*/
             this.mensaje = mensaje;
             this.error = error;
@@ -57,15 +67,22 @@ public class servidorhttp {
         }
     }
     private class RespuestaMatriz {
-        private List<String> mensajes;
+        private List<List<String>> mensajes;
         private boolean error = false;
         
         public RespuestaMatriz(String mensaje, boolean error) {
-            this.mensajes = new ArrayList<String>();
-            mensajes.add(mensaje);
-            mensajes.add("Primero");
-            mensajes.add("Segundo");
-            mensajes.add("Tercero");
+            this.mensajes = new ArrayList<List<String>>();
+            //mensajes.add(new ArrayList<String>());
+            switch (mensaje){
+                case "listado":
+                    comunicacion lis = new comunicacion();
+                    this.mensajes = lis.listadodecanciones(false);                    
+                    /*      mensajes.get(0).add(mensaje);
+                    mensajes.get(0).add("Primero");
+                    mensajes.get(0).add("Segundo");
+                    mensajes.get(0).add("Tercero");*/
+                    break;
+            }
             this.error = error;
         }
     }
@@ -81,14 +98,14 @@ public class servidorhttp {
             try {
                 String archivo =he.getRequestURI().getPath();
                 //ClassLoader classLoader = servidorhttp.class.getClassLoader();
-                 //System.out.println(archivo);
+                //System.out.println(archivo);
                 if (archivo.equals("/") ) {
                     //System.out.println("es raiz");
                     archivo = "/index.html";
                 }
                 InputStream fs = getClass().getResourceAsStream(archivo);
-                if (fs!=null) {                    
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(fs));                    
+                if (fs!=null) {
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(fs));
                     /* Obtenemos el tipo mime del archivo para enviarlo en la cabecera correspondiente */
                     he.getResponseHeaders().set("Content-Type", Files.probeContentType(Paths.get(archivo)));
                     /* Enviamos las cabeceras HTTP OK junto con la longitud del contenido */
@@ -133,7 +150,7 @@ public class servidorhttp {
                 RespuestaMensaje respuesta;
                 RespuestaMatriz respuesta2;
                 /* Agregamos un mínimo de información de depuración */
-               // System.out.println(he.getRequestMethod() + " \"" + he.getRequestURI().getPath() + "\"");
+                // System.out.println(he.getRequestMethod() + " \"" + he.getRequestURI().getPath() + "\"");
                 /* Obtenemos el método usado (en mayúsculas, por si se recibe de otra forma) para saber qué hacer */
                 switch (he.getRequestMethod().toUpperCase()) {
                     case "GET":
@@ -197,7 +214,7 @@ public class servidorhttp {
     }
     
     public void ejecutame() throws IOException {
-         final HttpServer server = HttpServer.create(new InetSocketAddress("0.0.0.0", 8080), 10);
+        final HttpServer server = HttpServer.create(new InetSocketAddress("0.0.0.0", 8080), 10);
         /* Controlamos el contexto general para descargar archivos estáticos en la ruta actual */
         server.createContext("/", new raiz());
         /* Controlamos el contexto que hará peticiones REST/JSON a nuestro servicio */

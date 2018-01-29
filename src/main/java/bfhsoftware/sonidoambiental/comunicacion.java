@@ -9,6 +9,8 @@ import java.io.File;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -27,54 +29,57 @@ public class comunicacion {
             Logger.getLogger(comunicacion.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    /*public PreparedStatement consulta(String sql) {
-    PreparedStatement consult=null;
-    try {
-    basededatos conexion = new basededatos();
-    consult = conexion.conexion().prepareStatement(sql);
-    } catch (SQLException e) {
-    System.out.println(e.getMessage());
+    public List<List<String>> listadodecanciones(boolean anulados) {
+        List<List<String>> listado;
+        listado = new ArrayList<List<String>>();
+        listado.add(new ArrayList<String>());        
+        listado.add(new ArrayList<String>());
+        if (anulados)
+            listado.add(new ArrayList<String>());
+        try{
+            PreparedStatement consulta;
+            ResultSet rs;
+            String sql= "SELECT nombreyruta, album, anulado FROM musica";
+            basededatos regre = new basededatos();
+            if (anulados)
+                sql += " WHERE anulado = 0;";
+            else
+                sql += ";";
+            consulta = regre.consulta(sql);
+            rs = consulta.executeQuery();
+            while (rs.next()) {
+                listado.get(0).add(rs.getString(1));
+                listado.get(1).add(rs.getString(2));
+                if (anulados) {
+                    if (rs.getInt(3)==1)
+                        listado.get(3).add("Anulado");
+                    else
+                        listado.get(3).add("No Anulado");                    
+                }                
+            }
+            rs.close();
+            consulta.close();
+        } catch (SQLException ex) {
+            //System.out.println("error aca");
+            Logger.getLogger(comunicacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return listado;
     }
-    return consult;
-    }
-    public ResultSet regresardatos(String sql){
-    ResultSet rs=null;
-    PreparedStatement consulta;
-    try {
-    basededatos conexion = new basededatos();
-    consulta = conexion.conexion().prepareStatement(sql);
-    rs = consulta.executeQuery();
-    }catch (SQLException e) {
-    System.out.println(e.getMessage());
-    }
-    return rs;
-    }
-    public void ejecutarquery (String sql){
-    try {
-    basededatos conexion = new basededatos();
-    Connection connnn = conexion.conexion();
-    //if (connnn != null){
-    Statement stmt = connnn.createStatement();
-    stmt.execute(sql);
-    }catch (SQLException e) {
-    System.out.println(e.getMessage());
-    }
-    }*/
     public void verificaralbum() {
         basededatos regre = new basededatos();
         regre.ejecutarquery("INSERT INTO albums (nombre) SELECT 'album1' WHERE ( SELECT COUNT(id) FROM albums ) = 0;");
         
         regre.ejecutarquery("INSERT INTO reproduccion (idalbum) SELECT (SELECT id FROM albums LIMIT 1) WHERE (SELECT Count(id) FROM reproduccion)= 0;");
 //System.out.println("inicio");
-        regre.ejecutarquery("UPDATE reproduccion SET habilitado = 1 WHERE (SELECT Count(id) FROM reproduccion)= 0 ;");
-  //      System.out.println("fin");
-        /*try (
-        Statement stmt = conexion().createStatement()
-        ){
-        stmt.execute("INSERT INTO albums (nombre) SELECT 'album1' WHERE ( SELECT COUNT(id) FROM albums ) = 0;");
-        }catch (SQLException e) {
-        System.out.println(e.getMessage());
-        }*/
+regre.ejecutarquery("UPDATE reproduccion SET habilitado = 1 WHERE (SELECT Count(id) FROM reproduccion)= 0 ;");
+//      System.out.println("fin");
+/*try (
+Statement stmt = conexion().createStatement()
+){
+stmt.execute("INSERT INTO albums (nombre) SELECT 'album1' WHERE ( SELECT COUNT(id) FROM albums ) = 0;");
+}catch (SQLException e) {
+System.out.println(e.getMessage());
+}*/
     }
     /*public void verificaralbum() {
     try (
@@ -462,8 +467,8 @@ if (verificararchivo(temaelegido)) {
         verificaralbumdesdedirectorio(directoriodemusica);
         System.out.println("Fin");
     }
-    void comprobardirectorio (){        
-        opcion("directoriodemusica", ".\\");        
+    void comprobardirectorio (){
+        opcion("directoriodemusica", ".\\");
         File f = new File(directoriodemusica);
         if (!f.exists()){
             System.out.println("No existe el directorio seleccionado previamente");

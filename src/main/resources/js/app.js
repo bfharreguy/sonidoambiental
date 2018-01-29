@@ -10,10 +10,49 @@
  var app = angular.module('sonidoambiental', ['ngRoute']).
   config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/', { templateUrl: 'inicio.html', abstract: true, controller: "Inicio"}).
-      /*when('/editar/:id', {templateUrl: 'plantillas/editar.html', controller: ControladorEditar}).
+      when('/listado', {templateUrl: 'listado.html', controller: "Listado"})./*
       when('/agregar', {templateUrl: 'plantillas/agregar.html', controller: ControladorAgregar}).*/
       otherwise({redirectTo: '/'});
 }]);
+//function Listadodecanciones($scope, $http, $location) {
+app.controller("Listado", function ($scope, $interval) {
+  /* Carga de datos en el controlador */
+  $scope.cargar = function() {
+      $.ajax({            
+          url: '/json/' + encodeURI('listado'),
+          dataType: 'json',
+          method: 'get',
+          success: function(datos) {
+            /* Si todo ha ido bien mostramos una alerta con el contenido */
+            if (typeof datos.error !== 'undefined' && datos.error === false) {    
+                $scope.mensajes = datos.mensajes;
+              //alert("Mensaje recibido: " + datos.mensaje);
+            } else {
+              //alert("Error en la consulta");
+            }
+          }
+        });
+  };
+  /* Control interno para borrar un usuario 
+  $scope.borrar = function(usuario) {
+    borrarUsuario($scope, $http, $location, usuario);
+    /* Buscamos el elemento para borrarlo de la vista 
+    for (var actual in $scope.usuarios) {
+      if ($scope.usuarios[actual].id == usuario.id) {
+        $scope.usuarios.splice(actual, 1);
+      }
+    }
+  };*/
+  /* Función de ordenado de columnas 
+  $scope.columna = 'usuario';
+  $scope.orden = true;
+  $scope.ordenar = function(columna) {
+    $scope.orden = ($scope.columna === columna) ? !$scope.orden : false;
+    $scope.columna = columna;
+  };
+  /* Cargamos el listado de usuarios */
+  $scope.cargar();
+}
 
 function preguntar(pregunta){
     var retorna;
