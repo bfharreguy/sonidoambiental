@@ -4,6 +4,7 @@
 * and open the template in the editor.
 */
 package bfhsoftware.sonidoambiental;
+import bfhsoftware.sonidoambiental.comunicacion.canciones;
 import com.google.gson.*;
 import com.sun.net.httpserver.*;
 import java.io.*;
@@ -20,14 +21,14 @@ public class servidorhttp {
     /* Clase privada necesaria para generar un mensaje de respuesta en JSON */
     private class RespuestaMensaje {
         private String mensaje;
-        private List<List<String>> mensajes;
+        // private List<List<String>> mensajes;
         private boolean error = false;
         /*  public void cambiarmensaje(String mensaje){
         this.mensaje = mensaje;
         }*/
         public RespuestaMensaje(String mensaje, boolean error) {
             //  System.out.println(mensaje);
-            this.mensajes = new ArrayList<List<String>>();
+            //this.mensajes = new ArrayList<List<String>>();
             reproductor repo  = new reproductor();
             switch (mensaje){
                 case "musica":
@@ -40,14 +41,14 @@ public class servidorhttp {
                     repo.pausar();
                     System.out.println("pausa");
                     break;*/
-                     case "listado":                         
+                    /*     case "listado":
                     comunicacion lis = new comunicacion();
-                    this.mensajes = lis.listadodecanciones(true);                    
+                    this.mensajes = lis.listadodecanciones(true);
                     /*      mensajes.get(0).add(mensaje);
                     mensajes.get(0).add("Primero");
                     mensajes.get(0).add("Segundo");
-                    mensajes.get(0).add("Tercero");*/
-                    break;                    
+                    mensajes.get(0).add("Tercero");
+                    break;*/
             }
             /*if (mensaje.equals("musica")){
             System.out.println("funciona puto");
@@ -67,26 +68,42 @@ public class servidorhttp {
         }
     }
     private class RespuestaMatriz {
-        private List<List<String>> mensajes;
+        // private canciones[] listadecanciones;
         private boolean error = false;
-        
+        private List<String> mensajes;
         public RespuestaMatriz(String mensaje, boolean error) {
-            this.mensajes = new ArrayList<List<String>>();
+            //this.mensajes = new ArrayList<List<String>>();
             //mensajes.add(new ArrayList<String>());
             switch (mensaje){
                 case "listado":
-                    comunicacion lis = new comunicacion();
-                    this.mensajes = lis.listadodecanciones(false);                    
-                    /*      mensajes.get(0).add(mensaje);
-                    mensajes.get(0).add("Primero");
-                    mensajes.get(0).add("Segundo");
-                    mensajes.get(0).add("Tercero");*/
+                    mensajes.add(mensaje);
+                    mensajes.add("Primero");
+                    mensajes.add("Segundo");
+                    mensajes.add("Tercero");
                     break;
             }
             this.error = error;
         }
     }
-    
+    private class Respuestalistadecanciones {
+        private canciones[] listadecanciones;
+        private boolean error = false;
+        public Respuestalistadecanciones(String mensaje, boolean error) {
+            //this.mensajes = new ArrayList<List<String>>();
+            //mensajes.add(new ArrayList<String>());
+            //switch (mensaje){
+            //    case "listado":
+                    comunicacion lis = new comunicacion();
+                    this.listadecanciones = lis.listadodecanciones(false).clone();
+                    /*      mensajes.get(0).add(mensaje);
+                    mensajes.get(0).add("Primero");
+                    mensajes.get(0).add("Segundo");
+                    mensajes.get(0).add("Tercero");*/
+            //        break;
+           // }
+            this.error = error;
+        }
+    }
     /* Instanciamos esta clase y la ejecutamos */
     public static void main(final String... args) throws IOException {
         servidorhttp http = new servidorhttp();
@@ -125,7 +142,7 @@ public class servidorhttp {
                     fs.close();
                 } else {
                     /* Si el archivo no existe lo indicamos así en el código de respuesta y el mensaje */
-                    String response = "Error 404loco: El archivo \"" + he.getRequestURI().getPath() + "\" no existe.";
+                    String response = "Estas conectado al servidor pero hay un error en la peticion del archivo \"" + he.getRequestURI().getPath() + "\".";
                     he.sendResponseHeaders(HttpURLConnection.HTTP_NOT_FOUND, response.length());
                     try (OutputStream output = he.getResponseBody()) {
                         output.write(response.getBytes());
@@ -149,15 +166,25 @@ public class servidorhttp {
                 final byte[] rawResponseBody;
                 RespuestaMensaje respuesta;
                 RespuestaMatriz respuesta2;
+                Respuestalistadecanciones respuesta3;
                 /* Agregamos un mínimo de información de depuración */
                 // System.out.println(he.getRequestMethod() + " \"" + he.getRequestURI().getPath() + "\"");
                 /* Obtenemos el método usado (en mayúsculas, por si se recibe de otra forma) para saber qué hacer */
                 switch (he.getRequestMethod().toUpperCase()) {
                     case "GET":
                         /* Creamos una instancia de Respuesta para ser convertida en JSON */
-                        respuesta = new RespuestaMensaje(he.getRequestURI().getPath().substring(he.getHttpContext().getPath().length()), false);
-                        /* Creamos un JSON usando GSON */
-                        responseBody = gson.toJson(respuesta);
+                        switch (he.getRequestURI().getPath().substring(he.getHttpContext().getPath().length())){
+                            case "lista":
+                                respuesta3 = new Respuestalistadecanciones(he.getRequestURI().getPath().substring(he.getHttpContext().getPath().length()), false);
+                                responseBody = gson.toJson(respuesta3);
+                                System.out.println("pasando lista de musica ");
+                                break;
+                            default:
+                                respuesta = new RespuestaMensaje(he.getRequestURI().getPath().substring(he.getHttpContext().getPath().length()), false);
+                                /* Creamos un JSON usando GSON */
+                                responseBody = gson.toJson(respuesta);
+                                break;
+                        }
                         /* Enviamos la cabecera HTTP para indicar que la respuesta serán datos JSON */
                         he.getResponseHeaders().set("Content-Type", String.format("application/json; charset=%s", StandardCharsets.UTF_8));
                         /* Convertimos la cadena JSON en una matriz de bytes para ser entregados al navegador */

@@ -7,30 +7,18 @@
   <thead class="thead-dark">
     <tr>
       <th scope="col">#</th>
-      <th scope="col">Nombre y ruta</th>
-      <th scope="col">Ultima reproducción</th>
-      <th scope="col">Publicidad</th>
+      <th scope="col">Nombre y ruta a</th>
+      <th scope="col">Albúm</th>
+      <th scope="col">Anulado</th>
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>tema musical</td>
-      <td>15/20/1956</td>
-      <td>si</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>tema musical 2</td>
-      <td>15/20/2000</td>
-      <td>no</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>tema musical 3</td>
-      <td>15/20/2017</td>
-      <td>no</td>
-    </tr>
+    <tr ng-repeat="canciones in canciones">
+      <th scope="row">{{canciones.id}}</th>
+      <td>{{canciones.nombreyruta}}</td>
+      <td>{{canciones.album}}</td>
+      <td>{{canciones.anulado}}</td>
+    </tr>   
   </tbody>  
 </table>
                 <div class="alert alert-info text-center text-capitalize">

@@ -7,17 +7,17 @@
   <thead class="thead-dark">
     <tr>
       <th scope="col">#</th>
-      <th scope="col">Nombre y ruta</th>
+      <th scope="col">Nombre y ruta a</th>
       <th scope="col">Albúm</th>
       <th scope="col">Anulado</th>
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="mensajes in mensajes">
-      <th scope="row">{{canciones.0}}</th>
-      <td>{{canciones.1}}</td>
-      <td>{{canciones.2}}</td>
-      <td>{{canciones.3}}</td>
+    <tr ng-repeat="canciones in canciones">
+      <th scope="row">{{canciones.id}}</th>
+      <td>{{canciones.nombreyruta}}</td>
+      <td>{{canciones.album}}</td>
+      <td>{{canciones.anulado}}</td>
     </tr>   
   </tbody>  
 </table>

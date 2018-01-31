@@ -9,8 +9,6 @@ import java.io.File;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -29,41 +27,59 @@ public class comunicacion {
             Logger.getLogger(comunicacion.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public List<List<String>> listadodecanciones(boolean anulados) {
-        List<List<String>> listado;
-        listado = new ArrayList<List<String>>();
-        listado.add(new ArrayList<String>());        
-        listado.add(new ArrayList<String>());
-        if (anulados)
-            listado.add(new ArrayList<String>());
+    public class canciones {
+        public int id;
+        public String nombreyruta="", ultimareproduccion = "", album = "";
+        public boolean anulado = false;
+        public canciones(int id, String nombreyruta,String album, String ultimareproduccion, Boolean anulado ){
+            this.id = id;
+            this.nombreyruta = nombreyruta;
+            this.ultimareproduccion = ultimareproduccion;
+            this.anulado = anulado;
+            this.album = album;
+        }
+        
+    }
+    public canciones[] listadodecanciones(boolean anulados) {
+        //System.out.println("bfhsoftware.sonidoambiental.comunicacion.listadodecanciones()");
         try{
             PreparedStatement consulta;
             ResultSet rs;
-            String sql= "SELECT nombreyruta, album, anulado FROM musica";
             basededatos regre = new basededatos();
+            int rows =0;
+            String sql= "SELECT count(id) FROM musica";
+            if (anulados)
+                sql += " WHERE anulado = 0;";
+            else
+                sql += ";";
+            consulta = regre.consulta(sql);            
+            rs = consulta.executeQuery();
+            if(rs.next()) {
+                rows=rs.getInt(1);
+                        }
+            rs.close();
+            sql= "SELECT id, nombreyruta, album, anulado, ultimareproduccion FROM musica";            
             if (anulados)
                 sql += " WHERE anulado = 0;";
             else
                 sql += ";";
             consulta = regre.consulta(sql);
-            rs = consulta.executeQuery();
+            rs = consulta.executeQuery();            
+            canciones[] regresar= new canciones[rows];
+            rows = 0;
             while (rs.next()) {
-                listado.get(0).add(rs.getString(1));
-                listado.get(1).add(rs.getString(2));
-                if (anulados) {
-                    if (rs.getInt(3)==1)
-                        listado.get(3).add("Anulado");
-                    else
-                        listado.get(3).add("No Anulado");                    
-                }                
+                regresar[rows]=new canciones(rs.getInt("id"), rs.getString("nombreyruta"), rs.getString("album"), rs.getString("ultimareproduccion"), rs.getBoolean("anulado"));
+                rows ++;              
             }
             rs.close();
             consulta.close();
+            return regresar;
         } catch (SQLException ex) {
             //System.out.println("error aca");
             Logger.getLogger(comunicacion.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return listado;
+        canciones[] regresar= new canciones[0];
+        return regresar;
     }
     public void verificaralbum() {
         basededatos regre = new basededatos();
@@ -468,11 +484,11 @@ if (verificararchivo(temaelegido)) {
         System.out.println("Fin");
     }
     void comprobardirectorio (){
-        opcion("directoriodemusica", ".\\");
+        opcion("directoriodemusica", ".");
         File f = new File(directoriodemusica);
         if (!f.exists()){
             System.out.println("No existe el directorio seleccionado previamente");
-            directoriodemusica = ".\\";
+            directoriodemusica = ".";
         }
     }
     public String obtenernombredecancion(String direccioncompleta){
@@ -487,6 +503,7 @@ String files;
 File folder = new File(directorioaverificar);
 File[] listOfFiles = folder.listFiles();
 if (!(listOfFiles == null)){
+    
     for (File listOfFile : listOfFiles) {
         if (listOfFile.isFile()) {
             files = listOfFile.getAbsolutePath();

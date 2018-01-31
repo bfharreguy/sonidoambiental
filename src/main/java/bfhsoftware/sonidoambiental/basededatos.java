@@ -17,7 +17,7 @@ import java.sql.Statement;
  * @author bfhsoftware
  */
 public class basededatos {
-  //  public PreparedStatement consulta;
+    //  public PreparedStatement consulta;
     private static Connection con=null;
     Connection conexion() throws SQLException  {
         if (con != null){
@@ -27,22 +27,23 @@ public class basededatos {
         }
         if (main.isandroid()){
             //con = DriverManager.getConnection("jdbc:sqlite:"+ getExternalFilesDir("./") +"database.db");
+            con = DriverManager.getConnection("jdbc:sqlite:/mnt/sdcard/database.db");
         } else {
             con = DriverManager.getConnection("jdbc:sqlite:./database.db");
         }
         return con;
     }
-   public PreparedStatement consulta(String sql) {
+    public PreparedStatement consulta(String sql) {
         PreparedStatement consult=null;
         try {
-           // basededatos conexion = new basededatos();
+            // basededatos conexion = new basededatos();
             consult = conexion().prepareStatement(sql);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
         return consult;
-    }
-   public ResultSet regresardatos(String sql){
+    }    
+    public ResultSet regresardatos(String sql){
         ResultSet rs=null;
         PreparedStatement consulta;
         try {
@@ -54,7 +55,7 @@ public class basededatos {
         }
         return rs;
     }
-       public void ejecutarquery (String sql){
+    public void ejecutarquery (String sql){
         try {
             //basededatos conexion = new basededatos();
             Connection connnn = conexion();
