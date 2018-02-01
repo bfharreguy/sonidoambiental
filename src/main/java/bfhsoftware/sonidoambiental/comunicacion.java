@@ -15,18 +15,7 @@ import java.util.logging.Logger;
 public class comunicacion {
     String ultimotema = "";
     String directoriodemusica = ".\\";
-    public void verificarbasededatos(){
-        try {
-            basededatos regre = new basededatos();
-            ResultSet rs = regre.regresardatos("select DISTINCT tbl_name from sqlite_master where tbl_name = 'musica';");
-            if (! rs.next()) {
-                //InputStream fstream = this.getClass().getClassLoader().getResourceAsStream("abc.txt");
-                //ejecutarquery(String.getClassLoader().getResourceAsStream("myfile.txt") );
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(comunicacion.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+
     public class canciones {
         public int id;
         public String nombreyruta="", ultimareproduccion = "", album = "";
@@ -52,24 +41,24 @@ public class comunicacion {
                 sql += " WHERE anulado = 0;";
             else
                 sql += ";";
-            consulta = regre.consulta(sql);            
+            consulta = regre.consulta(sql);
             rs = consulta.executeQuery();
             if(rs.next()) {
                 rows=rs.getInt(1);
-                        }
+            }
             rs.close();
-            sql= "SELECT id, nombreyruta, album, anulado, ultimareproduccion FROM musica";            
+            sql= "SELECT id, nombreyruta, album, anulado, ultimareproduccion FROM musica";
             if (anulados)
                 sql += " WHERE anulado = 0;";
             else
                 sql += ";";
             consulta = regre.consulta(sql);
-            rs = consulta.executeQuery();            
+            rs = consulta.executeQuery();
             canciones[] regresar= new canciones[rows];
             rows = 0;
             while (rs.next()) {
                 regresar[rows]=new canciones(rs.getInt("id"), rs.getString("nombreyruta"), rs.getString("album"), rs.getString("ultimareproduccion"), rs.getBoolean("anulado"));
-                rows ++;              
+                rows ++;
             }
             rs.close();
             consulta.close();

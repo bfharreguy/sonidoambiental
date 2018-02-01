@@ -45,9 +45,9 @@ public class main {
     } 
     public static void main(final String... args) throws IOException {
             //System.out.println(System.getProperty("os.name"));
-            if (isandroid()){
-                System.out.println("es android");
-            }
+         /*   if (isandroid()){
+               System.out.println("es android");
+            }*/            
            /*  Properties p = System.getProperties();
     Enumeration keys = p.keys();
     while(keys.hasMoreElements()) {
@@ -55,6 +55,8 @@ public class main {
     String value = (String) p.get(key);
     System.out.println(key + " >>>> " + value);
    }*/
+           basededatos prueba = new basededatos();
+            prueba.verificarbasededatos();
        comunicacion con = new comunicacion();
        reproductor sistemaprincipal = new reproductor();
         Thread t = new Thread(sistemaprincipal);

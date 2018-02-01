@@ -4,6 +4,8 @@
 * and open the template in the editor.
 */
 package bfhsoftware.sonidoambiental;
+
+import android.media.MediaPlayer;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Timer;
@@ -20,19 +22,24 @@ import javazoom.jl.player.advanced.PlaybackListener;
  *
  * @author Usuario
  */
-public class reproductor implements Runnable {
-    private static  boolean pausado = false;
-    private static String temaactual ;
-    private static Integer posiciondepausa;
-    private static boolean ordendereproducir =true;
+public abstract class reproductor implements Runnable {
+    protected static  boolean pausado = false;
+    protected static String temaactual ;
+    protected static Integer posiciondepausa;
+    protected static boolean ordendereproducir =true;
     
     //private final static Logger LOGGER = Logger.getLogger("reproduccion");
     comunicacion com = new comunicacion();
+    
     volatile boolean muerto = false;
     volatile boolean reproduciendo = false;
     //PlaybackListener escuchar = playbackFinished();
-    PlaybackListener escuchar = new escuchaevento();
-    static AdvancedPlayer reproductor;
+    public void reproducir(){
+        
+    }
+    void empezar (String proximotema){
+        reproduciendo = true;
+    }
     static Timer verificador;
     static TimerTask controlado = new TimerTask()
     {
@@ -42,13 +49,81 @@ public class reproductor implements Runnable {
             //System.err.println("si");
         }
     };
-    public void reiniciar(){
-        reproduciendo = false;
-        if (reproductor != null)
-            reproductor.close();
-        reproductor = null;
+    /* public void reiniciar(){
+    
+    }*/
+    
+    
+    @Override
+    public void run (){
+        if (verificador ==null) {
+            
+            verificador = new Timer();}
+        verificador.scheduleAtFixedRate(controlado, 0, 1000);
+        //el error esta a continuacion, un bucle que vuelve loca a la memoria
+        
+        while (!muerto && ordendereproducir) {
+            reproducir();
+            // System.out.println( "reproducir");
+        }
     }
-    public void reproducir(){
+    
+    public String cancion(){
+        return temaactual;
+    }
+    public String estado (){
+        if (reproduciendo) {
+            return "Detenido";
+        } else {
+            return "Reproduciendo";
+        }
+    }
+    reproductor getInstance() {
+        if (main.isandroid()) {
+            return new reproducirAndroid();
+        } else {
+            return new reproducirJava();
+        }
+    }
+    
+}
+public class reproducirAndroid extends reproductor {
+    private static MediaPlayer mp;
+    public reproducirAndroid() {
+        /* Llamamos al constructor padre */
+        super();
+    }
+    
+    @Override
+    public void empezar() {
+        /* Llamamos a la implementación común de comienzo */
+        super.empezar();
+        
+        /* Implementamos aquí el método en android */
+    }
+    
+    @Override
+    public void parar() {
+        /* Llamamos a la implementación común de parada */
+        super.parar();
+        /* Implementamos aquí el método en android */
+    }
+    
+    @Override
+    public void pausa() {
+        /* Llamamos a la implementación común de pausa */
+        super.pausa();
+        /* Implementamos aquí el método en android */
+    }
+    
+    /* No es necesario implementar getNumCancion ni getPosicion */
+}
+ public class reproducirJava extends reproductor {
+    PlaybackListener escuchar = new escuchaevento();
+    static AdvancedPlayer reproductor;
+    public reproducirJava() {
+        /* Llamamos al constructor padre */
+        super();
         try {
             if ((reproductor == null) && (! pausado)) {
                 //System.out.println("proximotema:''");
@@ -92,41 +167,50 @@ public class reproductor implements Runnable {
             Logger.getLogger(reproductor.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    @Override
-    public void run (){
-        if (verificador ==null) {
-            
-            verificador = new Timer();}
-        verificador.scheduleAtFixedRate(controlado, 0, 1000);
-        //el error esta a continuacion, un bucle que vuelve loca a la memoria
-        
-        while (!muerto && ordendereproducir) {
-            reproducir();
-            // System.out.println( "reproducir");
-        }
-    }
     
-    public String cancion(){
-        return temaactual;
-    }
-    public String estado (){
-        if (reproductor == null) {
-            return "Detenido";
-        } else {
-            return "Reproduciendo";
-        }
-    }
-    class escuchaevento extends PlaybackListener {
-        @Override
-        public void playbackStarted(PlaybackEvent event){
-            //temaactual = event.getSource().toString();
+    @Override
+    public void empezar() {
+        /* Llamamos a la implementación común de comienzo */
+        super.empezar(proximotema);
+        try {
+            if ((reproductor == null) && (! pausado)) {
+                reproductor = new AdvancedPlayer(new FileInputStream(proximotema));
+            }
+            /* Implementamos aquí el método en java se */
         }
         
         @Override
-        public void playbackFinished(PlaybackEvent event) {
-            reiniciar();
-            reproducir();
-            
-        }
+        public void parar() {
+        /* Llamamos a la implementación común de parada */
+        super.parar();
+        /* Implementamos aquí el método en java se */
     }
+        
+        @Override
+        public void pausa() {
+        /* Llamamos a la implementación común de pausa */
+        super.pausa();
+        /* Implementamos aquí el método en java se */
+    }
+        private void reiniciar(){
+            reproduciendo = false;
+            if (reproductor != null)
+                reproductor.close();
+            reproductor = null;
+        }
+        class escuchaevento extends PlaybackListener {
+            @Override
+            public void playbackStarted(PlaybackEvent event){
+                //temaactual = event.getSource().toString();
+            }
+            
+            @Override
+            public void playbackFinished(PlaybackEvent event) {
+                reiniciar();
+                reproducir();
+                
+            }
+        }
+        
+        /* No es necesario implementar getNumCancion ni getPosicion */
 }
