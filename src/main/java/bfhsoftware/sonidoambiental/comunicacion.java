@@ -484,7 +484,7 @@ if (verificararchivo(temaelegido)) {
         return direccioncompleta.substring(direccioncompleta.lastIndexOf("\\")+1);
     }
     void verificaralbumdesdedirectorio (String directorioaverificar){
-        System.out.println("Verificando directorio");
+      //  System.out.println("Verificando directorio");
 //verificar los archivos que estan en el directorio y faltan en la base de datos
 String files;
 //        String directorio;
