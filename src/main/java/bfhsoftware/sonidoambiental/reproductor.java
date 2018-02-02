@@ -74,7 +74,8 @@ public class reproductor implements Runnable {
         
         if (verificador ==null) {
             
-            verificador = new Timer();}
+            verificador = new Timer();
+        }
         verificador.scheduleAtFixedRate(controlado, 0, 1000);
         //el error esta a continuacion, un bucle que vuelve loca a la memoria
         
