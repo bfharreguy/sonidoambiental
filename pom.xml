@@ -45,9 +45,17 @@
             <groupId>javazoom</groupId>
             <artifactId>jlayer</artifactId>
             <version>1.0.1</version>
-        </dependency>         
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.sun.net.httpserver/http -->
+        <dependency>
+            <groupId>com.sun.net.httpserver</groupId>
+            <artifactId>http</artifactId>
+            <version>20070405</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies> 
-    <build>
+    
+    <build>       
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
@@ -57,6 +65,7 @@
             </resource>
         </resources>
         <plugins>
+                   
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -139,4 +148,43 @@
             </plugin>-->
         </plugins> 
     </build>
+    <profiles>
+        <profile>
+            <id>bernardo-NB_82</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>nbm-maven-plugin</artifactId>
+                        <version>3.13</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <publicPackages>
+                            </publicPackages>
+                            <moduleDependencies>
+                                <dependency>
+                                    <!--Private Package Reference-->
+                                    <id>org.netbeans.modules:org-netbeans-modules-gsf-testrunner</id>
+                                    <type>impl</type>
+                                </dependency>
+                                <dependency>
+                                    <!--Private Package Reference-->
+                                    <id>com.github.kelemen:netbeans-gradle-plugin</id>
+                                    <type>impl</type>
+                                </dependency>
+                            </moduleDependencies>
+                            <netbeansInstallation>/home/bfhsoftware/netbeansbackup/netbeans-8.2</netbeansInstallation>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+            <properties>
+                <version.nb>RELEASE81</version.nb>
+            </properties>
+        </profile>
+       
+    </profiles>
 </project>

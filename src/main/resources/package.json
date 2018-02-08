@@ -15,20 +15,11 @@
     "angular-route": "^1.6.8",
     "angularjs": "0.0.1",
     "bootstrap": "^4.0.0",
-    "exit": "^0.1.2",
     "jquery": "^3.3.1",
     "popper.js": "^1.12.9",
-    "vue": "^2.5.13"
   },
   "private": true,
   "devDependencies": {
-    "jasmine-core": "^2.8.0",
-    "karma": "^1.7.1",
-    "karma-chrome-launcher": "^2.2.0",
-    "karma-coverage": "^1.1.1",
-    "karma-jasmine": "^1.1.0",
-    "karma-junit-reporter": "^1.2.0",
-    "karma-script-launcher": "^1.0.0",
     "popper": "^1.0.0",
     "pupper": "^1.0.0"
   }

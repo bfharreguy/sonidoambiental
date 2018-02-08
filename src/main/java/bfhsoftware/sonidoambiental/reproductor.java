@@ -14,8 +14,7 @@ import java.util.TimerTask;
  * @author Usuario
  */
 public class reproductor implements Runnable {
-    
-    protected static  boolean pausado = false;
+    protected static boolean pausado = false;
     protected static String temaactual ;
     protected static Integer posiciondepausa;
     protected static boolean ordendereproducir =true;
@@ -34,11 +33,12 @@ public class reproductor implements Runnable {
         }
     }
     public void empezar (String proximotema){
-        //reproduciendo = true;
-        System.out.println("intenta reproducir");  
+        //reproduciendo = true;       
     }
     public void parar(){
         reproduciendo = false;
+        ordendereproducir =false;
+        pausado=false;
     }
     public void pausa(){
         reproduciendo = false;
@@ -58,13 +58,17 @@ public class reproductor implements Runnable {
     
     }*/
     public reproductor (){
-        System.out.println("bfhsoftware.sonidoambiental.reproductor.<init>()");
+       // System.out.println("bfhsoftware.sonidoambiental.reproductor.<init>()");
     }
-    reproductor getInstance() {
-        System.out.println("bfhsoftware.sonidoambiental.reproductor.getInstance()");
+    static reproductor getInstance() {
+        //System.out.println("bfhsoftware.sonidoambiental.reproductor.getInstance()");
         if (main.isandroid()) {
-            return new reproducirAndroid();
+            System.out.println("reproducir android");
+            //return new Class.forName("bfhsoftware.sonidoambiental.Sonidoambiental");
+//reproducirAndroid();
+return new ReproductorAndroid();
         } else {
+                        System.out.println("reproducir java");
             //System.out.println("bfhsoftware.sonidoambiental.reproductor.getInstance()");
             return new ReproducirJava();
         }

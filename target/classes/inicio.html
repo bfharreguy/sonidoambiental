@@ -15,25 +15,29 @@
         </div>
         <div class="alert alert-info text-center text-capitalize">
             <strong>Información</strong> Debe identificarse para configurar el sistema
-        </div>               
+        </div>
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title">Ingrese sus datos</h3>
+                <h3 class="panel-title" ng-init="primerinicio();" >{{titulodeformulario}}</h3>
             </div>
-            <form name="ingreso">
+            <form name="ingreso" >
                 <div class="panel-body">
                     <h4 class="card-title"></h4>
                     <div class="input-group input-group-sm">
                         <span class="input-group-addon" id="sizing-addon2">@</span>
-                        <input type="text" class="form-control" name="Usuario" placeholder="Usuario" aria-label="Usuario" aria-describedby="sizing-addon2" ng-model="Usuario">
+                        <input type="text" class="form-control" name="Usuario" placeholder="Usuario" aria-label="Usuario" aria-describedby="sizing-addon2">
                     </div>
                     <div class="input-group input-group-sm">
                         <span class="input-group-addon" id="sizing-addon2">*</span>
                         <input type="password" class="form-control" ng-model="Contrasena" placeholder="Contraseña" aria-label="Contraseña" aria-describedby="sizing-addon2">
                     </div>
-                    <a href="#" class="btn btn-primary" ng-disabled="ingreso.Usuario.$invalid" ng-click="loguear();">Ingresar</a> <span ng-show="sonidoambiental.ingreso.Usuario.$touched && sonidoambiental.ingreso.Usuario.$invalid">Debe ingresar usuario!</span>                   
+                    <div class="input-group input-group-sm" ng-show="crearusuario;">
+                        <span class="input-group-addon" id="sizing-addon2" >*</span>
+                        <input type="password" class="form-control" ng-model="RepetirContrasena" placeholder="Repetir Contraseña" aria-label="Repetir Contraseña" aria-describedby="sizing-addon2">
+                    </div>
+                    <a href="#" class="btn btn-primary" ng-click="loguear();">{{botoningresar}}</a> <span >Debe ingresar usuario!</span>
                 </div>
             </form>
-        </div>    
+        </div>
     </div>
-</div> 
+</div>

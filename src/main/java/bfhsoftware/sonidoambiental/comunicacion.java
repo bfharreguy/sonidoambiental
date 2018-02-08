@@ -14,8 +14,8 @@ import java.util.logging.Logger;
 
 public class comunicacion {
     String ultimotema = "";
-    String directoriodemusica = ".\\";
-
+    String directoriodemusica = "/./sdcard/Download/";
+    
     public class canciones {
         public int id;
         public String nombreyruta="", ultimareproduccion = "", album = "";
@@ -28,6 +28,58 @@ public class comunicacion {
             this.album = album;
         }
         
+    }
+    public boolean sinusuarios(){
+        boolean respuesta = false;
+        try{
+            PreparedStatement consulta;
+            ResultSet rs;
+            basededatos regre = new basededatos();
+            consulta = regre.consulta("SELECT COUNT(id) FROM usuarios;");           
+            rs = consulta.executeQuery();
+            if (rs.next()) {
+                if ((rs.getInt(1) == 0)){
+                    respuesta = true;
+                }
+            }
+            rs.close();
+            consulta.close();
+        } catch (SQLException ex) {
+            //System.out.println("error aca");
+            Logger.getLogger(comunicacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return respuesta;
+    }
+    public String loguear(String sha1){
+        String usuario = "";
+        try{
+            PreparedStatement consulta;
+            ResultSet rs;
+            basededatos regre = new basededatos();
+            consulta = regre.consulta("SELECT COUNT(id) FROM usuarios WHERE sha1 = ?;");
+            consulta.setString(1, sha1);
+            rs = consulta.executeQuery();
+            if (rs.next()) {
+                if ((rs.getInt(1) == 0)){
+                    return "";
+                }
+            }
+            rs.close();
+            consulta.close();
+            consulta = regre.consulta("SELECT usuario FROM opciones WHERE sha1 = ?;");
+            consulta.setString(1, sha1);
+            rs = consulta.executeQuery();
+            if (rs.next()) {
+                usuario = rs.getString(1);
+            }
+            rs.close();
+            consulta.close();
+            return usuario;
+        } catch (SQLException ex) {
+            //System.out.println("error aca");
+            Logger.getLogger(comunicacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return usuario;
     }
     public canciones[] listadodecanciones(boolean anulados) {
         //System.out.println("bfhsoftware.sonidoambiental.comunicacion.listadodecanciones()");
@@ -484,7 +536,7 @@ if (verificararchivo(temaelegido)) {
         return direccioncompleta.substring(direccioncompleta.lastIndexOf("\\")+1);
     }
     void verificaralbumdesdedirectorio (String directorioaverificar){
-      //  System.out.println("Verificando directorio");
+        //  System.out.println("Verificando directorio");
 //verificar los archivos que estan en el directorio y faltan en la base de datos
 String files;
 //        String directorio;

@@ -26,6 +26,7 @@ public class ReproducirJava extends reproductor {
     public ReproducirJava() {
         /* Llamamos al constructor padre */
         super();
+        
         /* try {
         if ((reproductor == null) && (! pausado)) {
         //System.out.println("proximotema:''");
@@ -74,30 +75,28 @@ public class ReproducirJava extends reproductor {
     public void empezar(String proximotema) {
         /* Llamamos a la implementación común de comienzo */
         super.empezar(proximotema);
-         System.out.println("bfhsoftware.sonidoambiental.ReproducirJava.empezar()");
+        
         if ((reproductor == null)){
-           
             try {
                 if (proximotema.equals("")){
                     ordendereproducir = false;
                     reproduciendo = false;
-                    System.out.println("sin archivos para reproducir...");
                 }else{
                     reproductor = new AdvancedPlayer(new FileInputStream(proximotema));
-                    reproductor.setPlayBackListener(escuchar);
-                    temaactual = com.Ultimotema();
-                    
+                    if (reproductor !=null ){
+                        reproductor.setPlayBackListener(escuchar);
+                        reproductor.play();
+                        temaactual = com.Ultimotema();}
+                    //
                 }
                 
             } catch (FileNotFoundException ex) {
-                System.out.println(ex);
                 Logger.getLogger(reproductor.class.getName()).log(Level.SEVERE, null, ex);
             } catch (JavaLayerException ex) {
-                System.out.println(ex);
                 Logger.getLogger(ReproducirJava.class.getName()).log(Level.SEVERE, null, ex);
             }}
         reproduciendo = (reproductor != null);
-        
+        //System.out.println(reproduciendo);
         /* } while (reproductor == null && ordendereproducir);
         try {
         if ((reproductor == null) && (! pausado)) {
@@ -111,6 +110,7 @@ public class ReproducirJava extends reproductor {
         super.parar();
         reproductor.stop();
         reproductor = null;
+        
         /* Implementamos aquí el método en java se */
     }
     
@@ -118,8 +118,10 @@ public class ReproducirJava extends reproductor {
     public void pausa() {
         /* Llamamos a la implementación común de pausa */
         super.pausa();
-        reproductor.stop();
-        pausado=true;
+        if (reproductor != null)
+            reproductor.close();
+        //reproductor.stop();
+        //pausado=true;
         /* Implementamos aquí el método en java se */
     }
     private void reiniciar(){
@@ -136,8 +138,7 @@ public class ReproducirJava extends reproductor {
         
         @Override
         public void playbackFinished(PlaybackEvent event) {
-            System.out.println("bfhsoftware.sonidoambiental.ReproducirJava.escuchaevento.playbackFinished()");
-            parar();
+            reiniciar();
             reproducir();
         }
     }

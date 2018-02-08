@@ -57,19 +57,19 @@ public class main {
    }*/
            basededatos prueba = new basededatos();
             prueba.verificarbasededatos();
-       comunicacion con = new comunicacion();
-       reproductor sistemaprincipal = new reproductor();
-        Thread t = new Thread(sistemaprincipal);
-        t.start();
-        /*con.guardaropcion("prueba", "prueba");
-        System.out.println(con.opcion("prueba"));*/
-        con.verificaralbum();
-        con.verificarmusica();
-        con = null;
+       comunicacion con = new comunicacion();    
        
+        con.verificaralbum();        
+       servidorhttp http = new servidorhttp();
+        Thread servidorweb = new Thread(http);
+        servidorweb.start();
         
-        servidorhttp http = new servidorhttp();
-       http.ejecutame();
+         Runnable sistemaprincipal = reproductor.getInstance();
+        Thread t = new Thread(sistemaprincipal);
+         t.start();
+         con.verificarmusica();
+        con = null;
+       //http.ejecutame();
            
     }
 

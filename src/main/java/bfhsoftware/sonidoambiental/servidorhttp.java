@@ -12,12 +12,14 @@ import java.net.*;
 import java.nio.charset.*;
 import java.nio.file.*;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Usuario
  */
-public class servidorhttp {
+public class servidorhttp implements Runnable {
     /* Clase privada necesaria para generar un mensaje de respuesta en JSON */
     private class RespuestaMensaje {
         private String mensaje;
@@ -30,7 +32,21 @@ public class servidorhttp {
             //  System.out.println(mensaje);
             //this.mensajes = new ArrayList<List<String>>();
             reproductor repo  = new reproductor();
+            System.out.println(mensaje);
+            if (mensaje.startsWith("LoGuEo:") && mensaje.substring(7).length() != 0){
+                System.out.println("bfhsoftware.sonidoambiental.servidorhttp.RespuestaMensaje.<init>()");
+                comunicacion logueo = new comunicacion();
+                mensaje = logueo.loguear(mensaje.substring(7));
+                System.out.println(mensaje);
+            }
             switch (mensaje){
+                case "sinusuarios":
+                    comunicacion comunicacion = new comunicacion();
+                    if (comunicacion.sinusuarios())
+                        mensaje = " ";
+                    else
+                        mensaje ="";
+                    break;
                 case "musica":
                     mensaje = repo.cancion();
                     break;
@@ -93,22 +109,22 @@ public class servidorhttp {
             //mensajes.add(new ArrayList<String>());
             //switch (mensaje){
             //    case "listado":
-                    comunicacion lis = new comunicacion();
-                    this.listadecanciones = lis.listadodecanciones(false).clone();
-                    /*      mensajes.get(0).add(mensaje);
-                    mensajes.get(0).add("Primero");
-                    mensajes.get(0).add("Segundo");
-                    mensajes.get(0).add("Tercero");*/
+            comunicacion lis = new comunicacion();
+            this.listadecanciones = lis.listadodecanciones(false).clone();
+            /*      mensajes.get(0).add(mensaje);
+            mensajes.get(0).add("Primero");
+            mensajes.get(0).add("Segundo");
+            mensajes.get(0).add("Tercero");*/
             //        break;
-           // }
+            // }
             this.error = error;
         }
     }
     /* Instanciamos esta clase y la ejecutamos */
-    public static void main(final String... args) throws IOException {
-        servidorhttp http = new servidorhttp();
-        http.ejecutame();
-    }
+    /*public static void main(final String... args) throws IOException {
+    servidorhttp http = new servidorhttp();
+    http.ejecutame();
+    }*/
     class raiz implements HttpHandler {
         @Override
         public void handle(HttpExchange he) throws IOException {
@@ -239,7 +255,14 @@ public class servidorhttp {
             }
         }
     }
-    
+    @Override
+    public void run (){
+        try {
+            ejecutame();
+        } catch (IOException ex) {
+            Logger.getLogger(servidorhttp.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     public void ejecutame() throws IOException {
         final HttpServer server = HttpServer.create(new InetSocketAddress("0.0.0.0", 8080), 10);
         /* Controlamos el contexto general para descargar archivos estáticos en la ruta actual */
