@@ -38,8 +38,8 @@ public class ReproductorAndroid extends reproductor{
                             android.content.ContextWrapper*/
                     //reproductor.setDataSource(getApplicationContext(), myUri);
                     
-                    //reproductor.setDataSource(getApplicationContext(),Uri.parse(proximotema)); 
-                    reproductor.setDataSource(proximotema);
+                   // reproductor.setDataSource(getActivity().getApplicationContext(),Uri.parse(proximotema)); 
+                   reproductor.setDataSource(proximotema);
                     //reproductor = MediaPlayer.create(this, myUri);
                     reproductor.prepare(); // might take long! (for buffering, etc)                                        
                     reproductor.setOnCompletionListener(escuchar);

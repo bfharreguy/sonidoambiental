@@ -6,6 +6,7 @@
 package bfhsoftware.sonidoambiental;
 
 import java.io.File;
+import java.nio.file.Paths;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,18 +15,21 @@ import java.util.logging.Logger;
 
 public class comunicacion {
     String ultimotema = "";
-    String directoriodemusica = "/./sdcard/Download/";
-    
+    public String directoriodemusica = "";
+    public String sSistemaOperativo = System.getProperty("os.name");
     public class canciones {
+        public Boolean seleccionado = false;
         public int id;
-        public String nombreyruta="", ultimareproduccion = "", album = "";
+        public String nombre="", ruta="", ultimareproduccion = "", album = "";
         public boolean anulado = false;
-        public canciones(int id, String nombreyruta,String album, String ultimareproduccion, Boolean anulado ){
+        public canciones(int id, String nombre, String ruta, String album, String ultimareproduccion, Boolean anulado, Boolean seleccionado){
             this.id = id;
-            this.nombreyruta = nombreyruta;
+            this.nombre = nombre;
+            this.ruta = ruta;
             this.ultimareproduccion = ultimareproduccion;
             this.anulado = anulado;
             this.album = album;
+            this.seleccionado = seleccionado;
         }
         
     }
@@ -35,7 +39,7 @@ public class comunicacion {
             PreparedStatement consulta;
             ResultSet rs;
             basededatos regre = new basededatos();
-            consulta = regre.consulta("SELECT COUNT(id) FROM usuarios;");           
+            consulta = regre.consulta("SELECT COUNT(id) FROM usuarios;");
             rs = consulta.executeQuery();
             if (rs.next()) {
                 if ((rs.getInt(1) == 0)){
@@ -50,39 +54,69 @@ public class comunicacion {
         }
         return respuesta;
     }
-    public String loguear(String sha1){
-        String usuario = "";
-        try{
+    public String loguear(String usuario, String sha1){
+        String retorna="";
+        try {
             PreparedStatement consulta;
             ResultSet rs;
             basededatos regre = new basededatos();
-            consulta = regre.consulta("SELECT COUNT(id) FROM usuarios WHERE sha1 = ?;");
+            consulta = regre.consulta("SELECT COUNT(id) FROM usuarios WHERE sha1 = ? AND usuario = ?;");
             consulta.setString(1, sha1);
+            consulta.setString(2, usuario);
             rs = consulta.executeQuery();
             if (rs.next()) {
                 if ((rs.getInt(1) == 0)){
-                    return "";
+                    return "inexistente";
                 }
             }
             rs.close();
-            consulta.close();
-            consulta = regre.consulta("SELECT usuario FROM opciones WHERE sha1 = ?;");
+            consulta.close();/*
+            consulta = regre.consulta("SELECT usuario, sha1  FROM usuarios WHERE sha1 = ?;");
             consulta.setString(1, sha1);
             rs = consulta.executeQuery();
             if (rs.next()) {
-                usuario = rs.getString(1);
+            if (usuario == rs.getString(1) && sha1 == rs.getString(2)) {
+            return "loguea";
+            }
             }
             rs.close();
-            consulta.close();
-            return usuario;
+            consulta.close();*/
+            return "loguea";
         } catch (SQLException ex) {
             //System.out.println("error aca");
             Logger.getLogger(comunicacion.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return usuario;
+        return "";
     }
+    public String crearusuario(String usuario, String sha1){
+        try{
+            PreparedStatement consulta;
+            basededatos regre = new basededatos();
+            ResultSet rs;
+            consulta = regre.consulta("SELECT COUNT(id) FROM usuarios WHERE usuario = ?;");
+            consulta.setString(1, usuario);
+            rs = consulta.executeQuery();
+            if (rs.next()) {
+                if ((rs.getInt(1) > 0)){
+                    return "existente";
+                }
+            }
+            rs.close();
+            consulta.close();
+            consulta = regre.consulta("INSERT INTO usuarios (usuario, sha1) VALUES (?, ?);");
+            consulta.setString(1, usuario);
+            consulta.setString(2, sha1);
+            consulta.execute();
+            consulta.close();
+            System.out.println("Se crea el usuario:"+ usuario);
+            return "creado";
+        } catch (SQLException ex) {
+            Logger.getLogger(comunicacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "";
+    }
+    
     public canciones[] listadodecanciones(boolean anulados) {
-        //System.out.println("bfhsoftware.sonidoambiental.comunicacion.listadodecanciones()");
         try{
             PreparedStatement consulta;
             ResultSet rs;
@@ -109,7 +143,7 @@ public class comunicacion {
             canciones[] regresar= new canciones[rows];
             rows = 0;
             while (rs.next()) {
-                regresar[rows]=new canciones(rs.getInt("id"), rs.getString("nombreyruta"), rs.getString("album"), rs.getString("ultimareproduccion"), rs.getBoolean("anulado"));
+                regresar[rows]=new canciones(rs.getInt("id"), (Paths.get(rs.getString("nombreyruta"))).getFileName().toString(), (Paths.get(rs.getString("nombreyruta"))).getParent().toString(), rs.getString("album"), rs.getString("ultimareproduccion"), rs.getBoolean("anulado"), false);
                 rows ++;
             }
             rs.close();
@@ -125,10 +159,8 @@ public class comunicacion {
     public void verificaralbum() {
         basededatos regre = new basededatos();
         regre.ejecutarquery("INSERT INTO albums (nombre) SELECT 'album1' WHERE ( SELECT COUNT(id) FROM albums ) = 0;");
-        
         regre.ejecutarquery("INSERT INTO reproduccion (idalbum) SELECT (SELECT id FROM albums LIMIT 1) WHERE (SELECT Count(id) FROM reproduccion)= 0;");
-//System.out.println("inicio");
-regre.ejecutarquery("UPDATE reproduccion SET habilitado = 1 WHERE (SELECT Count(id) FROM reproduccion)= 0 ;");
+        regre.ejecutarquery("UPDATE reproduccion SET habilitado = 1 WHERE (SELECT Count(id) FROM reproduccion)= 0 ;");
 //      System.out.println("fin");
 /*try (
 Statement stmt = conexion().createStatement()
@@ -443,7 +475,7 @@ System.out.println(e.getMessage());
             basededatos regre = new basededatos();
             boolean sinarchivos = false;
             boolean archivoencontrado = false;
-            comprobardirectorio();
+            comprobardirectorios();
             /*do {
             double cantidaddearchivosareproducir= 0;
             do {
@@ -519,21 +551,41 @@ if (verificararchivo(temaelegido)) {
         return this.ultimotema;
     }
     public void verificarmusica () {
-        comprobardirectorio();
+        comprobardirectorios();
         System.out.println("se verificará el directorio "+ directoriodemusica);
         verificaralbumdesdedirectorio(directoriodemusica);
         System.out.println("Fin");
     }
-    void comprobardirectorio (){
-        opcion("directoriodemusica", ".");
-        File f = new File(directoriodemusica);
-        if (!f.exists()){
-            System.out.println("No existe el directorio seleccionado previamente");
-            directoriodemusica = ".";
+    void comprobardirectorios (){
+        String predeterminado ="";
+        switch (sSistemaOperativo) {
+            case "Linux":
+                predeterminado = "./musica";                
+                break;
+            case "Windows":
+                predeterminado = ".\\musica";
+                break;
+            case "Android":
+                predeterminado="/./sdcard/Download/";
+                break;
+        }
+        directoriodemusica = (String) opcion("carpetademusica", predeterminado);
+        try {
+            File f = new File(directoriodemusica);
+            if (!f.exists()){
+                f.mkdirs();
+            }
+        } catch (Exception e) {
+            directoriodemusica=predeterminado;            
+            guardaropcion("carpetademusica", predeterminado);            
+            File f = new File(directoriodemusica);
+            if (!f.exists())
+                f.mkdirs();
         }
     }
     public String obtenernombredecancion(String direccioncompleta){
-        return direccioncompleta.substring(direccioncompleta.lastIndexOf("\\")+1);
+        
+        return (Paths.get(direccioncompleta)).getFileName().toString();
     }
     void verificaralbumdesdedirectorio (String directorioaverificar){
         //  System.out.println("Verificando directorio");

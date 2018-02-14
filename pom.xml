@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>BFHSoftware</groupId>
     <artifactId>Sonidoambiental</artifactId>
-    <version>1.2</version>
+    <version>1.5</version>
     <packaging>jar</packaging>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -11,6 +11,12 @@
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
     <dependencies>
+        <!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.3.3</version>
+        </dependency>
         <dependency>
             <groupId>org.sqldroid</groupId>
             <artifactId>sqldroid</artifactId>

@@ -12,14 +12,27 @@ import java.net.*;
 import java.nio.charset.*;
 import java.nio.file.*;
 import java.util.*;
+import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.RequestContext;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.io.IOUtils;
 
 /**
  *
  * @author Usuario
  */
 public class servidorhttp implements Runnable {
+    static String carpetademusica;
+    // utilizar archivos en vez de internos
+    boolean archivos = true;
+
+    servidorhttp(String directoriodemusica) {
+        this.carpetademusica = directoriodemusica;
+    }
     /* Clase privada necesaria para generar un mensaje de respuesta en JSON */
     private class RespuestaMensaje {
         private String mensaje;
@@ -29,15 +42,17 @@ public class servidorhttp implements Runnable {
         this.mensaje = mensaje;
         }*/
         public RespuestaMensaje(String mensaje, boolean error) {
-            //  System.out.println(mensaje);
-            //this.mensajes = new ArrayList<List<String>>();
             reproductor repo  = new reproductor();
-            System.out.println(mensaje);
+            //  System.out.println(mensaje);
             if (mensaje.startsWith("LoGuEo:") && mensaje.substring(7).length() != 0){
-                System.out.println("bfhsoftware.sonidoambiental.servidorhttp.RespuestaMensaje.<init>()");
                 comunicacion logueo = new comunicacion();
-                mensaje = logueo.loguear(mensaje.substring(7));
+                System.out.println((mensaje.substring(7, 7 + mensaje.substring(7).indexOf(":"))) + " " + mensaje.substring(8 + mensaje.substring(7).indexOf(":")));
+                mensaje = logueo.loguear((mensaje.substring(7, 7 + mensaje.substring(7).indexOf(":"))), mensaje.substring(8 + mensaje.substring(7).indexOf(":")));
                 System.out.println(mensaje);
+            }
+            if (mensaje.startsWith("CrEaR:") && mensaje.substring(6).length() > 1){
+                comunicacion logueo = new comunicacion();
+                mensaje = logueo.crearusuario((mensaje.substring(6, 6 + mensaje.substring(6).indexOf(":"))), mensaje.substring(7 + mensaje.substring(6).indexOf(":")));
             }
             switch (mensaje){
                 case "sinusuarios":
@@ -45,13 +60,13 @@ public class servidorhttp implements Runnable {
                     if (comunicacion.sinusuarios())
                         mensaje = " ";
                     else
-                        mensaje ="";
+                        mensaje = "";
                     break;
                 case "musica":
                     mensaje = repo.cancion();
                     break;
                 case "estado":
-                    mensaje =repo.estado();
+                    mensaje = repo.estado();
                     break;
                     /*case "pausar-reproducir":
                     repo.pausar();
@@ -130,13 +145,25 @@ public class servidorhttp implements Runnable {
         public void handle(HttpExchange he) throws IOException {
             try {
                 String archivo =he.getRequestURI().getPath();
-                //ClassLoader classLoader = servidorhttp.class.getClassLoader();
-                //System.out.println(archivo);
-                if (archivo.equals("/") ) {
-                    //System.out.println("es raiz");
-                    archivo = "/index.html";
+                InputStream fs = null;
+                if (archivos) {
+                    File file = new File("./src/main/resources", he.getRequestURI().getPath());
+                    /* Si es un directorio cargamos el index.html (dará "not found" si éste no existe) */
+                    if (file.isDirectory()) {
+                        file = new File(file, "/index.html");
+                        archivo = "/index.html";
+                    }
+                    fs = new FileInputStream(file);
                 }
-                InputStream fs = getClass().getResourceAsStream(archivo);
+                else
+                {
+                    //este es el codigo oficial
+                    if (archivo.equals("/") ) {
+                        //System.out.println("es raiz");
+                        archivo = "/index.html";
+                    }
+                    fs = getClass().getResourceAsStream(archivo);
+                }
                 if (fs!=null) {
                     BufferedReader reader = new BufferedReader(new InputStreamReader(fs));
                     /* Obtenemos el tipo mime del archivo para enviarlo en la cabecera correspondiente */
@@ -174,8 +201,6 @@ public class servidorhttp implements Runnable {
     class json implements HttpHandler {
         public void handle(HttpExchange he) throws IOException {
             try {
-                //jaja
-                //kokoko
                 /* Definimos las variables de uso común */
                 Gson gson = new Gson();
                 final String responseBody;
@@ -272,7 +297,71 @@ public class servidorhttp implements Runnable {
         /* Controlamos el contexto que hará peticiones en texto a nuestro servicio */
         server.createContext("/texto/", new texto());
         /* Efectuamos el arranque del servidor, quedando la ejecución bloqueada a partir de aquí */
+        server.createContext("/upload/", new subirarchivos());
         server.start();
+    }
+    static class subirarchivos implements HttpHandler {
+        @Override
+        public void handle(final HttpExchange t) throws IOException {
+            for(Entry<String, List<String>> header : t.getRequestHeaders().entrySet()) {
+                System.out.println(header.getKey() + ": " + header.getValue().get(0));
+            }
+            DiskFileItemFactory d = new DiskFileItemFactory();
+            
+            try {
+                ServletFileUpload up = new ServletFileUpload(d);
+                List<FileItem> result = up.parseRequest(new RequestContext() {
+                    
+                    @Override
+                    public String getCharacterEncoding() {
+                        return "UTF-8";
+                    }
+                    
+                    @Override
+                    public int getContentLength() {
+                        return 0; //tested to work with 0 as return
+                    }
+                    
+                    @Override
+                    public String getContentType() {
+                        return t.getRequestHeaders().getFirst("Content-type");
+                    }
+                    
+                    @Override
+                    public InputStream getInputStream() throws IOException {
+                        return t.getRequestBody();
+                    }
+                    
+                });
+                //t.getResponseHeaders();
+                
+                
+                //       if (directory.exists(carpetamusica))     
+                t.getResponseHeaders().add("Content-type", "text/plain");
+                t.sendResponseHeaders(200, 0);
+                OutputStream os = t.getResponseBody();
+                //FileOutputStream fop = null;
+                File file;
+               //comunicacion com = new comunicacion ();
+                for(FileItem fi : result) {                    
+                    file = new File(carpetademusica + File.separator + (Paths.get(fi.getName())).getFileName().toString());
+                    OutputStream outputStream = new FileOutputStream(file);
+                    IOUtils.copy(fi.getInputStream(), outputStream);                    
+                    outputStream.close();
+                    os.write(fi.getName().getBytes());
+                    os.write("\r\n".getBytes());
+                    System.out.println("Archivo que se subio: " + fi.getName());
+                    /*com.registrarmusica(carpetademusica + File.separator + (Paths.get(fi.getName())).getFileName().toString());                    
+                    System.out.println("Registrado");*/
+                }
+                
+                os.close();
+                
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println("error");
+            }
+        }
     }
     class texto implements HttpHandler {
         public void handle(HttpExchange he) throws IOException {

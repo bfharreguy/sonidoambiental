@@ -36,7 +36,6 @@ class Sha1 {
     static hash(msg, options) {
         const defaults = { msgFormat: 'string', outFormat: 'hex' };
         const opt = Object.assign(defaults, options);
-
         switch (opt.msgFormat) {
             default: // default is to convert string to UTF-8, as SHA only deals with byte-streams
             case 'string':   msg = utf8Encode(msg);       break;

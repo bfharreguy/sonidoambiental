@@ -1,29 +1,69 @@
+<div ng-controller="ListadoController">
 <h1 class = "text-center" >Sonido Ambiental</h1>
         <h2 class = "text-center" >Lista de archivos multimedia declarados</h2>
         <div class="alert alert-info text-center text-capitalize">
                 <strong>Información</strong> Aquí se encuentra la lista de archivos multimedia encontrados y declarados por el usuario, indistintamente si es publicidad o música para su reproducción
-            </div> 
-        <table class="table">
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Nombre y ruta a</th>
-      <th scope="col">Albúm</th>
-      <th scope="col">Anulado</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr ng-repeat="canciones in canciones">
-      <th scope="row">{{canciones.id}}</th>
-      <td>{{canciones.nombreyruta}}</td>
-      <td>{{canciones.album}}</td>
-      <td>{{canciones.anulado}}</td>
-    </tr>   
-  </tbody>  
-</table>
-                <div class="alert alert-info text-center text-capitalize">
-                <strong>Información</strong> Puede subir los archivos mediante este medio, O bien un archivo o una carpeta.             
-            </div> 
-        <button type="button" class="btn btn-outline-primary">Subir un archivo de música</button>
-        <button type="button" class="btn btn-outline-primary">Subir una carpeta de música</button>
-   
+            </div>             
+            <table id="listadomultimedia" class="table table-striped table-bordered" cellspacing="0" width="100%">
+              <thead>
+                  <tr>
+                      <th></th>
+                      <th>#</th>
+                      <th ng-show="mostrarrutas">Nombre</th>
+                      <th>Ruta</th>
+                      <th>Albúm</th>
+                      <th>Anulado</th>                      
+                  </tr>
+              </thead>
+              <tfoot>
+                  <tr>
+                      <th></th>
+                    <th>#</th>
+                    <th>Nombre</th>
+                    <th ng-show="mostrarrutas">Ruta</th>
+                    <th>Albúm</th>
+                    <th>Anulado</th>                      
+                  </tr>
+              </tfoot>
+              <tbody>
+                  <tr ng-repeat="canciones in canciones">
+                      <td>{{canciones.seleccionado1}}</td>
+                      <td>{{canciones.id}}</td>
+                      <td>{{canciones.nombre}}</td>
+                      <td ng-show="mostrarrutas">{{canciones.ruta}}</td>
+                      <td>{{canciones.album}}</td>
+                      <td><span ng-if="canciones.anulado" class="glyphicon glyphicon-ok"></span><span ng-if="! canciones.anulado" class="glyphicon glyphicon-remove"></span></td>
+                      
+                  </tr>
+                  </tbody>
+                  </table>                       
+            <button type="button" class="btn btn-outline-primary"ng-click="btnmostrarrutas();">Mostrar rutas</button>      
+      </div>      
+        <div ng-controller="SubirArchivos" class="container" >
+            <div class="alert alert-info text-center text-capitalize">
+                <strong>Subir música</strong> Aqui usted puede subir musica, los archivos que tengan el mismo nombre se sobre escribribiran
+            </div>            
+          <div class="d-flex justify-content-center container"> 
+              <div class="btn-toolbar" role="toolbar" >
+            <label class="btn btn-default btn-file" ng-disabled="subiendoarchivos">      
+        <span class="glyphicon glyphicon-folder-open"></span> Elegir carpeta y subcarpetas a subir<input type="file" style="display: none;" id="directorioseleccionado" webkitdirectory directory ng-file-model="files" multiple />
+      </label>     
+     </div>
+      <table class="table" ng-show="(files.length > 0 )">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Archivo a Subir</th>                
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="file in files">
+            <th scope="row">{{file.name}}</th>                
+          </tr>   
+        </tbody>  
+      </table>
+      </div>   
+      <span ng-show="subiendoarchivos" class="label label-warning" >Subiendo Archivos %{{porcentajesubido}} completado</span>
+          <button class="btn btn-outline-primary btn-group-justified" type="button" ng-disabled="(files.length < 1 || subiendoarchivos)" ng-click="upload();"><span class="glyphicon glyphicon-floppy-disk"></span> Subir archivos</button>
+          
+          </div>    
+
