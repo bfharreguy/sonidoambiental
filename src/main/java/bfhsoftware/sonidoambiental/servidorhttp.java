@@ -9,9 +9,11 @@ import com.google.gson.*;
 import com.sun.net.httpserver.*;
 import java.io.*;
 import java.net.*;
+import java.io.InputStream;
 import java.nio.charset.*;
 import java.nio.file.*;
 import java.util.*;
+import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.fileupload.FileItem;
@@ -135,11 +137,6 @@ public class servidorhttp implements Runnable {
             this.error = error;
         }
     }
-    /* Instanciamos esta clase y la ejecutamos */
-    /*public static void main(final String... args) throws IOException {
-    servidorhttp http = new servidorhttp();
-    http.ejecutame();
-    }*/
     class raiz implements HttpHandler {
         @Override
         public void handle(HttpExchange he) throws IOException {
@@ -276,6 +273,88 @@ public class servidorhttp implements Runnable {
             Logger.getLogger(servidorhttp.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    class json implements HttpHandler {
+        public void handle(HttpExchange he) throws IOException {
+            try {
+                /* Definimos las variables de uso común */
+                Gson gson = new Gson();
+                final String responseBody;
+                final byte[] rawResponseBody;
+                RespuestaMensaje respuesta;
+                RespuestaMatriz respuesta2;
+                Respuestalistadecanciones respuesta3;
+                /* Agregamos un mínimo de información de depuración */
+                // System.out.println(he.getRequestMethod() + " \"" + he.getRequestURI().getPath() + "\"");
+                /* Obtenemos el método usado (en mayúsculas, por si se recibe de otra forma) para saber qué hacer */
+                switch (he.getRequestMethod().toUpperCase()) {
+                    case "GET":
+                        /* Creamos una instancia de Respuesta para ser convertida en JSON */
+                        switch (he.getRequestURI().getPath().substring(he.getHttpContext().getPath().length())){
+                            case "lista":
+                                respuesta3 = new Respuestalistadecanciones(he.getRequestURI().getPath().substring(he.getHttpContext().getPath().length()), false);
+                                responseBody = gson.toJson(respuesta3);
+                                System.out.println("pasando lista de musica ");
+                                break;
+                            default:
+                                respuesta = new RespuestaMensaje(he.getRequestURI().getPath().substring(he.getHttpContext().getPath().length()), false);
+                                /* Creamos un JSON usando GSON */
+                                responseBody = gson.toJson(respuesta);
+                                break;
+                        }
+                        /* Enviamos la cabecera HTTP para indicar que la respuesta serán datos JSON */
+                        he.getResponseHeaders().set("Content-Type", String.format("application/json; charset=%s", StandardCharsets.UTF_8));
+                        /* Convertimos la cadena JSON en una matriz de bytes para ser entregados al navegador */
+                        rawResponseBody = responseBody.getBytes(StandardCharsets.UTF_8);
+                        he.sendResponseHeaders(HttpURLConnection.HTTP_OK, rawResponseBody.length);
+                        he.getResponseBody().write(rawResponseBody);
+                        break;
+                    case "POST":
+                        /* Obtenemos el mensaje enviado mediante POST */
+                        Scanner s = new Scanner(he.getRequestBody(), StandardCharsets.UTF_8.toString()).useDelimiter("\\A");
+                        /* Si no hay ningún problema */
+                        if (s.hasNext()) {
+                            ConsultaMensaje consulta = gson.fromJson(s.next(), ConsultaMensaje.class);
+                            respuesta = new RespuestaMensaje(consulta.getMensaje(), false);
+                        } else {
+                            respuesta = new RespuestaMensaje("Error recibiendo datos", true);
+                        }
+                        responseBody = gson.toJson(respuesta);
+                        /* Enviamos la cabecera HTTP para indicar que la respuesta serán datos JSON */
+                        he.getResponseHeaders().set("Content-Type", String.format("application/json; charset=%s", StandardCharsets.UTF_8));
+                        /* Convertimos la cadena JSON en una matriz de bytes para ser entregados al navegador */
+                        rawResponseBody = responseBody.getBytes(StandardCharsets.UTF_8);
+                        he.sendResponseHeaders(HttpURLConnection.HTTP_OK, rawResponseBody.length);
+                        he.getResponseBody().write(rawResponseBody);
+                        break;
+                    case "DELETE":
+                        /* Creamos una instancia de Respuesta para ser convertida en JSON */
+                        respuesta2 = new RespuestaMatriz(he.getRequestURI().getPath().substring(he.getHttpContext().getPath().length()), false);
+                        /* Creamos un JSON usando GSON */
+                        responseBody = gson.toJson(respuesta2);
+                        /* Enviamos la cabecera HTTP para indicar que la respuesta serán datos JSON */
+                        he.getResponseHeaders().set("Content-Type", String.format("application/json; charset=%s", StandardCharsets.UTF_8));
+                        /* Convertimos la cadena JSON en una matriz de bytes para ser entregados al navegador */
+                        rawResponseBody = responseBody.getBytes(StandardCharsets.UTF_8);
+                        he.sendResponseHeaders(HttpURLConnection.HTTP_OK, rawResponseBody.length);
+                        he.getResponseBody().write(rawResponseBody);
+                        break;
+                    case "OPTIONS":
+                        he.getResponseHeaders().set("Allow", "GET,POST,DELETE,OPTIONS");
+                        he.sendResponseHeaders(HttpURLConnection.HTTP_OK, -1);
+                        break;
+                    default:
+                        /* Si no se selecciona un método correcto devolvemos un BAD METHOD */
+                        he.getResponseHeaders().set("Allow", "GET,POST,DELETE,OPTIONS");
+                        he.sendResponseHeaders(HttpURLConnection.HTTP_BAD_METHOD, -1);
+                        break;
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            } finally {
+                he.close();
+            }
+        }
+    }
     public void ejecutame() throws IOException {
         final HttpServer server = HttpServer.create(new InetSocketAddress("0.0.0.0", 8080), 10);
         // Controlamos el contexto general para descargar archivos estáticos en la ruta actual 
@@ -327,7 +406,7 @@ public class servidorhttp implements Runnable {
                 //FileOutputStream fop = null;
                 File file;
                //comunicacion com = new comunicacion ();
-                for(File.Item fi : result) {                    
+                for(FileItem fi : result) {
                     file = new File(carpetademusica + File.separator + (Paths.get(fi.getName())).getFileName().toString());
                     OutputStream outputStream = new FileOutputStream(file);
                     IOUtils.copy(fi.getInputStream(), outputStream);                    
