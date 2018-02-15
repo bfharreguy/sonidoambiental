@@ -12,7 +12,6 @@ import java.net.*;
 import java.nio.charset.*;
 import java.nio.file.*;
 import java.util.*;
-import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.fileupload.FileItem;
@@ -33,6 +32,7 @@ public class servidorhttp implements Runnable {
     servidorhttp(String directoriodemusica) {
         this.carpetademusica = directoriodemusica;
     }
+
     /* Clase privada necesaria para generar un mensaje de respuesta en JSON */
     private class RespuestaMensaje {
         private String mensaje;
@@ -143,27 +143,15 @@ public class servidorhttp implements Runnable {
     class raiz implements HttpHandler {
         @Override
         public void handle(HttpExchange he) throws IOException {
-            try {
+           
                 String archivo =he.getRequestURI().getPath();
                 InputStream fs = null;
-                if (archivos) {
-                    File file = new File("./src/main/resources", he.getRequestURI().getPath());
-                    /* Si es un directorio cargamos el index.html (dará "not found" si éste no existe) */
-                    if (file.isDirectory()) {
-                        file = new File(file, "/index.html");
-                        archivo = "/index.html";
-                    }
-                    fs = new FileInputStream(file);
-                }
-                else
-                {
                     //este es el codigo oficial
                     if (archivo.equals("/") ) {
                         //System.out.println("es raiz");
                         archivo = "/index.html";
                     }
-                    fs = getClass().getResourceAsStream(archivo);
-                }
+                    fs = getClass().getResourceAsStream(archivo);               
                 if (fs!=null) {
                     BufferedReader reader = new BufferedReader(new InputStreamReader(fs));
                     /* Obtenemos el tipo mime del archivo para enviarlo en la cabecera correspondiente */
@@ -190,9 +178,9 @@ public class servidorhttp implements Runnable {
                     try (OutputStream output = he.getResponseBody()) {
                         output.write(response.getBytes());
                         output.flush();
-                    }
                     
-                }} catch (IOException e) {
+                    
+                } catch (IOException e) {
                     System.out.println(e.getLocalizedMessage() +e.getMessage());
                 } finally {
                 he.close();
@@ -279,7 +267,7 @@ public class servidorhttp implements Runnable {
                 he.close();
             }
         }
-    }
+    }}
     @Override
     public void run (){
         try {
@@ -290,60 +278,56 @@ public class servidorhttp implements Runnable {
     }
     public void ejecutame() throws IOException {
         final HttpServer server = HttpServer.create(new InetSocketAddress("0.0.0.0", 8080), 10);
-        /* Controlamos el contexto general para descargar archivos estáticos en la ruta actual */
+        // Controlamos el contexto general para descargar archivos estáticos en la ruta actual 
         server.createContext("/", new raiz());
-        /* Controlamos el contexto que hará peticiones REST/JSON a nuestro servicio */
+        // Controlamos el contexto que hará peticiones REST/JSON a nuestro servicio 
         server.createContext("/json/", new json());
-        /* Controlamos el contexto que hará peticiones en texto a nuestro servicio */
+        // Controlamos el contexto que hará peticiones en texto a nuestro servicio 
         server.createContext("/texto/", new texto());
-        /* Efectuamos el arranque del servidor, quedando la ejecución bloqueada a partir de aquí */
-        server.createContext("/upload/", new subirarchivos());
+        //Efectuamos el arranque del servidor, quedando la ejecución bloqueada a partir de aquí 
+    server.createContext("/upload/", new subirarchivos());
         server.start();
     }
     static class subirarchivos implements HttpHandler {
-        @Override
+         @Override
         public void handle(final HttpExchange t) throws IOException {
             for(Entry<String, List<String>> header : t.getRequestHeaders().entrySet()) {
-                System.out.println(header.getKey() + ": " + header.getValue().get(0));
+             //   System.out.println(header.getKey() + ": " + header.getValue().get(0));
             }
-            DiskFileItemFactory d = new DiskFileItemFactory();
-            
+            DiskFileItemFactory d = new DiskFileItemFactory();      
+
             try {
                 ServletFileUpload up = new ServletFileUpload(d);
                 List<FileItem> result = up.parseRequest(new RequestContext() {
-                    
+
                     @Override
                     public String getCharacterEncoding() {
                         return "UTF-8";
                     }
-                    
+
                     @Override
                     public int getContentLength() {
                         return 0; //tested to work with 0 as return
                     }
-                    
+
                     @Override
                     public String getContentType() {
                         return t.getRequestHeaders().getFirst("Content-type");
                     }
-                    
+
                     @Override
                     public InputStream getInputStream() throws IOException {
                         return t.getRequestBody();
                     }
-                    
+
                 });
-                //t.getResponseHeaders();
-                
-                
-                //       if (directory.exists(carpetamusica))     
                 t.getResponseHeaders().add("Content-type", "text/plain");
                 t.sendResponseHeaders(200, 0);
                 OutputStream os = t.getResponseBody();
                 //FileOutputStream fop = null;
                 File file;
                //comunicacion com = new comunicacion ();
-                for(FileItem fi : result) {                    
+                for(File.Item fi : result) {                    
                     file = new File(carpetademusica + File.separator + (Paths.get(fi.getName())).getFileName().toString());
                     OutputStream outputStream = new FileOutputStream(file);
                     IOUtils.copy(fi.getInputStream(), outputStream);                    
@@ -351,8 +335,8 @@ public class servidorhttp implements Runnable {
                     os.write(fi.getName().getBytes());
                     os.write("\r\n".getBytes());
                     System.out.println("Archivo que se subio: " + fi.getName());
-                    /*com.registrarmusica(carpetademusica + File.separator + (Paths.get(fi.getName())).getFileName().toString());                    
-                    System.out.println("Registrado");*/
+                    //com.registrarmusica(carpetademusica + File.separator + (Paths.get(fi.getName())).getFileName().toString());                    
+                    //System.out.println("Registrado");
                 }
                 
                 os.close();

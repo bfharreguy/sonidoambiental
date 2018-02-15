@@ -30,6 +30,7 @@ public class reproductor implements Runnable {
            //System.out.println("bfhsoftware.sonidoambiental.reproductor.reproducir()");
         String proximotema = com.proximotema();
         empezar(proximotema);
+            System.out.println(proximotema);
         }
     }
     public void empezar (String proximotema){

@@ -2,45 +2,92 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="271f9741-9e00-4178-9bf1-529418b29e01" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/04-lo mismo si que no .mp3" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/1.mp3" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/2.mp3" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/3.mp3" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/4.mp3" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/5.mp3" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/README.md" afterPath="" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_servlet_servlet_api_2_4.xml" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_webjars_bower_angular_1_6_6.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/SQLiteDatabaseBrowserPortable.exe - Acceso directo.lnk" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/Sonidoambiental.iml" afterPath="$PROJECT_DIR$/Sonidoambiental.iml" />
+      <change beforePath="$PROJECT_DIR$/codpgoprueba/subirarchivo.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/codpgoprueba/subirarchivo.js" afterPath="" />
       <change beforePath="$PROJECT_DIR$/database.db" afterPath="$PROJECT_DIR$/database.db" />
-      <change beforePath="$PROJECT_DIR$/nb-configuration.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/nbactions-android.sdk.path.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/nbactions-release-profile.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/nbactions.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/gwvF020.tmp" afterPath="" />
       <change beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/ReproductorAndroid.java" afterPath="$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/ReproductorAndroid.java" />
       <change beforePath="$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/comunicacion.java" afterPath="$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/comunicacion.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/main.java" afterPath="$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/main.java" />
       <change beforePath="$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/reproductor.java" afterPath="$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/reproductor.java" />
       <change beforePath="$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/servidorhttp.java" afterPath="$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/servidorhttp.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/.vscode/extensions.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/.vscode/launch.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/.vscode/settings.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/html/.gitignore" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/html/LICENSE" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/html/README.md" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/html/app/css/.gitkeep" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/html/app/css/app.css" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/html/app/data/bigtree.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/html/app/data/deeptree.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/html/app/data/mediumtree.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/html/app/data/smalltree.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/html/app/img/.gitkeep" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/html/app/img/collapsed.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/html/app/img/expanded.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/html/app/index.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/html/app/js/app.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/html/app/js/controllers.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/html/app/js/directives.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/html/app/js/filters.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/html/app/js/services.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/html/app/lib/angular/angular-animate.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/html/app/lib/angular/angular-animate.min.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/html/app/lib/angular/angular-cookies.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/html/app/lib/angular/angular-cookies.min.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/html/app/lib/angular/angular-loader.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/html/app/lib/angular/angular-loader.min.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/html/app/lib/angular/angular-resource.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/html/app/lib/angular/angular-resource.min.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/html/app/lib/angular/angular-route.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/html/app/lib/angular/angular-route.min.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/html/app/lib/angular/angular-sanitize.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/html/app/lib/angular/angular-sanitize.min.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/html/app/lib/angular/angular-touch.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/html/app/lib/angular/angular-touch.min.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/html/app/lib/angular/angular.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/html/app/lib/angular/angular.min.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/html/app/lib/angular/errors.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/html/app/lib/angular/version.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/html/app/lib/angular/version.txt" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/html/app/partials/.gitkeep" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/html/app/partials/recursive.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/html/app/partials/treerepeat-drag.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/html/app/partials/treerepeat.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/html/config/karma-e2e.conf.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/html/config/karma.conf.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/html/logs/.gitkeep" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/html/scripts/e2e-test.bat" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/html/scripts/e2e-test.sh" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/html/scripts/test.bat" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/html/scripts/test.sh" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/html/scripts/watchr.rb" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/html/scripts/web-server.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/html/test/e2e/runner.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/html/test/e2e/scenarios.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/html/test/lib/angular/angular-mocks.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/html/test/lib/angular/angular-scenario.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/html/test/lib/angular/version.txt" afterPath="" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/index.html" afterPath="$PROJECT_DIR$/src/main/resources/index.html" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/inicio.html" afterPath="$PROJECT_DIR$/src/main/resources/inicio.html" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/js/app.js" afterPath="$PROJECT_DIR$/src/main/resources/js/app.js" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/js/sha1.js" afterPath="$PROJECT_DIR$/src/main/resources/js/sha1.js" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/js/vue.js" afterPath="" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/listado.html" afterPath="$PROJECT_DIR$/src/main/resources/listado.html" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/package-lock.json" afterPath="$PROJECT_DIR$/src/main/resources/package-lock.json" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/package.json" afterPath="$PROJECT_DIR$/src/main/resources/package.json" />
       <change beforePath="$PROJECT_DIR$/target/clases/index.html" afterPath="$PROJECT_DIR$/target/clases/index.html" />
-      <change beforePath="$PROJECT_DIR$/target/clases/inicio.html" afterPath="$PROJECT_DIR$/target/clases/inicio.html" />
       <change beforePath="$PROJECT_DIR$/target/clases/js/app.js" afterPath="$PROJECT_DIR$/target/clases/js/app.js" />
       <change beforePath="$PROJECT_DIR$/target/clases/listado.html" afterPath="$PROJECT_DIR$/target/clases/listado.html" />
-      <change beforePath="$PROJECT_DIR$/target/clases/package.json" afterPath="$PROJECT_DIR$/target/clases/package.json" />
+      <change beforePath="$PROJECT_DIR$/target/classes/.netbeans_automatic_build" afterPath="" />
       <change beforePath="$PROJECT_DIR$/target/classes/index.html" afterPath="$PROJECT_DIR$/target/classes/index.html" />
-      <change beforePath="$PROJECT_DIR$/target/classes/inicio.html" afterPath="$PROJECT_DIR$/target/classes/inicio.html" />
       <change beforePath="$PROJECT_DIR$/target/classes/js/app.js" afterPath="$PROJECT_DIR$/target/classes/js/app.js" />
       <change beforePath="$PROJECT_DIR$/target/classes/listado.html" afterPath="$PROJECT_DIR$/target/classes/listado.html" />
-      <change beforePath="$PROJECT_DIR$/target/classes/package.json" afterPath="$PROJECT_DIR$/target/classes/package.json" />
-      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/.netbeans_automatic_build" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/views/database.db" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/views/error.pug" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/views/index.pug" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/views/layout.pug" afterPath="" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -50,12 +97,60 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="main.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/main.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="60">
+              <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="servidorhttp.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/servidorhttp.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="351">
+              <caret line="329" column="31" lean-forward="true" selection-start-line="329" selection-start-column="31" selection-end-line="329" selection-end-column="31" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#966#967#0" expanded="true" />
+                <element signature="e#1023#1024#0" expanded="true" />
+                <element signature="e#15493#15494#0" expanded="true" />
+                <element signature="e#15555#15556#0" expanded="true" />
+                <element signature="e#15638#15639#0" expanded="true" />
+                <element signature="e#15728#15729#0" expanded="true" />
+                <element signature="e#15812#15813#0" expanded="true" />
+                <element signature="e#15913#15914#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GradleLocalSettings">
     <option name="externalProjectsViewState">
       <projects_view />
+    </option>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/servidorhttp.java" />
+      </list>
+    </option>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="importAutomatically" value="true" />
+      </MavenImportingSettings>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
@@ -79,11 +174,51 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="AndroidView" />
-      <pane id="ProjectPane" />
-      <pane id="Scratches" />
       <pane id="PackagesPane" />
+      <pane id="Scratches" />
+      <pane id="AndroidView" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="Sonidoambiental" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Sonidoambiental" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Sonidoambiental" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Sonidoambiental" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Sonidoambiental" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Sonidoambiental" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Sonidoambiental" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Sonidoambiental" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Sonidoambiental" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Sonidoambiental" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="sonidoambiental" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Sonidoambiental" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -121,6 +256,25 @@
       <option name="ENV_VARIABLES" />
       <option name="PASS_PARENT_ENVS" value="true" />
       <module name="" />
+      <envs />
+    </configuration>
+    <configuration name="main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="bfhsoftware.sonidoambiental.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="MAIN_CLASS_NAME" value="bfhsoftware.sonidoambiental.main" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="Sonidoambiental" />
       <envs />
     </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
@@ -183,6 +337,11 @@
       <option name="PROGRAM_PARAMETERS" />
       <predefined_log_file id="idea.log" enabled="true" />
     </configuration>
+    <recent_temporary>
+      <list size="1">
+        <item index="0" class="java.lang.String" itemvalue="Application.main" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SbtLocalSettings">
     <option name="externalProjectsViewState">
@@ -208,32 +367,33 @@
   <component name="ToolWindowManager">
     <frame x="-1" y="24" width="1442" height="852" extended-state="6" />
     <layout>
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24964131" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Learn" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32952926" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25681493" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Learn" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32952926" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -242,6 +402,86 @@
   <component name="XDebuggerManager">
     <breakpoint-manager />
     <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/servidorhttp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4365">
+          <caret line="312" column="78" lean-forward="false" selection-start-line="312" selection-start-column="78" selection-end-line="312" selection-end-column="78" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#966#967#0" expanded="true" />
+            <element signature="e#1023#1024#0" expanded="true" />
+            <element signature="e#15493#15494#0" expanded="true" />
+            <element signature="e#15555#15556#0" expanded="true" />
+            <element signature="e#15638#15639#0" expanded="true" />
+            <element signature="e#15728#15729#0" expanded="true" />
+            <element signature="e#15812#15813#0" expanded="true" />
+            <element signature="e#15913#15914#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/servidorhttp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4680">
+          <caret line="312" column="78" lean-forward="false" selection-start-line="312" selection-start-column="78" selection-end-line="312" selection-end-column="78" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#966#967#0" expanded="true" />
+            <element signature="e#1023#1024#0" expanded="true" />
+            <element signature="e#15493#15494#0" expanded="true" />
+            <element signature="e#15555#15556#0" expanded="true" />
+            <element signature="e#15638#15639#0" expanded="true" />
+            <element signature="e#15728#15729#0" expanded="true" />
+            <element signature="e#15812#15813#0" expanded="true" />
+            <element signature="e#15913#15914#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/servidorhttp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="351">
+          <caret line="329" column="31" lean-forward="true" selection-start-line="329" selection-start-column="31" selection-end-line="329" selection-end-column="31" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#966#967#0" expanded="true" />
+            <element signature="e#1023#1024#0" expanded="true" />
+            <element signature="e#15493#15494#0" expanded="true" />
+            <element signature="e#15555#15556#0" expanded="true" />
+            <element signature="e#15638#15639#0" expanded="true" />
+            <element signature="e#15728#15729#0" expanded="true" />
+            <element signature="e#15812#15813#0" expanded="true" />
+            <element signature="e#15913#15914#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
   </component>
   <component name="masterDetails">
     <states>
