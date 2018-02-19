@@ -21,6 +21,7 @@ import javazoom.jl.player.advanced.PlaybackListener;
  * @author bfhsoftware
  */
 public class ReproducirJava extends reproductor {
+    private static final Logger log = Logger.getLogger(susesos.class.getName());
     PlaybackListener escuchar = new escuchaevento();
     static AdvancedPlayer reproductor=null;
     public ReproducirJava() {
@@ -90,10 +91,12 @@ public class ReproducirJava extends reproductor {
                     //
                 }
                 
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(reproductor.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (JavaLayerException ex) {
-                Logger.getLogger(ReproducirJava.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (FileNotFoundException e) {
+                log.warning("Error al intentar reproducir en java, error de archivo: "+ e.getMessage());
+               System.out.println(e.getMessage());
+            } catch (JavaLayerException e) {
+                log.warning("Error al intentar reproducir en java, error de java: "+ e.getMessage());
+                System.out.println(e.getMessage());
             }}
         reproduciendo = (reproductor != null);
         //System.out.println(reproduciendo);

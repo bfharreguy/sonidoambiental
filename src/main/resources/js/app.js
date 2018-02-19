@@ -26,17 +26,19 @@ var cancionesseleccionadas= 0;
 var app = angular.module('sonidoambiental', ['ngRoute','ngStorage']).
         config(['$routeProvider', function($routeProvider) {
                 $routeProvider.when('/', { templateUrl: 'inicio.html', abstract: true, controller: "InicioController"}).
-                when('/listado', {templateUrl: 'listado.html', controller: "ListadoController"})./*
+                when('/listado', {templateUrl: 'listado.html', controller: "ListadoController"}).
+                when('/subir', {templateUrl: 'subirarchivos.html', controller: "SubirArchivos"})./*
       when('/agregar', {templateUrl: 'plantillas/agregar.html', controller: ControladorAgregar}).*/
         otherwise({redirectTo: '/'});
     }]);
 //function Listadodecanciones($scope, $http, $location) {
-app.controller("ListadoController", function ($scope, $interval, $location) {
-    $(document).ready(function() {
-        $('#listadomultimedia').DataTable();
-    } );
+app.controller("ListadoController", function ($scope, $interval, $location) {           
     //    function ListadoController($scope, $interval) {
     /* Carga de datos en el controlador */
+    $scope.subir = function(){
+        $location.path('/subir').replace();   
+        //$scope.$apply();     
+    }
     $scope.seleccionartodos = function(){
         for (var i = 0; i < $scope.canciones.length; i++) {
             $scope.canciones[i].seleccionado=true;            
@@ -88,6 +90,34 @@ app.controller("ListadoController", function ($scope, $interval, $location) {
         $scope.cancionesseleccionadas= cantidad;
         $scope.$apply;
     }
+    $scope.anularseleccionados = function(){        
+        for (var i = 0; i < $scope.canciones.length; i++) {
+            if ($scope.canciones[i].seleccionado){
+            $.ajax({
+                url: '/json/' + encodeURI('anular:'+ $scope.canciones[i].nombre),
+                dataType: 'json',
+                method: 'get',                
+            });  
+            console.log('anular');
+        }
+        }        
+        $scope.cargar;
+        $scope.$apply;
+    }
+    $scope.borrarseleccionados = function(){        
+        for (var i = 0; i < $scope.canciones.length; i++) {
+            if ($scope.canciones[i].seleccionado){
+            $.ajax({
+                url: '/json/' + encodeURI('borrar:'+ $scope.canciones[i].nombre),
+                dataType: 'json',
+                method: 'get',                
+            });  
+        }
+
+        }        
+        $scope.cargar;
+        $scope.$apply;
+    }
     console.log("ejecutando listado");
     $scope.cargar = function() {
         $.ajax({
@@ -98,9 +128,9 @@ app.controller("ListadoController", function ($scope, $interval, $location) {
                 /* Si todo ha ido bien mostramos una alerta con el contenido */
                 if (typeof datos.error !== 'undefined' && datos.error === false) {
                     
-                    $scope.canciones =  datos.listadecanciones;
+                    $scope.canciones =  datos.listadecanciones;                    
                     $scope.$apply();
-                    
+                    $(document).ready(function() {$('#listadomultimedia').DataTable();} );
                 } else {
                     console.log("error al recibir canciones");                   
                 }
@@ -161,10 +191,7 @@ app.controller("ListadoController", function ($scope, $interval, $location) {
             return retorna;
         }
     });*/
-function usuario(usuario, sha1) {
-    this.usuario = usuario;
-    this.sha1 = sha1;
-};
+
 //app.
 
 app.controller('sesion', function ($scope, $localStorage, $sessionStorage, $window) {
@@ -268,7 +295,7 @@ app.controller("InicioController", function ($scope, $interval, $location) {
         var contrasena = document.getElementsByName("Contrasena")[0].value;
         if (usuario != null){
             if (usuario.indexOf(':') > -1){
-                $scope.erroramostrar ="No se acepta : como caracter para crear usuario " ;
+                $scope.erroramostrar ="No se acepta : como carácter para crear usuario " ;
                 return null ;
             }
         }else{
@@ -284,7 +311,6 @@ app.controller("InicioController", function ($scope, $interval, $location) {
         $scope.erroramostrar ="";
         if ($scope.titulodeformulario == "Ingrese sus datos") {
             console.log("logueo");
-            var usuarioqueloguea="";
             $.ajax({
                 url: '/json/' + encodeURI('LoGuEo:'+usuario+ ':' + Sha1.hash(usuario + contrasena)),
                 dataType: 'json',
@@ -402,10 +428,14 @@ function enviar_plano_post() {
         }
     });
 }
-app.controller('SubirArchivos', function($scope, $http, $parse) {
+app.controller('SubirArchivos', function($scope, $http, $parse, $location) {
     
     $scope.name = 'World';
     $scope.files = []; 
+    $scope.volver = function(){
+        $location.path('/listado').replace();   
+        //$scope.$apply();
+    }
     $scope.upload=function(element) {
         var cantidad = 0;
         $scope.subiendoarchivos = true;

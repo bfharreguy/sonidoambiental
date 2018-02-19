@@ -1,23 +1,30 @@
 <!DOCTYPE html>
 <html ng-app="sonidoambiental">
-    <head>
-            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>Bienvenido a Programa Sonido Ambiental</title>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />       
-        <link href="node_modules/bootstrap3/css/bootstrap.min.css" rel="stylesheet" />
-        <link href="css/datatables.min.css" rel="stylesheet" type="text/css"/>
-    </head>
-    <body style="padding-top: 2rem;" ng-controller="sesion">              
-        <div id="app" ng-view ></div>                
-      <script src="node_modules/jquery/dist/jquery.js" type="text/javascript"></script>
-        <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
-        <script src="node_modules/bootstrap3/js/bootstrap.min.js"></script>
-        <script src="node_modules/angular/angular.min.js"></script>
-       <script src="node_modules/angular-route/angular-route.min.js"></script> 
-         <script src="node_modules/ngstorage/ngStorage.min.js"></script>
-         <script src="js/datatables.min.js" type="text/javascript"></script>       
-        <script src="js/sha1.js" type="text/javascript"></script>
-        <script src="js/app.js"></script>        
-    </body> 
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>Bienvenido a Programa Sonido Ambiental</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+    <link href="css/datatables.min.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="css/glyphicons.css">
+</head>
+<body style="padding-top: 2rem;" ng-controller="sesion">
+<h1 class="text-center">Sonido Ambiental</h1>
+<div id="informacion" class="card" ng-show="login">
+    <div class="card-body">
+        <p class="card-text">El usuario : {{usuariologueado}} esta usando el sistema</p>
+    </div>
+</div>
+<div id="app" ng-view></div>
+<script src="node_modules/jquery/dist/jquery.js" type="text/javascript"></script>
+<script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
+<script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
+<script src="node_modules/angular/angular.min.js"></script>
+<script src="node_modules/angular-route/angular-route.min.js"></script>
+<script src="node_modules/ngstorage/ngStorage.min.js"></script>
+<script src="js/datatables.min.js" type="text/javascript"></script>
+<script src="js/sha1.js" type="text/javascript"></script>
+<script src="js/app.js"></script>
+</body>
 </html>

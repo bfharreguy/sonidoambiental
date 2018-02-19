@@ -1,77 +1,67 @@
 <div ng-controller="ListadoController">
-    <h1 class = "text-center" >Sonido Ambiental</h1>
-    <h2 class = "text-center" >Lista de archivos multimedia declarados</h2>
+    <h5 class="text-center">Lista de archivos multimedia declarados</h5>
     <div class="alert alert-info text-center text-capitalize">
-        <strong>Información</strong> Aquí se encuentra la lista de archivos multimedia encontrados y declarados por el usuario, indistintamente si es publicidad o música para su reproducción
-    </div>          
-    <div class="btn-group" role="group" >
-        <button type="button" ng-click="desseleccionartodos()" class="btn btn-default">Desseleccionar todos</button>
-        <button type="button" ng-click="seleccionartodos()" class="btn btn-default">Seleccionar todos</button>
-        <button type="button" ng-click="invertirseleccion()" class="btn btn-default">Invertir seleccion</button>
-        <button type="button" class="btn btn-default">Anular seleccionados</button>
-        <button type="button" class="btn btn-default">Borrar seleccionados</button>
-    </div>   
-    <table id="listadomultimedia" class="table table-striped table-bordered" cellspacing="0" width="100%">
-        <thead>
+        <strong>Información</strong> Aquí se encuentra la lista de archivos multimedia encontrados y declarados por el
+        usuario, indistintamente si es publicidad o música para su reproducción
+    </div>
+    <div class="card">
+        <div class="btn-group" role="group">
+            <button type="button" ng-click="cargar()" class="btn btn-default">Recargar</button>
+            <button type="button" ng-click="desseleccionartodos()" class="btn btn-default">Desseleccionar todos</button>
+            <button type="button" ng-click="seleccionartodos()" class="btn btn-default">Seleccionar todos</button>
+            <button type="button" ng-click="invertirseleccion()" class="btn btn-default">Invertir seleccion</button>
+            <button type="button" ng-click="anularseleccionados()" class="btn btn-default">Anular seleccionados</button>
+            <button type="button" ng-click="borrarseleccionados()" class="btn btn-default">Borrar seleccionados</button>
+            <button type="button" ng-click="subir()" class="btn btn-default">Subir archivos</button>
+        </div>
+        <table id="listadomultimedia" class="table table-striped table-bordered" cellspacing="0" width="100%">
+            <thead>
             <tr>
                 <th></th>
                 <th>#</th>
                 <th>Nombre</th>
                 <th ng-show="mostrarrutas">Ruta</th>
                 <th>Albúm</th>
-                <th>Anulado</th>                      
+                <th>Anulado</th>
             </tr>
-        </thead>
-        <tfoot>
+            </thead>
+            <tfoot>
             <tr>
                 <th></th>
                 <th>#</th>
                 <th>Nombre</th>
                 <th ng-show="mostrarrutas">Ruta</th>
                 <th>Albúm</th>
-                <th>Anulado</th>                      
+                <th>Anulado</th>
             </tr>
-        </tfoot>
-        <tbody>
-            <tr ng-repeat="canciones in canciones">
-                <td><button type="button" ng-click="desseleccionar(canciones)" ng-if="canciones.seleccionado" class="btn btn-default" aria-label="desseleccionar"><span  ng-if="canciones.seleccionado" class="glyphicon glyphicon-check"  aria-hidden="true"></span></button><button type="button" ng-if="! canciones.seleccionado" ng-click="seleccionar(canciones)" class="btn btn-default" aria-label="seleccionar"><span ng-if="! canciones.seleccionado"  aria-hidden="true" class="glyphicon glyphicon-unchecked"></span></button></td>
+            </tfoot>
+            <tbody>
+            <tr ng-repeat="canciones in canciones" ng-class="{'info' : canciones.seleccionado }">
+                <td>
+                    <button type="button" ng-click="desseleccionar(canciones)" ng-if="canciones.seleccionado"
+                            class="btn btn-default" aria-label="desseleccionar"><span ng-if="canciones.seleccionado"
+                                                                                      class="glyphicon glyphicon-check"
+                                                                                      aria-hidden="true"></span>
+                    </button>
+                    <button type="button" ng-if="! canciones.seleccionado" ng-click="seleccionar(canciones)"
+                            class="btn btn-default" aria-label="seleccionar"><span ng-if="! canciones.seleccionado"
+                                                                                   aria-hidden="true"
+                                                                                   class="glyphicon glyphicon-unchecked"></span>
+                    </button>
+                </td>
                 <td>{{canciones.id}}</td>
                 <td>{{canciones.nombre}}</td>
                 <td ng-show="mostrarrutas">{{canciones.ruta}}</td>
                 <td>{{canciones.album}}</td>
-                <td><span ng-if="canciones.anulado" class="glyphicon glyphicon-ok"></span><span ng-if="! canciones.anulado" class="glyphicon glyphicon-remove"></span></td>
-                
+                <td><span ng-if="canciones.anulado" class="glyphicon glyphicon-ok"></span><span
+                        ng-if="! canciones.anulado" class="glyphicon glyphicon-remove"></span></td>
+
             </tr>
-        </tbody>
-    </table>    
-    <div class="alert alert-info text-center text-capitalize">hay {{cancionesseleccionadas}} seleccionada/s </div>              
-    <button type="button" class="btn btn-outline-primary"ng-click="btnmostrarrutas();">Mostrar rutas</button>      
-</div>      
-<div ng-controller="SubirArchivos" class="container" >
-    <div class="alert alert-info text-center text-capitalize">
-        <strong>Subir música</strong> Aqui usted puede subir musica, los archivos que tengan el mismo nombre se sobre escribribiran
-    </div>            
-    <div class="d-flex justify-content-center container"> 
-        <div class="btn-toolbar" role="toolbar" >
-            <label class="btn btn-default btn-file" ng-disabled="subiendoarchivos">      
-                <span class="glyphicon glyphicon-folder-open"></span> Elegir carpeta y subcarpetas a subir<input type="file" style="display: none;" id="directorioseleccionado" webkitdirectory directory ng-file-model="files" multiple />
-            </label>     
-        </div>
-        <table class="table" ng-show="(files.length > 0 )">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">Archivo a Subir</th>                
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="file in files">
-                    <th scope="row">{{file.name}}</th>                
-                </tr>   
-            </tbody>  
+            </tbody>
         </table>
-    </div>   
-    <span ng-show="subiendoarchivos" class="label label-warning" >Subiendo Archivos %{{porcentajesubido}} completado</span>
-    <button class="btn btn-outline-primary btn-group-justified" type="button" ng-disabled="(files.length < 1 || subiendoarchivos)" ng-click="upload();"><span class="glyphicon glyphicon-floppy-disk"></span> Subir archivos</button>
-    
-</div>    
+    </div>
+    <div class="alert alert-info text-center text-capitalize">hay {{cancionesseleccionadas}} seleccionada/s</div>
+    <button type="button" class="btn btn-outline-primary" ng-click="btnmostrarrutas();">Mostrar rutas</button>
+</div>      
+
 
