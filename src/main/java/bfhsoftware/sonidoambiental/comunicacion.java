@@ -10,6 +10,7 @@ import java.nio.file.Paths;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,6 +21,16 @@ public class comunicacion {
     public String directoriodemusica = "";
     public String sSistemaOperativo = System.getProperty("os.name");
     private boolean estadoverificandomusica = false;
+
+    public static class matriz {
+        private boolean seleccionado = false;
+        private String dato = "";
+
+        public matriz(boolean seleccionado, String dato) {
+            this.seleccionado = seleccionado;
+            this.dato = dato;
+        }
+    }
 
     public class canciones {
         public Boolean seleccionado = false;
@@ -36,7 +47,6 @@ public class comunicacion {
             this.album = album;
             this.seleccionado = seleccionado;
         }
-
     }
 
     public boolean sinusuarios() {
@@ -92,6 +102,132 @@ public class comunicacion {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             log.warning("Error al loguear usuario: " + e.getMessage());
+        }
+        return "";
+    }
+
+    public void cambiardealbum(String cancion, String album) {
+        Integer idalbum = 0;
+        System.out.println(cancion +" " + album);
+        try {
+            PreparedStatement consulta;
+            basededatos regre = new basededatos();
+            ResultSet rs;
+            consulta = regre.consulta("SELECT id FROM albums WHERE nombre = ? ;");
+            consulta.setString(1, album);
+            rs = consulta.executeQuery();
+            if (rs.next()) {
+                idalbum = rs.getInt(1);
+            } else
+                return;
+            rs.close();
+            consulta.close();
+            consulta = regre.consulta("UPDATE musica SET album = ? WHERE nombreyruta like ?;");
+            consulta.setInt(1,idalbum);
+            consulta.setString(2,"%" + cancion);
+            consulta.execute();
+            consulta.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            log.warning("Error al cambiar de album: " + e.getMessage());
+        }
+    }
+
+    public String eliminaralbum(String nombre) {
+        try {
+            boolean acomodar = false;
+
+            PreparedStatement consulta;
+            basededatos regre = new basededatos();
+            ResultSet rs;
+            consulta = regre.consulta("SELECT COUNT(id) FROM albums ;");
+            rs = consulta.executeQuery();
+            if (rs.next()) {
+                if ((rs.getInt(1) == 1)) {
+                    rs.close();
+                    consulta.close();
+                    return "noquedarianalbumes";
+                }
+            }
+            rs.close();
+            consulta.close();
+            consulta = regre.consulta("SELECT COUNT(musica.id) FROM musica INNER JOIN albums ON albums.id = musica.album WHERE albums.nombre = ?;");
+            consulta.setString(1, nombre);
+            rs = consulta.executeQuery();
+            if (rs.next())
+                acomodar = ((rs.getInt(1) > 0));
+            rs.close();
+            consulta.close();
+            if (acomodar) {
+                consulta = regre.consulta("UPDATE musica SET album = (SELECT id FROM albums LIMIT 1) WHERE album = (SELECT id FROM albums WHERE nombre = ?);");
+                consulta.setString(1, nombre);
+                consulta.execute();
+                consulta.close();
+            }
+            consulta = regre.consulta("DELETE FROM albums WHERE nombre = ?;");
+            consulta.setString(1, nombre);
+            consulta.execute();
+            consulta.close();
+            return "eliminado";
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            log.warning("Error al eliminar album: " + e.getMessage());
+        }
+        return "";
+    }
+
+    public String editaralbum(String anteriornombre, String nuevonombre) {
+        try {
+            // System.out.println(anteriornombre +" " + nuevonombre);
+            PreparedStatement consulta;
+            basededatos regre = new basededatos();
+            ResultSet rs;
+            consulta = regre.consulta("SELECT COUNT(id) FROM albums WHERE nombre = ?;");
+            consulta.setString(1, nuevonombre);
+            rs = consulta.executeQuery();
+            if (rs.next()) {
+                if ((rs.getInt(1) > 0)) {
+                    return "existente";
+                }
+            }
+            rs.close();
+            consulta.close();
+            consulta = regre.consulta("UPDATE albums SET nombre = ? WHERE nombre =?;");
+            consulta.setString(1, nuevonombre);
+            consulta.setString(2, anteriornombre);
+            consulta.execute();
+            consulta.close();
+            return "editado";
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            log.warning("Error al editar album: " + e.getMessage());
+        }
+        return "";
+    }
+
+    public String crearalbum(String nombre) {
+        try {
+            PreparedStatement consulta;
+            basededatos regre = new basededatos();
+            ResultSet rs;
+            consulta = regre.consulta("SELECT COUNT(id) FROM albums WHERE nombre = ?;");
+            consulta.setString(1, nombre);
+            rs = consulta.executeQuery();
+            if (rs.next()) {
+                if ((rs.getInt(1) > 0)) {
+                    return "existente";
+                }
+            }
+            rs.close();
+            consulta.close();
+            consulta = regre.consulta("INSERT INTO albums (nombre) VALUES (?);");
+            consulta.setString(1, nombre);
+            consulta.execute();
+            consulta.close();
+            return "creado";
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            log.warning("Error al crear album: " + e.getMessage());
         }
         return "";
     }
@@ -170,8 +306,10 @@ public class comunicacion {
     public void verificaralbum() {
         basededatos regre = new basededatos();
         regre.ejecutarquery("INSERT INTO albums (nombre) SELECT 'album1' WHERE ( SELECT COUNT(id) FROM albums ) = 0;");
+        regre.ejecutarquery("UPDATE musica SET album = (SELECT id FROM albums LIMIT 1) WHERE (SELECT COUNT(albums.id) FROM albums WHERE musica.album = albums.id) = 0;");
         regre.ejecutarquery("INSERT INTO reproduccion (idalbum) SELECT (SELECT id FROM albums LIMIT 1) WHERE (SELECT Count(id) FROM reproduccion)= 0;");
         regre.ejecutarquery("UPDATE reproduccion SET habilitado = 1 WHERE (SELECT Count(id) FROM reproduccion)= 0 ;");
+        regre.ejecutarquery("UPDATE reproduccion SET idalbum = (SELECT id FROM albums LIMIT 1) WHERE (SELECT COUNT(albums.id) FROM albums WHERE reproduccion.idalbum = albums.id) = 0;");
 //      System.out.println("fin");
 /*try (
 Statement stmt = conexion().createStatement()
@@ -585,7 +723,7 @@ System.out.println(e.getMessage());
             this.ultimotema = new File(temaelegido).getName();
             //System.out.println("Reproduciendo: " + this.ultimotema);
             if (!this.ultimotema.equals(""))
-            log.info("Reproduciendo: " + temaelegido);
+                log.info("Reproduciendo: " + temaelegido);
         } catch (SQLException e) {
             log.warning("Error al seleccionar el proximo tema: " + e.getMessage());
             System.out.println(e.getMessage());
@@ -628,10 +766,30 @@ System.out.println(e.getMessage());
         return (Paths.get(direccioncompleta)).getFileName().toString();
     }
 
+    public ArrayList<String> albumnes() {
+        ArrayList<String> retorna = new ArrayList<String>();
+        try {
+            PreparedStatement consulta;
+            ResultSet rs;
+            basededatos regre = new basededatos();
+            consulta = regre.consulta("SELECT nombre FROM albums;");
+            rs = consulta.executeQuery();
+            while (rs.next()) {
+                retorna.add(rs.getString(1));
+            }
+            rs.close();
+            consulta.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            log.warning("Error al loguear usuario: " + e.getMessage());
+        }
+        return retorna;
+    }
+
     void verificaralbumdesdedirectorio(String directorioaverificar) {
         if (estadoverificandomusica)
             return;
-        estadoverificandomusica =true;
+        estadoverificandomusica = true;
         //  System.out.println("Verificando directorio");
 //verificar los archivos que estan en el directorio y faltan en la base de datos
         String files;

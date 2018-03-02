@@ -2,6 +2,7 @@ package bfhsoftware.sonidoambiental;
 
 import java.io.File;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Logger;
@@ -11,6 +12,7 @@ public class tareasprogramadas implements Runnable {
     private static Boolean registrandomusica = false;
     private static Boolean ocupadoregistrandomusica = false;
     private static ArrayList<ArrayList<String>> registros = null;
+    private static boolean transaccion = false;
 
     private ArrayList<ArrayList<String>> registros() {
         if (registros == null) {
@@ -24,10 +26,15 @@ public class tareasprogramadas implements Runnable {
             String nombre = registrodecanciones.get(0).get(1);
             basededatos regre = new basededatos();
             comunicacion com = new comunicacion();
+            if (transaccion == false) {
+                regre.ejecutarquery("BEGIN TRANSACTION;");
+                transaccion = true;
+            }
             //System.out.println(registrodecanciones.get(0).get(1));
             switch (registrodecanciones.get(0).get(0)) {
                 case "agregarcancion":
                     try {
+
                         //System.out.println("Registrando " + nombre);
                         PreparedStatement consulta = regre.consulta("INSERT INTO musica (nombreyruta, album) SELECT ?, (SELECT id FROM albums LIMIT 1) WHERE (SELECT count(id) FROM musica WHERE nombreyruta = ?) = 0;");
                         consulta.setString(1, nombre);
@@ -42,10 +49,22 @@ public class tareasprogramadas implements Runnable {
                 case "agregarcancionyalbum":
                     try {
                         //System.out.println("Registrando " + nombre);
-                        PreparedStatement consulta = regre.consulta("INSERT INTO musica (nombreyruta, album) SELECT ?, (SELECT id FROM albums WHERE nombre = ?) WHERE (SELECT count(id) FROM musica WHERE nombreyruta = ?) = 0;");
+                        int album=0;
+                        ResultSet rs;
+                        PreparedStatement consulta;
+                        consulta = regre.consulta("SELECT id FROM albums WHERE nombre = ?;");
+                        consulta.setString(1, registrodecanciones.get(0).get(2));
+                        rs = consulta.executeQuery();
+                        if (rs.next()) {
+                            album = rs.getInt(1);
+                        }
+                        rs.close();
+                        consulta.close();
+                        consulta = regre.consulta("INSERT INTO musica (nombreyruta, album) SELECT ?, ? WHERE (SELECT count(id) FROM musica WHERE nombreyruta = ?) = 0;");
                         consulta.setString(1, nombre);
+                        consulta.setInt(2, album);
                         consulta.setString(3, nombre);
-                        consulta.setString(2, registrodecanciones.get(0).get(2));
+                        System.out.println("agregando cancion " + nombre );
                         consulta.execute();
                         consulta.close();
                     } catch (SQLException e) {
@@ -80,6 +99,10 @@ public class tareasprogramadas implements Runnable {
                         System.out.println(e.getMessage());
                     }
                     break;
+            }
+            if (registrodecanciones.size()== 0 && transaccion) {
+                transaccion = false;
+                regre.ejecutarquery("END TRANSACTION;");
             }
             registrodecanciones.remove(0);
         } else {
@@ -162,7 +185,7 @@ public class tareasprogramadas implements Runnable {
         inner.add(album);
         registros().add(inner);
         registrandomusica = true;
-        //System.out.println(cancionesaregistrar().size());
+
     }
     public void agregarmusicamasiva(ArrayList<ArrayList<String>> lista) {
         registros().addAll(lista);

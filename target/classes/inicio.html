@@ -1,4 +1,3 @@
-<h1 class="text-center">Sonido Ambiental</h1>
 <div class="row">
     <div class="col-md-6 text-left">
         <div class="card">
@@ -11,48 +10,53 @@
         </div>
     </div>
 </div>
-<div class="alert alert-info text-center text-capitalize">
-    <strong>Información:</strong> Debe identificarse para configurar el sistema
+<div ng-show="sesion()">
+    <div class="alert alert-info text-center text-capitalize">
+        <strong>Información:</strong> Se ha identificado el usuario {{sesioniniciada()}}, si dejará de utilizar el sistema por favor cierre sesión.
+    </div>
 </div>
-<div class="card bg-light mb-3">
-    <div class="card-header" ng-init="primerinicio();">{{titulodeformulario}}</div>
-    <form name="formulario.ingreso">
-        <div class="card-body">
-            <div class="form-group">
-                <label>Usuario</label>
-                <input type="text" class="form-control" name="Usuario" id="Usuario" ng-model="Usuario" required
-                       name="Usuario" placeholder="Usuario" aria-label="Usuario" aria-describedby="sizing-addon2">
+<div ng-show="!sesion()">
+    <div class="alert alert-info text-center text-capitalize">
+        <strong>Información:</strong> Debe identificarse para configurar el sistema
+    </div>
+    <div class="card bg-light mb-3">
+        <div class="card-header" ng-init="primerinicio();">{{titulodeformulario}}</div>
+        <form name="formulario.ingreso">
+            <div class="card-body">
+                <div class="form-group">
+                    <label>Usuario</label>
+                    <input type="text" class="form-control" name="Usuario" id="Usuario" ng-model="Usuario" required
+                           name="Usuario" placeholder="Usuario" aria-label="Usuario" aria-describedby="sizing-addon2">
+                </div>
+                <div class="form-group">
+                    <label>Contraseña</label>
+                    <input type="password" class="form-control" name="Contrasena" id="Contrasena"
+                           ng-model="formulario.ingreso.Contrasena" required placeholder="Contrasena"
+                           aria-label="Contrasena" aria-describedby="sizing-addon2">
+                </div>
+                <div class="form-group" ng-show="crearusuario">
+                    <label>Repetir Contraseña</label>
+                    <input type="password" class="form-control" name="RepetirContrasena"
+                           ng-model="formulario.ingreso.RepetirContrasena" required placeholder="Repetir Contraseña"
+                           aria-label="RepetirContrasena" aria-describedby="sizing-addon2">
+                </div>
+                <button ng-disabled="((formulario.ingreso.Usuario.$dirty && formulario.ingreso.Usuario.$touched && formulario.ingreso.Usuario.$invalid) || ((formulario.ingreso.Contrasena !== formulario.ingreso.RepetirContrasena) && crearusuario) || (formulario.ingreso.Contrasena.length==null) || (formulario.ingreso.RepetirContrasena.length==null  && crearusuario))"
+                        class="btn btn-primary" ng-click="loguear();">{{botoningresar}}
+                </button>
+                <span style="color:red"
+                      ng-show="formulario.ingreso.Usuario.$dirty && formulario.ingreso.Usuario.$touched && formulario.ingreso.Usuario.$invalid"> Debe ingresar usuario!</span>
+                <span style="color:red"
+                      ng-show="((formulario.ingreso.Contrasena !== formulario.ingreso.RepetirContrasena) && crearusuario)"> Las contraseñas no coinciden!</span>
+                <span style="color:red"
+                      ng-show="formulario.ingreso.Usuario.$touched && ((formulario.ingreso.Contrasena.length==null) || (formulario.ingreso.RepetirContrasena.length==null  && crearusuario))"> Las contraseña no pueden ser nula!</span>
             </div>
-            <div class="form-group">
-                <label>Contraseña</label>
-                <input type="password" class="form-control" name="Contrasena" id="Contrasena"
-                       ng-model="formulario.ingreso.Contrasena" required placeholder="Contrasena"
-                       aria-label="Contrasena" aria-describedby="sizing-addon2">
-            </div>
-            <div class="form-group" ng-show="crearusuario">
-                <label>Repetir Contraseña</label>
-                <input type="password" class="form-control" name="RepetirContrasena"
-                       ng-model="formulario.ingreso.RepetirContrasena" required placeholder="Repetir Contraseña"
-                       aria-label="RepetirContrasena" aria-describedby="sizing-addon2">
-            </div>
-            <button ng-disabled="((formulario.ingreso.Usuario.$dirty && formulario.ingreso.Usuario.$touched && formulario.ingreso.Usuario.$invalid) || ((formulario.ingreso.Contrasena !== formulario.ingreso.RepetirContrasena) && crearusuario) || (formulario.ingreso.Contrasena.length==null) || (formulario.ingreso.RepetirContrasena.length==null  && crearusuario))"
-                    class="btn btn-primary" ng-click="loguear();">{{botoningresar}}
-            </button>
-            <span style="color:red"
-                  ng-show="formulario.ingreso.Usuario.$dirty && formulario.ingreso.Usuario.$touched && formulario.ingreso.Usuario.$invalid"> Debe ingresar usuario!</span>
-            <span style="color:red"
-                  ng-show="((formulario.ingreso.Contrasena !== formulario.ingreso.RepetirContrasena) && crearusuario)"> Las contraseñas no coinciden!</span>
-            <span style="color:red"
-                  ng-show="formulario.ingreso.Usuario.$touched && ((formulario.ingreso.Contrasena.length==null) || (formulario.ingreso.RepetirContrasena.length==null  && crearusuario))"> Las contraseña no pueden ser nula!</span>
+        </form>
+        <div class="alert alert-info text-center text-capitalize" ng-show="(informacionamostrar.length>0)">
+            <strong>Información</strong> {{informacionamostrar}}
         </div>
-    </form>
-    <div class="alert alert-info text-center text-capitalize" ng-show="(informacionamostrar.length>0)">
-        <strong>Información</strong> {{informacionamostrar}}
+        <div class="alert alert-danger text-center text-capitalize" ng-show="(erroramostrar.length>0)">
+            <strong>Error</strong> {{erroramostrar}}
+        </div>
+        {{}}
     </div>
-    <div class="alert alert-danger text-center text-capitalize" ng-show="(erroramostrar.length>0)">
-        <strong>Error</strong> {{erroramostrar}}
-    </div>
-    {{}}
 </div>
-
-

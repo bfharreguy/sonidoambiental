@@ -5,6 +5,7 @@
  */
 package bfhsoftware.sonidoambiental;
 
+import java.nio.file.Paths;
 import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -16,13 +17,11 @@ import java.util.TimerTask;
  */
 public class reproductor implements Runnable {
     protected static boolean pausado = false;
-    protected static String temaactual;
+    protected static String temaactual = "";
     protected static Integer posiciondepausa;
     protected static boolean ordendereproducir = true;
     protected static boolean publicidadactivada = true;
     protected static String nombrepublicidadactual ="";
-
-
     //private final static Logger LOGGER = Logger.getLogger("reproduccion");
     comunicacion com = new comunicacion();
 
@@ -34,6 +33,7 @@ public class reproductor implements Runnable {
         if (!reproduciendo) {
             //System.out.println("bfhsoftware.sonidoambiental.reproductor.reproducir()");
             String proximotema = com.proximotema();
+            temaactual = (Paths.get(proximotema)).getFileName().toString();
             empezar(proximotema);
             System.out.println("Reproduciendo: "+proximotema);
         }
@@ -68,7 +68,6 @@ public class reproductor implements Runnable {
             //Long.valueOf(String s).longValue();
             //System.out.println(((System.currentTimeMillis() / 1000L) - (Long.valueOf((String) com.opcion("ultimavezqueseverificaalbum")).longValue() )));
             //System.out.println(Long.valueOf((String) com.opcion("ultimavezqueseverificaalbum")).longValue() );
-
             if ((((System.currentTimeMillis() / 1000L) - (Long.valueOf((String) com.opcion("ultimavezqueseverificaalbum")).longValue() ))>900)){
                 com.verificarmusica();
                 if (!reproduciendo){

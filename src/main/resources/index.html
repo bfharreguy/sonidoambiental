@@ -9,14 +9,53 @@
     <link href="css/datatables.min.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="css/glyphicons.css">
 </head>
-<body style="padding-top: 2rem;" ng-controller="sesion">
-<h1 class="text-center">Sonido Ambiental</h1>
-<div id="informacion" class="card" ng-show="login">
-    <div class="card-body">
-        <p class="card-text">El usuario : {{usuariologueado}} esta usando el sistema</p>
+<body ng-controller="sesion">
+<div >
+    <div class="pos-f-t">
+        <div class="collapse" id="navbarToggleExternalContent" ng-controller="barraprincipal">
+            <!-- barra principal -->
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link" ng-class="{'active' : canciones.seleccionado }" ng-click="inicio()">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" ng-class="{'active' : canciones.seleccionado }" ng-click="listado()">Listado de
+                        medios</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" ng-class="{'active' : canciones.seleccionado }" ng-click="albums()">Albumés</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" ng-class="{'active' : canciones.seleccionado }" ng-click="subir()">Subir
+                        archivos multimedia</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" ng-class="{'active' : canciones.seleccionado }" ng-click="reproduccion()">Reproducción</a>
+                </li>
+            </ul>
+        </div>
+        <nav class="navbar navbar-light bg-light justify-content-between">
+            <ul class="nav" ng-show="sesion()">
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
+                        aria-expanded="false" aria-label="Barra de Menues">
+                    <span class="glyphicon glyphicon-menu-hamburger"></span>
+                </button>
+                <h3 class="navbar-brand">Sonido Ambiental</h3>
+            </ul>
+            <h3 class="navbar-brand" ng-show="! sesion()">Sonido Ambiental</h3>
+            <h3 class="navbar-brand" ng-show="! sesion()">{{titulo}}</h3>
+            <div class="form-inline" ng-show="sesion()">
+                Hola,<span class="badge badge-pill badge-info">{{sesioniniciada()}}</span>
+                <button class="btn btn-sm btn-outline-secondary my-sm-0" ng-click="cerrarsesion()" type="button">Cerrar
+                    Sesión
+                </button>
+            </div>
+        </nav>
     </div>
+    <div id="app" ng-view></div>
+
 </div>
-<div id="app" ng-view></div>
 <script src="node_modules/jquery/dist/jquery.js" type="text/javascript"></script>
 <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
 <script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
