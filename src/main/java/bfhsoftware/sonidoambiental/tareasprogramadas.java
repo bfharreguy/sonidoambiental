@@ -34,9 +34,21 @@ public class tareasprogramadas implements Runnable {
             switch (registrodecanciones.get(0).get(0)) {
                 case "agregarcancion":
                     try {
-
-                        //System.out.println("Registrando " + nombre);
-                        PreparedStatement consulta = regre.consulta("INSERT INTO musica (nombreyruta, album) SELECT ?, (SELECT id FROM albums LIMIT 1) WHERE (SELECT count(id) FROM musica WHERE nombreyruta = ?) = 0;");
+                        ResultSet rs;
+                        PreparedStatement consulta;
+                        consulta = regre.consulta("SELECT COUNT(id) FROM musica WHERE nombreyruta = ?;");
+                        consulta.setString(1, nombre);
+                        rs = consulta.executeQuery();
+                        if (rs.next()) {
+                            if (rs.getInt(1)>0){
+                                rs.close();
+                                consulta.close();
+                                break;
+                            }
+                        }
+                        rs.close();
+                        consulta.close();
+                        consulta = regre.consulta("INSERT INTO musica (nombreyruta, album) SELECT ?, (SELECT id FROM albums LIMIT 1) WHERE (SELECT count(id) FROM musica WHERE nombreyruta = ?) = 0;");
                         consulta.setString(1, nombre);
                         consulta.setString(2, nombre);
                         consulta.execute();
@@ -52,6 +64,18 @@ public class tareasprogramadas implements Runnable {
                         int album=0;
                         ResultSet rs;
                         PreparedStatement consulta;
+                        consulta = regre.consulta("SELECT COUNT(id) FROM musica WHERE nombreyruta = ?;");
+                        consulta.setString(1, nombre);
+                        rs = consulta.executeQuery();
+                        if (rs.next()) {
+                            if (rs.getInt(1)>0){
+                                rs.close();
+                                consulta.close();
+                                break;
+                            }
+                        }
+                        rs.close();
+                        consulta.close();
                         consulta = regre.consulta("SELECT id FROM albums WHERE nombre = ?;");
                         consulta.setString(1, registrodecanciones.get(0).get(2));
                         rs = consulta.executeQuery();
@@ -85,6 +109,18 @@ public class tareasprogramadas implements Runnable {
 
                     }
                     break;
+                case "habilitarcancion":
+                    try {
+                        PreparedStatement consulta = regre.consulta("UPDATE musica SET anulado = 0 WHERE nombreyruta LIKE ?;");
+                        consulta.setString(1, "%" + nombre );
+                        consulta.execute();
+                        consulta.close();
+                    } catch (SQLException e) {
+                        log.warning("Error al intentar habilitar canción: "+ e.getMessage());
+                        System.out.println(e.getMessage());
+
+                    }
+                    break;
                 case "eliminarcancion":
                     try {
                         File borrar = new File((String) com.opcion("carpetademusica") + File.separator + nombre);
@@ -100,11 +136,11 @@ public class tareasprogramadas implements Runnable {
                     }
                     break;
             }
+            registrodecanciones.remove(0);
             if (registrodecanciones.size()== 0 && transaccion) {
                 transaccion = false;
                 regre.ejecutarquery("END TRANSACTION;");
             }
-            registrodecanciones.remove(0);
         } else {
             registrandomusica = false;
         }
@@ -155,6 +191,13 @@ public class tareasprogramadas implements Runnable {
         registros().add(inner);
         registrandomusica = true;
         //System.out.println(cancionesaregistrar().size());
+    }
+    public void habilitarmusica(String lista) {
+        ArrayList<String> inner = new ArrayList<String>();
+        inner.add("habilitarcancion");
+        inner.add(lista);
+        registros().add(inner);
+        registrandomusica = true;
     }
     public void borrarmusica(String lista) {
         /*ArrayList<ArrayList<String>> inner = new ArrayList<ArrayList<String>>();

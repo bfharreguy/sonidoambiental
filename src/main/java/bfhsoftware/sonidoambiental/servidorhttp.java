@@ -7,6 +7,7 @@ package bfhsoftware.sonidoambiental;
 
 import bfhsoftware.sonidoambiental.comunicacion.canciones;
 import bfhsoftware.sonidoambiental.comunicacion.matriz;
+import bfhsoftware.sonidoambiental.comunicacion.reproducciones;
 import com.google.gson.*;
 import com.sun.net.httpserver.*;
 
@@ -51,46 +52,76 @@ public class servidorhttp implements Runnable {
         this.mensaje = mensaje;
         }*/
         public RespuestaMensaje(String mensaje, boolean error) {
+            String caso = "";
+            comunicacion logueo = new comunicacion();
             reproductor repo = new reproductor();
             if (mensaje.startsWith("LoGuEo:") && mensaje.substring(7).length() != 0) {
-                comunicacion logueo = new comunicacion();
                 System.out.println((mensaje.substring(7, 7 + mensaje.substring(7).indexOf(":"))) + " " + mensaje.substring(8 + mensaje.substring(7).indexOf(":")));
                 mensaje = logueo.loguear((mensaje.substring(7, 7 + mensaje.substring(7).indexOf(":"))), mensaje.substring(8 + mensaje.substring(7).indexOf(":")));
                 System.out.println(mensaje);
             }
             if (mensaje.startsWith("CrEaR:") && mensaje.substring(6).length() > 1) {
-                comunicacion logueo = new comunicacion();
                 mensaje = logueo.crearusuario((mensaje.substring(6, 6 + mensaje.substring(6).indexOf(":"))), mensaje.substring(7 + mensaje.substring(6).indexOf(":")));
             }
             if (mensaje.startsWith("anular:") && mensaje.substring(7).length() > 1) {
-                comunicacion logueo = new comunicacion();
                 logueo.anularcancion(mensaje.substring(7));
             }
+            if (mensaje.startsWith("habilitar:") && mensaje.substring(10).length() > 1) {
+                logueo.habilitarcancion(mensaje.substring(10));
+            }
             if (mensaje.startsWith("borrar:") && mensaje.substring(7).length() > 1) {
-                tareasprogramadas logueo = new tareasprogramadas();
-                logueo.borrarmusica(mensaje.substring(7));
+                tareasprogramadas tarea = new tareasprogramadas();
+                tarea.borrarmusica(mensaje.substring(7));
             }
             if (mensaje.startsWith("crearalbum:") && mensaje.substring(11).length() > 1) {
-                comunicacion logueo = new comunicacion();
                 mensaje = logueo.crearalbum(mensaje.substring(11));
             }
             if (mensaje.startsWith("eliminaralbum:") && mensaje.substring(14).length() > 1) {
-                comunicacion logueo = new comunicacion();
                 mensaje = logueo.eliminaralbum(mensaje.substring(14));
             }
             if (mensaje.startsWith("editaralbum:") && mensaje.substring(12).length() > 1) {
-                comunicacion logueo = new comunicacion();
                 mensaje = logueo.editaralbum((mensaje.substring(12, 12 + mensaje.substring(12).indexOf(":"))), mensaje.substring(13 + mensaje.substring(12).indexOf(":")));
                 System.out.println(mensaje);
             }
             if (mensaje.startsWith("cambiaralbum:") && mensaje.substring(13).length() > 1) {
-                comunicacion logueo = new comunicacion();
                 logueo.cambiardealbum((mensaje.substring(13, 13 + mensaje.substring(13).indexOf(":"))), mensaje.substring(14 + mensaje.substring(13).indexOf(":")));
 
             }
             if (mensaje.startsWith("subirarchivos:") && mensaje.substring(14).length() > 1) {
                 albumalqueguardar = mensaje.substring(14).replace(" ", "");
-                System.out.println(albumalqueguardar);
+                //System.out.println(albumalqueguardar);
+            }
+            caso = "nuevareproduccion:";
+            if (mensaje.startsWith(caso) && mensaje.substring(caso.length()).length() > 1) {
+                logueo.crearnuevareproduccion(mensaje.substring(caso.length()));
+            }
+            caso = "eliminarreproduccion:";
+            if (mensaje.startsWith(caso) && mensaje.substring(caso.length()).length() > 1) {
+                logueo.eliminarreproduccion(mensaje.substring(caso.length()));
+            }
+            caso = "deshabilitarreproduccion:";
+            if (mensaje.startsWith(caso) && mensaje.substring(caso.length()).length() > 1) {
+                logueo.deshabilitarreproduccion(mensaje.substring(caso.length()));
+            }
+            caso = "deshacerreproduccionmaestra:";
+            if (mensaje.startsWith(caso) && mensaje.substring(caso.length()).length() > 1) {
+                logueo.deshacerreproduccionmaestra(mensaje.substring(caso.length()));
+            }
+            caso = "hacerreproduccionmaestra:";
+            if (mensaje.startsWith(caso) && mensaje.substring(caso.length()).length() > 1) {
+                logueo.hacerreproduccionmaestra(mensaje.substring(caso.length()));
+            }
+            caso = "habilitarreproduccion:";
+            if (mensaje.startsWith(caso) && mensaje.substring(caso.length()).length() > 1) {
+                logueo.habilitarreproduccion(mensaje.substring(caso.length()));
+            }
+            caso = "quitaralbum:";
+            if (mensaje.startsWith(caso) && mensaje.substring(caso.length()).length() > 1) {
+                logueo.quitaralbumdereproduccion(mensaje.substring(caso.length(), caso.length() + mensaje.substring(caso.length()).indexOf(":")), mensaje.substring(caso.length() + 1 + mensaje.substring(caso.length()).indexOf(":")));
+            }
+            caso = "agregaralbum:";
+            if (mensaje.startsWith(caso) && mensaje.substring(caso.length()).length() > 1) {
+                logueo.agregaralbumdereproduccion(mensaje.substring(caso.length(), caso.length() + mensaje.substring(caso.length()).indexOf(":")), mensaje.substring(caso.length() + 1 + mensaje.substring(caso.length()).indexOf(":")));
             }
             switch (mensaje) {
                 case "sinusuarios":
@@ -134,12 +165,12 @@ public class servidorhttp implements Runnable {
 
     private class RespuestaMatriz {
         private matriz[] mensajes;
-        private boolean error = false;
 
+        private boolean error = false;
         public RespuestaMatriz(String mensaje, boolean error) {
+            comunicacion com = new comunicacion();
             switch (mensaje) {
                 case "album":
-                    comunicacion com = new comunicacion();
                     this.mensajes = delistadoamatriz(com.albumnes()).clone();
                     break;
             }
@@ -174,7 +205,15 @@ public class servidorhttp implements Runnable {
             this.error = error;
         }
     }
-
+    private class Respuestareproducciones {
+        private reproducciones[] datosdereproduccion;
+        private boolean error = false;
+        public Respuestareproducciones(String mensaje, boolean error) {
+            comunicacion lis = new comunicacion();
+            this.datosdereproduccion = lis.obtenerreproducciones().clone();
+            this.error = error;
+        }
+    }
     class raiz implements HttpHandler {
         @Override
         public void handle(HttpExchange he) throws IOException {
@@ -246,14 +285,13 @@ public class servidorhttp implements Runnable {
     }
 
     class json implements HttpHandler {
-        public void handle(HttpExchange he) throws IOException {
+        public void handle(HttpExchange he) {
             try {
                 Gson gson = new Gson();
                 final String responseBody;
                 final byte[] rawResponseBody;
                 RespuestaMensaje respuesta;
                 RespuestaMatriz respuesta2;
-                Respuestalistadecanciones respuesta3;
 
                 switch (he.getRequestMethod().toUpperCase()) {
                     case "GET":
@@ -263,11 +301,15 @@ public class servidorhttp implements Runnable {
                                 Respuestalistadecanciones respuesta4;
                                 respuesta4 = new Respuestalistadecanciones(he.getRequestURI().getPath().substring(he.getHttpContext().getPath().length()), false);
                                 responseBody = gson.toJson(respuesta4);
-                                System.out.println("pasando lista de musica ");
                                 break;
                             case "album":
                                 respuesta2 = new RespuestaMatriz(he.getRequestURI().getPath().substring(he.getHttpContext().getPath().length()), false);
                                 responseBody = gson.toJson(respuesta2);
+                                break;
+                            case "reproduccion":
+                                Respuestareproducciones respuesta3;
+                                respuesta3 = new Respuestareproducciones(he.getRequestURI().getPath().substring(he.getHttpContext().getPath().length()), false);
+                                responseBody = gson.toJson(respuesta3);
                                 break;
                             default:
                                 respuesta = new RespuestaMensaje(he.getRequestURI().getPath().substring(he.getHttpContext().getPath().length()), false);
@@ -323,8 +365,8 @@ public class servidorhttp implements Runnable {
                         break;
                 }
             } catch (Exception e) {
-                log.warning("Error de peticiones json en el servicio web: " + e.getMessage());
-                System.out.println(e.getMessage());
+                log.warning("Error al responder a travez del servidor web: " + e.getMessage());
+                e.printStackTrace();
             } finally {
                 he.close();
             }

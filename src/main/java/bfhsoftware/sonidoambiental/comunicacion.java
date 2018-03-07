@@ -25,10 +25,62 @@ public class comunicacion {
     public static class matriz {
         private boolean seleccionado = false;
         private String dato = "";
+        private String dato2 = "";
+        private boolean condicion1 = false;
+        private boolean condicion2 = false;
 
         public matriz(boolean seleccionado, String dato) {
             this.seleccionado = seleccionado;
             this.dato = dato;
+        }
+
+        public matriz(boolean seleccionado, String dato, String dato2) {
+            this.seleccionado = seleccionado;
+            this.dato = dato;
+            this.dato2 = dato2;
+        }
+
+        public matriz(boolean seleccionado, String dato, String dato2, boolean condicion1, boolean condicion2) {
+            this.seleccionado = seleccionado;
+            this.dato = dato;
+            this.dato2 = dato2;
+            this.condicion1 = condicion1;
+            this.condicion2 = condicion2;
+        }
+    }
+
+    public static class reproducciones {
+        public String nombre = "";
+        public boolean habilitado = true;
+        public boolean albummaestro = false;
+        public ArrayList<String> albums = null;
+        public ArrayList<String> albumsaagregar = null;
+
+        public reproducciones reproducciones() {
+            return this;
+        }
+
+        public reproducciones(String nombre, boolean habilitado, boolean albummaestro, ArrayList<String> albums) {
+            this.nombre = nombre;
+            this.habilitado = habilitado;
+            this.albummaestro = albummaestro;
+            this.albums = albums;
+        }
+
+        public reproducciones(String nombre, boolean habilitado, boolean albummaestro) {
+            this.albumsaagregar = new ArrayList<String>();
+            this.albums = new ArrayList<String>();
+            this.nombre = nombre;
+            this.habilitado = habilitado;
+            this.albummaestro = albummaestro;
+        }
+
+        public void agregaralalbum(String album) {
+            this.albums.add(album);
+        }
+
+        public void agregaralalbumquefaltan(String album) {
+            this.albumsaagregar.add(album);
         }
     }
 
@@ -108,7 +160,7 @@ public class comunicacion {
 
     public void cambiardealbum(String cancion, String album) {
         Integer idalbum = 0;
-        System.out.println(cancion +" " + album);
+        System.out.println(cancion + " " + album);
         try {
             PreparedStatement consulta;
             basededatos regre = new basededatos();
@@ -123,8 +175,8 @@ public class comunicacion {
             rs.close();
             consulta.close();
             consulta = regre.consulta("UPDATE musica SET album = ? WHERE nombreyruta like ?;");
-            consulta.setInt(1,idalbum);
-            consulta.setString(2,"%" + cancion);
+            consulta.setInt(1, idalbum);
+            consulta.setString(2, "%" + cancion);
             consulta.execute();
             consulta.close();
         } catch (SQLException e) {
@@ -133,10 +185,14 @@ public class comunicacion {
         }
     }
 
+    public void equilibraralbumsenenreproductor() {
+        basededatos regre = new basededatos();
+        regre.ejecutarquery("INSERT INTO contenidodereproduccion (idalbum, idreproduccion) SELECT (SELECT id FROM albums LIMIT 1), (SELECT id FROM reproduccion WHERE habilitado = 1 AND esalbummaestro = 1 LIMIT 1) WHERE (SELECT Count(contenidodereproduccion.id) FROM contenidodereproduccion INNER JOIN(reproduccion, albums) ON reproduccion.id = contenidodereproduccion.idreproduccion AND albums.id = contenidodereproduccion.idalbum WHERE reproduccion.habilitado = 1 and reproduccion.esalbummaestro = 1)= 0;");
+    }
+
     public String eliminaralbum(String nombre) {
         try {
             boolean acomodar = false;
-
             PreparedStatement consulta;
             basededatos regre = new basededatos();
             ResultSet rs;
@@ -150,24 +206,16 @@ public class comunicacion {
                 }
             }
             rs.close();
-            consulta.close();
-            consulta = regre.consulta("SELECT COUNT(musica.id) FROM musica INNER JOIN albums ON albums.id = musica.album WHERE albums.nombre = ?;");
+            consulta = regre.consulta("UPDATE musica SET album = (SELECT id FROM albums WHERE nombre != ? LIMIT 1) WHERE album = (SELECT id FROM albums WHERE nombre = ?);");
             consulta.setString(1, nombre);
-            rs = consulta.executeQuery();
-            if (rs.next())
-                acomodar = ((rs.getInt(1) > 0));
-            rs.close();
+            consulta.setString(2, nombre);
+            consulta.execute();
             consulta.close();
-            if (acomodar) {
-                consulta = regre.consulta("UPDATE musica SET album = (SELECT id FROM albums LIMIT 1) WHERE album = (SELECT id FROM albums WHERE nombre = ?);");
-                consulta.setString(1, nombre);
-                consulta.execute();
-                consulta.close();
-            }
             consulta = regre.consulta("DELETE FROM albums WHERE nombre = ?;");
             consulta.setString(1, nombre);
             consulta.execute();
             consulta.close();
+            equilibraralbumsenenreproductor();
             return "eliminado";
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -201,6 +249,187 @@ public class comunicacion {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             log.warning("Error al editar album: " + e.getMessage());
+        }
+        return "";
+    }
+
+    public void quitaralbumdereproduccion(String reproduccion, String album) {
+        PreparedStatement consulta;
+        basededatos regre = new basededatos();
+        ResultSet rs;
+        try {
+            consulta = regre.consulta("DELETE FROM contenidodereproduccion WHERE idreproduccion = (SELECT id FROM reproduccion WHERE nombre = ?) AND idalbum =(SELECT id FROM albums WHERE nombre = ?);");
+            consulta.setString(1, reproduccion);
+            consulta.setString(2, album);
+            consulta.execute();
+            consulta.close();
+            equilibraralbumsenenreproductor();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            log.warning("Error al obtener reproduccion: " + e.getMessage());
+        }
+    }
+
+    public void agregaralbumdereproduccion(String reproduccion, String album) {
+        PreparedStatement consulta;
+        basededatos regre = new basededatos();
+        try {
+            consulta = regre.consulta("INSERT INTO contenidodereproduccion (idreproduccion, idalbum) SELECT (SELECT id FROM reproduccion WHERE nombre = ?), (SELECT id FROM albums WHERE nombre = ?) WHERE (SELECT COUNT(id) FROM contenidodereproduccion WHERE idreproduccion = (SELECT id FROM reproduccion WHERE nombre = ?) AND idalbum =(SELECT id FROM albums WHERE nombre = ?)) = 0;");
+            consulta.setString(1, reproduccion);
+            consulta.setString(2, album);
+            consulta.setString(3, reproduccion);
+            consulta.setString(4, album);
+            consulta.execute();
+            consulta.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            log.warning("Error al agregar album a reproduccion: " + e.getMessage());
+        }
+    }
+
+    public void eliminarreproduccion(String reproduccion) {
+        PreparedStatement consulta;
+        basededatos regre = new basededatos();
+        try {
+            consulta = regre.consulta("DELETE FROM reproduccion WHERE (SELECT count(id) FROM reproduccion WHERE nombre != ? AND esalbummaestro = 1 AND habilitado = 1) > 0 AND nombre = ? ;");
+            consulta.setString(1, reproduccion);
+            consulta.setString(2, reproduccion);
+            consulta.execute();
+            consulta.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            log.warning("Error al eliminar reproduccion : " + e.getMessage());
+        }
+    }
+
+    public void deshacerreproduccionmaestra(String reproduccion) {
+        PreparedStatement consulta;
+        basededatos regre = new basededatos();
+        try {
+            consulta = regre.consulta("UPDATE reproduccion SET esalbummaestro = 0 WHERE (SELECT count(id) FROM reproduccion WHERE nombre != ? AND esalbummaestro = 1 AND habilitado = 1) > 0 AND nombre = ? ;");
+            consulta.setString(1, reproduccion);
+            consulta.setString(2, reproduccion);
+            consulta.execute();
+            consulta.close();
+            regre.ejecutarquery("INSERT INTO contenidodereproduccion (idalbum, idreproduccion) SELECT (SELECT id FROM albums LIMIT 1), (SELECT id FROM reproduccion WHERE habilitado = 1 AND esalbummaestro = 1 LIMIT 1) WHERE (SELECT Count(contenidodereproduccion.id) FROM contenidodereproduccion INNER JOIN(reproduccion, albums) ON reproduccion.id = contenidodereproduccion.idreproduccion AND albums.id = contenidodereproduccion.idalbum WHERE reproduccion.habilitado = 1 and reproduccion.esalbummaestro = 1)= 0;");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            log.warning("Error al deshacer reproduccion maestra: " + e.getMessage());
+        }
+    }
+
+    public void hacerreproduccionmaestra(String reproduccion) {
+        PreparedStatement consulta;
+        basededatos regre = new basededatos();
+        try {
+            consulta = regre.consulta("UPDATE reproduccion SET esalbummaestro = 1 WHERE nombre = ? ;");
+            consulta.setString(1, reproduccion);
+            consulta.execute();
+            consulta.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            log.warning("Error al hacer reproduccion maestra: " + e.getMessage());
+        }
+    }
+
+    public void deshabilitarreproduccion(String reproduccion) {
+        PreparedStatement consulta;
+        basededatos regre = new basededatos();
+        try {
+            consulta = regre.consulta("UPDATE reproduccion SET habilitado = 0 WHERE (SELECT count(id) FROM reproduccion WHERE habilitado = 1) > 0 AND (SELECT count(id) FROM reproduccion WHERE nombre != ? AND esalbummaestro = 1 AND habilitado = 1) > 0 AND nombre = ? ;");
+            consulta.setString(1, reproduccion);
+            consulta.setString(2, reproduccion);
+            consulta.execute();
+            consulta.close();
+            regre.ejecutarquery("INSERT INTO contenidodereproduccion (idalbum, idreproduccion) SELECT (SELECT id FROM albums LIMIT 1), (SELECT id FROM reproduccion WHERE habilitado = 1 AND esalbummaestro = 1 LIMIT 1) WHERE (SELECT Count(contenidodereproduccion.id) FROM contenidodereproduccion INNER JOIN(reproduccion, albums) ON reproduccion.id = contenidodereproduccion.idreproduccion AND albums.id = contenidodereproduccion.idalbum WHERE reproduccion.habilitado = 1 and reproduccion.esalbummaestro = 1)= 0;");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            log.warning("Error al deshabilitar reproduccion: " + e.getMessage());
+        }
+    }
+
+    public void habilitarreproduccion(String reproduccion) {
+        PreparedStatement consulta;
+        basededatos regre = new basededatos();
+        try {
+            consulta = regre.consulta("UPDATE reproduccion SET habilitado = 1 WHERE nombre = ? ;");
+            consulta.setString(1, reproduccion);
+            consulta.execute();
+            consulta.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            log.warning("Error al habilitar reproduccion: " + e.getMessage());
+        }
+    }
+
+    public reproducciones[] obtenerreproducciones() {
+        reproducciones respuesta[] = null;
+        int tamaño = 0;
+        int indice = 0;
+        matriz[] matris;
+        PreparedStatement consulta;
+        basededatos regre = new basededatos();
+        ResultSet rs;
+        try {
+            consulta = regre.consulta("SELECT count(reproduccion.id) FROM reproduccion;");
+            rs = consulta.executeQuery();
+            if (rs.next())
+                tamaño = rs.getInt(1);
+            rs.close();
+            consulta.close();
+            if (tamaño == 0)
+                return respuesta;
+            respuesta = new reproducciones[tamaño];
+            consulta = regre.consulta("SELECT nombre, habilitado, esalbummaestro FROM reproduccion;");
+            rs = consulta.executeQuery();
+            while (rs.next()) {
+                respuesta[indice] = new reproducciones(rs.getString(1), rs.getBoolean(2), rs.getBoolean(3));
+                indice++;
+            }
+            rs.close();
+            consulta.close();
+            for (indice = 0; indice < tamaño; ++indice) {
+                consulta = regre.consulta("SELECT albums.nombre FROM reproduccion INNER JOIN (albums, contenidodereproduccion) ON reproduccion.id = contenidodereproduccion.idreproduccion AND contenidodereproduccion.idalbum = albums.id WHERE reproduccion.nombre = ?;");
+                consulta.setString(1, respuesta[indice].nombre);
+                rs = consulta.executeQuery();
+                while (rs.next()) {
+                    respuesta[indice].agregaralalbum(rs.getString(1));
+                }
+                rs.close();
+                consulta.close();
+            }
+            for (indice = 0; indice < tamaño; ++indice) {
+                consulta = regre.consulta("SELECT nombre FROM albums;");
+                rs = consulta.executeQuery();
+                while (rs.next()) {
+                    //System.out.println(String.valueOf(!respuesta[indice].albums.contains(rs.getString(1))) + " " + rs.getString(1));
+                    if (!(respuesta[indice].albums.contains(rs.getString(1))))
+                        respuesta[indice].agregaralalbumquefaltan(rs.getString(1));
+                }
+                rs.close();
+                consulta.close();
+            }
+            return respuesta;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            log.warning("Error al obtener reproduccion: " + e.getMessage());
+        }
+        return respuesta;
+    }
+
+    public String crearnuevareproduccion(String nombre) {
+        try {
+            PreparedStatement consulta;
+            basededatos regre = new basededatos();
+            consulta = regre.consulta("INSERT INTO reproduccion (nombre) SELECT ? WHERE (SELECT count(id) FROM reproduccion WHERE nombre = ?) = 0 ;");
+            consulta.setString(1, nombre);
+            consulta.setString(2, nombre);
+            consulta.execute();
+            consulta.close();
+            return "creado";
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            log.warning("Error al crear album: " + e.getMessage());
         }
         return "";
     }
@@ -297,7 +526,6 @@ public class comunicacion {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             log.warning("Error al obtener listado de canciones: " + e.getMessage());
-
         }
         canciones[] regresar = new canciones[0];
         return regresar;
@@ -307,9 +535,12 @@ public class comunicacion {
         basededatos regre = new basededatos();
         regre.ejecutarquery("INSERT INTO albums (nombre) SELECT 'album1' WHERE ( SELECT COUNT(id) FROM albums ) = 0;");
         regre.ejecutarquery("UPDATE musica SET album = (SELECT id FROM albums LIMIT 1) WHERE (SELECT COUNT(albums.id) FROM albums WHERE musica.album = albums.id) = 0;");
-        regre.ejecutarquery("INSERT INTO reproduccion (idalbum) SELECT (SELECT id FROM albums LIMIT 1) WHERE (SELECT Count(id) FROM reproduccion)= 0;");
-        regre.ejecutarquery("UPDATE reproduccion SET habilitado = 1 WHERE (SELECT Count(id) FROM reproduccion)= 0 ;");
-        regre.ejecutarquery("UPDATE reproduccion SET idalbum = (SELECT id FROM albums LIMIT 1) WHERE (SELECT COUNT(albums.id) FROM albums WHERE reproduccion.idalbum = albums.id) = 0;");
+        regre.ejecutarquery("INSERT INTO reproduccion (nombre, esalbummaestro) SELECT 'reproduccion1', 1 WHERE (SELECT Count(id) FROM reproduccion)= 0;");
+        regre.ejecutarquery("UPDATE reproduccion SET habilitado = 1 WHERE (SELECT Count(id) FROM reproduccion AND habilitado = 1)= 0 ;");
+        regre.ejecutarquery("UPDATE reproduccion SET esalbummaestro = 1 WHERE (SELECT Count(id) FROM reproduccion WHERE esalbummaestro = 1 AND habilitado = 1)= 0 ;");
+        regre.ejecutarquery("INSERT INTO contenidodereproduccion (idalbum, idreproduccion) SELECT (SELECT id FROM albums LIMIT 1), (SELECT id FROM reproduccion WHERE habilitado = 1 AND esalbummaestro = 1 LIMIT 1) WHERE (SELECT Count(contenidodereproduccion.id) FROM contenidodereproduccion INNER JOIN(reproduccion, albums) ON reproduccion.id = contenidodereproduccion.idreproduccion AND albums.id = contenidodereproduccion.idalbum WHERE reproduccion.habilitado = 1 and reproduccion.esalbummaestro = 1)= 0;");
+        regre.ejecutarquery("UPDATE contenidodereproduccion SET idreproduccion = (SELECT id FROM reproduccion LIMIT 1) WHERE (SELECT COUNT(reproduccion.id) FROM reproduccion WHERE contenidodereproduccion.idreproduccion = reproduccion.id) = 0;");
+        regre.ejecutarquery("UPDATE contenidodereproduccion SET idalbum = (SELECT id FROM albums LIMIT 1) WHERE (SELECT COUNT(albums.id) FROM albums WHERE contenidodereproduccion.idalbum = albums.id) = 0;");
 //      System.out.println("fin");
 /*try (
 Statement stmt = conexion().createStatement()
@@ -605,6 +836,11 @@ System.out.println(e.getMessage());
         registrarmusic.anularmusica(nombre);
     }
 
+    static void habilitarcancion(String nombre) {
+        tareasprogramadas registrarmusic = tareasprogramadas.getInstance();
+        registrarmusic.habilitarmusica(nombre);
+    }
+
     static void registrarmusica(String nombre) {
         tareasprogramadas registrarmusic = tareasprogramadas.getInstance();//= new tareasprogramadas();
         registrarmusic.agregarmusica(nombre);
@@ -681,17 +917,17 @@ System.out.println(e.getMessage());
             System.out.println(e.getMessage());
             }*/
             do {
-                ResultSet rs2 = regre.regresardatos("SELECT COUNT(musica.id) from musica inner join reproduccion on musica.album = reproduccion.idalbum  WHERE reproduccion.habilitado = 1 AND musica.anulado = 0;");
+                //verifico si hay musica para reproducir
+                ResultSet rs2 = regre.regresardatos("SELECT COUNT(musica.id) FROM musica INNER JOIN (reproduccion, contenidodereproduccion) ON musica.album = contenidodereproduccion.idalbum AND reproduccion.Id = contenidodereproduccion.idreproduccion  WHERE reproduccion.habilitado = 1 AND musica.anulado = 0;");
                 if (rs2.next()) {
                     if (rs2.getInt(1) != 0) {
-
-                        ResultSet rs = regre.regresardatos("SELECT COUNT(musica.id) from musica inner join reproduccion on musica.album = reproduccion.idalbum  WHERE musica.reproducido = 0 AND reproduccion.habilitado = 1 AND musica.anulado = 0;");
+                        ResultSet rs = regre.regresardatos("SELECT COUNT(musica.id) FROM musica INNER JOIN (reproduccion, contenidodereproduccion) ON musica.album = contenidodereproduccion.idalbum AND reproduccion.Id = contenidodereproduccion.idreproduccion  WHERE musica.reproducido = 0 AND reproduccion.habilitado = 1 AND musica.anulado = 0;");
                         while (rs.next()) {
                             if (rs.getInt(1) == 0) {
                                 desmarcarreproducido();
                             }
                         }
-                        ResultSet rs1 = regre.regresardatos("SELECT c.nombreyruta FROM (SELECT m.nombreyruta FROM musica m inner join reproduccion on m.album = reproduccion.idalbum WHERE m.reproducido = 0 AND reproduccion.habilitado = 1 AND m.anulado = 0 ORDER BY datetime(ultimareproduccion, 'localtime') LIMIT (SELECT CAST(COUNT(musica.id) * 0.4 AS int) + 1 FROM musica inner join reproduccion on musica.album = reproduccion.idalbum WHERE musica.reproducido = 0 AND reproduccion.habilitado = 1 AND musica.anulado = 0)) c ORDER BY RANDOM() LIMIT 1;");
+                        ResultSet rs1 = regre.regresardatos("SELECT c.nombreyruta FROM (SELECT m.nombreyruta FROM musica m INNER JOIN (reproduccion, contenidodereproduccion) ON m.album = contenidodereproduccion.idalbum AND reproduccion.id=contenidodereproduccion.idreproduccion WHERE m.reproducido = 0 AND reproduccion.habilitado = 1 AND m.anulado = 0 ORDER BY datetime(ultimareproduccion, 'localtime') LIMIT (SELECT CAST(COUNT(musica.id) * 0.4 AS int) + 1 FROM musica INNER JOIN (reproduccion, contenidodereproduccion) ON musica.album = contenidodereproduccion.idalbum AND reproduccion.Id = contenidodereproduccion.idreproduccion WHERE musica.reproducido = 0 AND reproduccion.habilitado = 1 AND musica.anulado = 0)) c ORDER BY RANDOM() LIMIT 1;");
                         while (rs1.next()) {
                             temaelegido = rs1.getString("nombreyruta");
                         }
@@ -765,6 +1001,7 @@ System.out.println(e.getMessage());
 
         return (Paths.get(direccioncompleta)).getFileName().toString();
     }
+
 
     public ArrayList<String> albumnes() {
         ArrayList<String> retorna = new ArrayList<String>();

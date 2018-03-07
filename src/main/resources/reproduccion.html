@@ -1,5 +1,102 @@
 <div ng-controller="ReproduccionController">
+    <h5 class="text-center">Centro de configuración de reproducción de música</h5>
     <div class="alert alert-info text-center text-capitalize">
-        <strong>Información:</strong> Cada reproducción es representada por un album de musica, y siempre debe haber al menos un album sin programación del cual se obtiene la musica para reproducir continuamente. Siempre debe haber al menos una reproducción maestra, y siempre habilitada.
+        <strong>Información:</strong> Cada reproducción es representada por un album de musica, y siempre debe haber al
+        menos un album sin programación del cual se obtiene la musica para reproducir continuamente. Siempre debe haber
+        al menos una reproducción maestra, y siempre habilitada.
     </div>
+    <div class="btn-group">
+        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">
+            Agregar nueva reproducción
+        </button>
+        <div class="dropdown-menu">
+            <form class="px-4 py-3">
+                <div class="form-group">
+                    <label for="nombredenuevareproduccion">Nombre de reproducción</label>
+                    <input type="text" ng-model="nombredenuevareproduccion" class="form-control"
+                           id="nombredenuevareproduccion" placeholder="clasicos">
+                </div>
+                <button type="submit" ng-click="crearreproduccion(nombredenuevareproduccion);nombredenuevareproduccion='';" class="btn btn-primary">
+                    Crear reproducción
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <table id="listadereproduccion" class="table table-sm">
+        <thead>
+        <tr>
+            <th scope="col">Reproducción</th>
+            <th scope="col">Álbumes que representa</th>
+            <th scope="col">Habilitado</th>
+            <th scope="col">Es maestra</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="datosdereproduccion in datosdereproduccion track by $index">
+            <td>
+                <div class="d-flex justify-content-between">{{datosdereproduccion.nombre}}
+                    <button type="button" class="btn btn-danger btn-sm"
+                            ng-click="eliminarreproduccion(datosdereproduccion.nombre)"><span
+                            class="glyphicon glyphicon-remove"></span>Eliminar
+                    </button>
+                </div>
+            </td>
+            <td>
+                <div class="d-flex justify-content-start">
+                    <div ng-show="datosdereproduccion.albumsaagregar.length>0" class="btn-group">
+                        <button type="button" class="btn btn-outline-success btn-sm dropdown-toggle"
+                                data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false"><span class="glyphicon glyphicon-plus"></span></button>
+                        <div class="dropdown-menu">
+                            <button ng-repeat="albumsaagregar in datosdereproduccion.albumsaagregar  track by $index"
+                                    ng-click="agregaralbumareproduccion(datosdereproduccion.nombre, albumsaagregar)"
+                                    class="btn btn-outline-primary btn-sm">
+                                Agregar a {{datosdereproduccion.nombre}}, {{albumsaagregar}}
+                            </button>
+                        </div>
+                    </div>
+                    <p ng-repeat="albums in datosdereproduccion.albums track by $index">
+                        <button type="button" ng-click="quitaralbumde(datosdereproduccion.nombre, albums)"
+                                class="btn btn-outline-danger btn-sm"><span class="glyphicon glyphicon-remove"></span>
+                        </button>
+                        {{albums}}
+                    </p>
+                    <div ng-show="datosdereproduccion.albums.length==0" class="alert alert-warning" role="alert">
+                        <span class="glyphicon glyphicon-info-sign"></span>No hay albumes asignados a esta reproducción
+                    </div>
+                </div>
+            </td>
+            <td>
+                <button type="button" ng-click="deshabilitar(datosdereproduccion.nombre)"
+                        ng-if="datosdereproduccion.habilitado"
+                        class="btn btn-default btn-lg" aria-label="desseleccionar"><span
+                        class="glyphicon glyphicon-thumbs-up"
+                        aria-hidden="true"></span>
+                </button>
+                <button type="button" ng-click="habilitar(datosdereproduccion.nombre)"
+                        ng-if="(! datosdereproduccion.habilitado)"
+                        class="btn btn-default btn-lg" aria-label="seleccionar"><span
+                        aria-hidden="true"
+                        class="glyphicon glyphicon-thumbs-down"></span>
+                </button>
+            </td>
+            <td>
+                <button type="button" ng-click="deshaceralbummaestro(datosdereproduccion.nombre)"
+                        ng-if="datosdereproduccion.albummaestro"
+                        class="btn btn-default btn-lg" aria-label="desseleccionar"><span
+                        class="glyphicon glyphicon-star"
+                        aria-hidden="true"></span>
+                </button>
+                <button type="button" ng-click="haceralbummaestro(datosdereproduccion.nombre)"
+                        ng-if="(! datosdereproduccion.albummaestro)"
+                        class="btn btn-default btn-lg" aria-label="seleccionar"><span
+                        aria-hidden="true"
+                        class="glyphicon glyphicon-star-empty"></span>
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </div>

@@ -7,23 +7,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="271f9741-9e00-4178-9bf1-529418b29e01" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/albums.html" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/reproduccion.html" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/database.db" afterPath="$PROJECT_DIR$/database.db" />
-      <change beforePath="$PROJECT_DIR$/databhase.db" afterPath="" />
       <change beforePath="$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/basededatos.java" afterPath="$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/basededatos.java" />
       <change beforePath="$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/comunicacion.java" afterPath="$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/comunicacion.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/reproductor.java" afterPath="$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/reproductor.java" />
       <change beforePath="$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/servidorhttp.java" afterPath="$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/servidorhttp.java" />
       <change beforePath="$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/tareasprogramadas.java" afterPath="$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/tareasprogramadas.java" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/index.html" afterPath="$PROJECT_DIR$/src/main/resources/index.html" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/inicio.html" afterPath="$PROJECT_DIR$/src/main/resources/inicio.html" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/js/app.js" afterPath="$PROJECT_DIR$/src/main/resources/js/app.js" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/js/datatables.min.js" afterPath="$PROJECT_DIR$/src/main/resources/js/datatables.min.js" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/listado.html" afterPath="$PROJECT_DIR$/src/main/resources/listado.html" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/reproduccion.html" afterPath="$PROJECT_DIR$/src/main/resources/reproduccion.html" />
       <change beforePath="$PROJECT_DIR$/target/classes/index.html" afterPath="$PROJECT_DIR$/target/classes/index.html" />
-      <change beforePath="$PROJECT_DIR$/target/classes/inicio.html" afterPath="$PROJECT_DIR$/target/classes/inicio.html" />
       <change beforePath="$PROJECT_DIR$/target/classes/js/app.js" afterPath="$PROJECT_DIR$/target/classes/js/app.js" />
       <change beforePath="$PROJECT_DIR$/target/classes/listado.html" afterPath="$PROJECT_DIR$/target/classes/listado.html" />
     </list>
@@ -64,30 +58,31 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="comunicacion.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/comunicacion.java">
+      <file leaf-file-name="tareasprogramadas.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/tareasprogramadas.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="171">
-              <caret line="125" column="39" lean-forward="true" selection-start-line="125" selection-start-column="39" selection-end-line="125" selection-end-column="39" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#29042#29043#0" expanded="true" />
-                <element signature="e#29080#29081#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="0">
+              <caret line="0" column="10" lean-forward="false" selection-start-line="0" selection-start-column="10" selection-end-line="0" selection-end-column="10" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tareasprogramadas.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/tareasprogramadas.java">
+      <file leaf-file-name="comunicacion.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/comunicacion.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="64">
-              <caret line="78" column="51" lean-forward="false" selection-start-line="78" selection-start-column="46" selection-end-line="78" selection-end-column="52" />
+            <state relative-caret-position="655">
+              <caret line="343" column="12" lean-forward="false" selection-start-line="343" selection-start-column="12" selection-end-line="343" selection-end-column="12" />
               <folding>
-                <element signature="e#5387#5388#0" expanded="true" />
-                <element signature="e#5446#5447#0" expanded="true" />
-                <element signature="e#6155#6156#0" expanded="true" />
-                <element signature="e#6189#6190#0" expanded="true" />
+                <element signature="imports" expanded="true" />
+                <element signature="e#1959#1960#0" expanded="true" />
+                <element signature="e#1994#1995#0" expanded="true" />
+                <element signature="e#2660#2661#0" expanded="true" />
+                <element signature="e#2706#2707#0" expanded="true" />
+                <element signature="e#2767#2768#0" expanded="true" />
+                <element signature="e#2821#2822#0" expanded="true" />
+                <element signature="e#41999#42000#0" expanded="true" />
+                <element signature="e#42037#42038#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -96,8 +91,8 @@
       <file leaf-file-name="basededatos.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/basededatos.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="32" column="0" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+            <state relative-caret-position="15">
+              <caret line="27" column="234" lean-forward="false" selection-start-line="27" selection-start-column="234" selection-end-line="27" selection-end-column="234" />
               <folding />
             </state>
           </provider>
@@ -106,18 +101,10 @@
       <file leaf-file-name="servidorhttp.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/servidorhttp.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="395">
-              <caret line="88" column="0" lean-forward="false" selection-start-line="88" selection-start-column="0" selection-end-line="88" selection-end-column="0" />
+            <state relative-caret-position="252">
+              <caret line="97" column="41" lean-forward="false" selection-start-line="97" selection-start-column="20" selection-end-line="97" selection-end-column="41" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1309#1310#0" expanded="true" />
-                <element signature="e#1366#1367#0" expanded="true" />
-                <element signature="e#17627#17628#0" expanded="true" />
-                <element signature="e#17689#17690#0" expanded="true" />
-                <element signature="e#17772#17773#0" expanded="true" />
-                <element signature="e#17862#17863#0" expanded="true" />
-                <element signature="e#17946#17947#0" expanded="true" />
-                <element signature="e#18047#18048#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -126,8 +113,8 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="46" column="66" lean-forward="false" selection-start-line="46" selection-start-column="66" selection-end-line="46" selection-end-column="66" />
+            <state relative-caret-position="398">
+              <caret line="68" column="0" lean-forward="false" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -136,8 +123,8 @@
       <file leaf-file-name="app.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/resources/js/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2985">
-              <caret line="220" column="51" lean-forward="false" selection-start-line="220" selection-start-column="51" selection-end-line="220" selection-end-column="51" />
+            <state relative-caret-position="258">
+              <caret line="500" column="0" lean-forward="false" selection-start-line="500" selection-start-column="0" selection-end-line="500" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -146,18 +133,8 @@
       <file leaf-file-name="reproduccion.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/reproduccion.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="inicio.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/inicio.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="213">
-              <caret line="15" column="10" lean-forward="false" selection-start-line="15" selection-start-column="10" selection-end-line="15" selection-end-column="10" />
+            <state relative-caret-position="885">
+              <caret line="59" column="21" lean-forward="true" selection-start-line="59" selection-start-column="21" selection-end-line="59" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -166,8 +143,8 @@
       <file leaf-file-name="listado.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/listado.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="258">
-              <caret line="21" column="132" lean-forward="false" selection-start-line="21" selection-start-column="132" selection-end-line="21" selection-end-column="132" />
+            <state relative-caret-position="533">
+              <caret line="87" column="66" lean-forward="false" selection-start-line="87" selection-start-column="66" selection-end-line="87" selection-end-column="66" />
               <folding />
             </state>
           </provider>
@@ -176,8 +153,8 @@
       <file leaf-file-name="subirarchivos.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/subirarchivos.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="525">
-              <caret line="35" column="91" lean-forward="false" selection-start-line="35" selection-start-column="91" selection-end-line="35" selection-end-column="91" />
+            <state relative-caret-position="265">
+              <caret line="54" column="73" lean-forward="false" selection-start-line="54" selection-start-column="64" selection-end-line="54" selection-end-column="73" />
               <folding />
             </state>
           </provider>
@@ -196,41 +173,42 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>jquer</find>
-      <find>crearalbum</find>
-      <find>proximotema</find>
-      <find>ng-class</find>
-      <find>bootstrap</find>
-      <find>sesion</find>
-      <find>inicio</find>
-      <find>File</find>
-      <find>mostrarmensaje</find>
-      <find>album</find>
-      <find>mensaje</find>
-      <find>MensajeamostrarController</find>
-      <find>mostrarmensa</find>
-      <find>create</find>
-      <find>editaralbum</find>
-      <find>subir</find>
-      <find>albumscontroller</find>
-      <find>cargar</find>
-      <find>ng-model</find>
-      <find>Volver</find>
-      <find>los arc</find>
-      <find>subirarchiv</find>
-      <find>listadocontroller</find>
-      <find>pasand</find>
-      <find>subirarc</find>
-      <find>listadocontro</find>
-      <find>like</find>
-      <find>sesion()</find>
       <find>albumscontro</find>
       <find>listadocontr</find>
+      <find>like</find>
+      <find>verifi</find>
+      <find>proximotema</find>
+      <find>listadocontroller</find>
+      <find>borrar</find>
+      <find>reproduccioncon</find>
+      <find>carga</find>
+      <find>album</find>
+      <find>agregar</find>
+      <find>agregarcancionyalbum</find>
+      <find>respuesta3</find>
+      <find>sesion()</find>
+      <find>table</find>
+      <find>count</find>
+      <find>for</find>
+      <find>f</find>
+      <find>quitar</find>
+      <find>reproduccion</find>
+      <find>obtent</find>
+      <find>quitaral</find>
+      <find>agregaralbum</find>
+      <find>es albu</find>
+      <find>quitaralbu</find>
+      <find>eliminaral</find>
+      <find>eliminaralbum</find>
+      <find>verificar</find>
+      <find>listadocontro</find>
+      <find>submit</find>
     </findStrings>
     <replaceStrings>
       <replace />
       <replace>Logger.getLogger(susesos.class.getName())</replace>
       <replace>log.warning</replace>
+      <replace>datosdereproduccion</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -264,15 +242,15 @@
         <option value="$PROJECT_DIR$/src/main/resources/js/datatables.min.js" />
         <option value="$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/reproductor.java" />
         <option value="$PROJECT_DIR$/src/main/resources/albums.html" />
-        <option value="$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/tareasprogramadas.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/subirarchivos.html" />
-        <option value="$PROJECT_DIR$/src/main/resources/listado.html" />
-        <option value="$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/servidorhttp.java" />
-        <option value="$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/comunicacion.java" />
-        <option value="$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/basededatos.java" />
         <option value="$PROJECT_DIR$/src/main/resources/inicio.html" />
-        <option value="$PROJECT_DIR$/src/main/resources/reproduccion.html" />
         <option value="$PROJECT_DIR$/src/main/resources/index.html" />
+        <option value="$PROJECT_DIR$/src/main/resources/subirarchivos.html" />
+        <option value="$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/tareasprogramadas.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/basededatos.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/servidorhttp.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/reproduccion.html" />
+        <option value="$PROJECT_DIR$/src/main/resources/listado.html" />
+        <option value="$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/comunicacion.java" />
         <option value="$PROJECT_DIR$/src/main/resources/js/app.js" />
       </list>
     </option>
@@ -294,9 +272,9 @@
     <handled-path value="$PROJECT_DIR$/src/main/resources/node_modules" />
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="y" value="6" />
+    <option name="y" value="25" />
     <option name="width" value="1440" />
-    <option name="height" value="870" />
+    <option name="height" value="851" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -452,10 +430,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="PackagesPane" />
-      <pane id="AndroidView" />
+      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -489,41 +466,19 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="sonidoambiental" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="Sonidoambiental" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Sonidoambiental" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Sonidoambiental" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Sonidoambiental" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="css" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Sonidoambiental" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Sonidoambiental" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="js" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$APPLICATION_HOME_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.39839265" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
@@ -689,7 +644,10 @@
       <workItem from="1519850335414" duration="10229000" />
       <workItem from="1519951187818" duration="2378000" />
       <workItem from="1519990184981" duration="2274000" />
-      <workItem from="1519992498969" duration="4882000" />
+      <workItem from="1519992498969" duration="27510000" />
+      <workItem from="1520268505676" duration="2436000" />
+      <workItem from="1520288325607" duration="5262000" />
+      <workItem from="1520345771717" duration="29210000" />
     </task>
     <task id="LOCAL-00001" summary="problemas de dependencias">
       <created>1518710327366</created>
@@ -712,11 +670,18 @@
       <option name="project" value="LOCAL" />
       <updated>1519048242875</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="ultttttttttimas aaaaaaactualizaccccccccciones, albums funcionales">
+      <created>1520031807415</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1520031807415</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="142342000" />
+    <option name="totallyTimeSpent" value="201878000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -729,24 +694,24 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="25" width="1440" height="851" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18922652" sideWeight="0.49583334" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2084507" sideWeight="0.4722222" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1889986" sideWeight="0.49583334" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20733428" sideWeight="0.4722222" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18402283" sideWeight="0.50277776" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24118477" sideWeight="0.5143472" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22957747" sideWeight="0.4861111" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.084165476" sideWeight="0.49722221" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24118477" sideWeight="0.4856528" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30747533" sideWeight="0.49722221" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32952926" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22381635" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Problems" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2087518" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32957748" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Learn" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -764,7 +729,6 @@
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32957748" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -815,7 +779,8 @@
     <MESSAGE value="problemas de dependencias" />
     <MESSAGE value="arreglado problema de dependecias por ahora" />
     <MESSAGE value="migracion a bootstrap 4 y primer releese" />
-    <option name="LAST_COMMIT_MESSAGE" value="migracion a bootstrap 4 y primer releese" />
+    <MESSAGE value="ultttttttttimas aaaaaaactualizaccccccccciones, albums funcionales" />
+    <option name="LAST_COMMIT_MESSAGE" value="ultttttttttimas aaaaaaactualizaccccccccciones, albums funcionales" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -824,43 +789,12 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/reproductor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1065">
-          <caret line="71" column="141" lean-forward="false" selection-start-line="71" selection-start-column="141" selection-end-line="71" selection-end-column="141" />
-          <folding>
-            <element signature="e#4176#4177#0" expanded="false" />
-            <element signature="e#4209#4210#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/comunicacion.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2475">
-          <caret line="165" column="25" lean-forward="false" selection-start-line="165" selection-start-column="16" selection-end-line="165" selection-end-column="25" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#29042#29043#0" expanded="true" />
-            <element signature="e#29080#29081#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/servidorhttp.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
           <caret line="17" column="23" lean-forward="false" selection-start-line="17" selection-start-column="23" selection-end-line="17" selection-end-column="23" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1309#1310#0" expanded="true" />
-            <element signature="e#1366#1367#0" expanded="true" />
-            <element signature="e#17627#17628#0" expanded="true" />
-            <element signature="e#17689#17690#0" expanded="true" />
-            <element signature="e#17772#17773#0" expanded="true" />
-            <element signature="e#17862#17863#0" expanded="true" />
-            <element signature="e#17946#17947#0" expanded="true" />
-            <element signature="e#18047#18048#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -893,12 +827,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2325">
           <caret line="162" column="33" lean-forward="false" selection-start-line="162" selection-start-column="33" selection-end-line="162" selection-end-column="33" />
-          <folding>
-            <element signature="e#5387#5388#0" expanded="true" />
-            <element signature="e#5446#5447#0" expanded="true" />
-            <element signature="e#6155#6156#0" expanded="true" />
-            <element signature="e#6189#6190#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -934,8 +863,14 @@
           <caret line="165" column="25" lean-forward="false" selection-start-line="165" selection-start-column="16" selection-end-line="165" selection-end-column="25" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#29042#29043#0" expanded="true" />
-            <element signature="e#29080#29081#0" expanded="true" />
+            <element signature="e#1959#1960#0" expanded="true" />
+            <element signature="e#1994#1995#0" expanded="true" />
+            <element signature="e#2660#2661#0" expanded="true" />
+            <element signature="e#2706#2707#0" expanded="true" />
+            <element signature="e#2767#2768#0" expanded="true" />
+            <element signature="e#2821#2822#0" expanded="true" />
+            <element signature="e#41999#42000#0" expanded="true" />
+            <element signature="e#42037#42038#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -960,12 +895,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2325">
           <caret line="162" column="33" lean-forward="false" selection-start-line="162" selection-start-column="33" selection-end-line="162" selection-end-column="33" />
-          <folding>
-            <element signature="e#5387#5388#0" expanded="true" />
-            <element signature="e#5446#5447#0" expanded="true" />
-            <element signature="e#6155#6156#0" expanded="true" />
-            <element signature="e#6189#6190#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -975,14 +905,6 @@
           <caret line="377" column="82" lean-forward="true" selection-start-line="377" selection-start-column="82" selection-end-line="377" selection-end-column="82" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1309#1310#0" expanded="true" />
-            <element signature="e#1366#1367#0" expanded="true" />
-            <element signature="e#17627#17628#0" expanded="true" />
-            <element signature="e#17689#17690#0" expanded="true" />
-            <element signature="e#17772#17773#0" expanded="true" />
-            <element signature="e#17862#17863#0" expanded="true" />
-            <element signature="e#17946#17947#0" expanded="true" />
-            <element signature="e#18047#18048#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1008,8 +930,14 @@
           <caret line="532" column="48" lean-forward="false" selection-start-line="532" selection-start-column="40" selection-end-line="532" selection-end-column="48" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#29042#29043#0" expanded="true" />
-            <element signature="e#29080#29081#0" expanded="true" />
+            <element signature="e#1959#1960#0" expanded="true" />
+            <element signature="e#1994#1995#0" expanded="true" />
+            <element signature="e#2660#2661#0" expanded="true" />
+            <element signature="e#2706#2707#0" expanded="true" />
+            <element signature="e#2767#2768#0" expanded="true" />
+            <element signature="e#2821#2822#0" expanded="true" />
+            <element signature="e#41999#42000#0" expanded="true" />
+            <element signature="e#42037#42038#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1039,14 +967,6 @@
           <caret line="312" column="78" lean-forward="false" selection-start-line="312" selection-start-column="78" selection-end-line="312" selection-end-column="78" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1309#1310#0" expanded="true" />
-            <element signature="e#1366#1367#0" expanded="true" />
-            <element signature="e#17627#17628#0" expanded="true" />
-            <element signature="e#17689#17690#0" expanded="true" />
-            <element signature="e#17772#17773#0" expanded="true" />
-            <element signature="e#17862#17863#0" expanded="true" />
-            <element signature="e#17946#17947#0" expanded="true" />
-            <element signature="e#18047#18048#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1065,14 +985,6 @@
           <caret line="312" column="78" lean-forward="false" selection-start-line="312" selection-start-column="78" selection-end-line="312" selection-end-column="78" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1309#1310#0" expanded="true" />
-            <element signature="e#1366#1367#0" expanded="true" />
-            <element signature="e#17627#17628#0" expanded="true" />
-            <element signature="e#17689#17690#0" expanded="true" />
-            <element signature="e#17772#17773#0" expanded="true" />
-            <element signature="e#17862#17863#0" expanded="true" />
-            <element signature="e#17946#17947#0" expanded="true" />
-            <element signature="e#18047#18048#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1093,13 +1005,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/e75efd18-d818-4ae4-a148-075e0143e99f/console.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/e75efd18-d818-4ae4-a148-075e0143e99f/console.sql" />
     <entry file="file://$PROJECT_DIR$/susesos" />
     <entry file="jar:///opt/java/jdk1.8.0_162/src.zip!/java/lang/Runnable.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -1108,13 +1014,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/susesos.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-116">
-          <caret line="24" column="13" lean-forward="true" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/susesos.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
@@ -1124,14 +1024,7 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/node_modules/bootstrap/scss/_glyphicons.scss" />
-    <entry file="file://$PROJECT_DIR$/src/main/resources/css/glyphicons.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/css/glyphicons.css" />
     <entry file="file://$PROJECT_DIR$/src/main/resources/css/datatables.min.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1139,16 +1032,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/node_modules/jquery/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="0">
-            <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/node_modules/jquery/README.md" />
     <entry file="file://$PROJECT_DIR$/src/main/resources/node_modules/jquery/dist/jquery.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1160,7 +1044,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
           <caret line="12" column="0" lean-forward="true" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1182,109 +1065,110 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/albums.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="4" lean-forward="false" selection-start-line="14" selection-start-column="4" selection-end-line="14" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/subirarchivos.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="35" column="91" lean-forward="false" selection-start-line="35" selection-start-column="91" selection-end-line="35" selection-end-column="91" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/tareasprogramadas.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="64">
-          <caret line="78" column="51" lean-forward="false" selection-start-line="78" selection-start-column="46" selection-end-line="78" selection-end-column="52" />
-          <folding>
-            <element signature="e#5387#5388#0" expanded="true" />
-            <element signature="e#5446#5447#0" expanded="true" />
-            <element signature="e#6155#6156#0" expanded="true" />
-            <element signature="e#6189#6190#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/comunicacion.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="125" column="39" lean-forward="true" selection-start-line="125" selection-start-column="39" selection-end-line="125" selection-end-column="39" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#29042#29043#0" expanded="true" />
-            <element signature="e#29080#29081#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/listado.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="258">
-          <caret line="21" column="132" lean-forward="false" selection-start-line="21" selection-start-column="132" selection-end-line="21" selection-end-column="132" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/basededatos.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="32" column="0" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/servidorhttp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="395">
-          <caret line="88" column="0" lean-forward="false" selection-start-line="88" selection-start-column="0" selection-end-line="88" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1309#1310#0" expanded="true" />
-            <element signature="e#1366#1367#0" expanded="true" />
-            <element signature="e#17627#17628#0" expanded="true" />
-            <element signature="e#17689#17690#0" expanded="true" />
-            <element signature="e#17772#17773#0" expanded="true" />
-            <element signature="e#17862#17863#0" expanded="true" />
-            <element signature="e#17946#17947#0" expanded="true" />
-            <element signature="e#18047#18048#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/inicio.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="213">
+        <state relative-caret-position="225">
           <caret line="15" column="10" lean-forward="false" selection-start-line="15" selection-start-column="10" selection-end-line="15" selection-end-column="10" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/reproduccion.html">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/albums.html" />
+    <entry file="file://$PROJECT_DIR$/src/main/resources/subirarchivos.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+        <state relative-caret-position="265">
+          <caret line="54" column="73" lean-forward="false" selection-start-line="54" selection-start-column="64" selection-end-line="54" selection-end-column="73" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="46" column="66" lean-forward="false" selection-start-line="46" selection-start-column="66" selection-end-line="46" selection-end-column="66" />
+        <state relative-caret-position="398">
+          <caret line="68" column="0" lean-forward="false" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/xerial/sqlite-jdbc/3.20.0/sqlite-jdbc-3.20.0-sources.jar!/org/sqlite/core/CorePreparedStatement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="120" column="0" lean-forward="false" selection-start-line="120" selection-start-column="0" selection-end-line="120" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/xerial/sqlite-jdbc/3.20.0/sqlite-jdbc-3.20.0-sources.jar!/org/sqlite/jdbc3/JDBC3PreparedStatement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="420" column="0" lean-forward="false" selection-start-line="420" selection-start-column="0" selection-end-line="420" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/tareasprogramadas.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="10" lean-forward="false" selection-start-line="0" selection-start-column="10" selection-end-line="0" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/basededatos.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="27" column="234" lean-forward="false" selection-start-line="27" selection-start-column="234" selection-end-line="27" selection-end-column="234" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/servidorhttp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="97" column="41" lean-forward="false" selection-start-line="97" selection-start-column="20" selection-end-line="97" selection-end-column="41" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/comunicacion.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="655">
+          <caret line="343" column="12" lean-forward="false" selection-start-line="343" selection-start-column="12" selection-end-line="343" selection-end-column="12" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1959#1960#0" expanded="true" />
+            <element signature="e#1994#1995#0" expanded="true" />
+            <element signature="e#2660#2661#0" expanded="true" />
+            <element signature="e#2706#2707#0" expanded="true" />
+            <element signature="e#2767#2768#0" expanded="true" />
+            <element signature="e#2821#2822#0" expanded="true" />
+            <element signature="e#41999#42000#0" expanded="true" />
+            <element signature="e#42037#42038#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/listado.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="533">
+          <caret line="87" column="66" lean-forward="false" selection-start-line="87" selection-start-column="66" selection-end-line="87" selection-end-column="66" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/reproduccion.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="885">
+          <caret line="59" column="21" lean-forward="true" selection-start-line="59" selection-start-column="21" selection-end-line="59" selection-end-column="21" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/js/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2985">
-          <caret line="220" column="51" lean-forward="false" selection-start-line="220" selection-start-column="51" selection-end-line="220" selection-end-column="51" />
+        <state relative-caret-position="258">
+          <caret line="500" column="0" lean-forward="false" selection-start-line="500" selection-start-column="0" selection-end-line="500" selection-end-column="0" />
           <folding />
         </state>
       </provider>
