@@ -24,7 +24,7 @@ var cancionesseleccionadas = 0;
     this.seleccion = seleccion;
 };*/
 //,'ngStorage', 'ngFileUpload'
-var app = angular.module('sonidoambiental', ['ngRoute', 'ngStorage']).config(['$routeProvider', function ($routeProvider) {
+var app = angular.module('sonidoambiental', ['ngRoute', 'ngStorage', 'ui.grid', 'ui.grid.selection', 'ui.grid.cellNav']).config(['$routeProvider', function ($routeProvider) {
     $routeProvider.when('/', {
         templateUrl: 'inicio.html',
         abstract: true,
@@ -92,17 +92,36 @@ app.controller("ReproduccionController", function ($scope, $http) {
         return input;
     };
     $scope.enviar=function (nombre, lunes, martes, miercoles, jueves, viernes, sabado, domingo, horadesde, horahasta) {
+        console.log(miercoles);
         var reproduccion = {
+            eliminar: false,
             nombre: nombre,
-            lunes: lunes,
-            martes: martes,
-            miercoles: miercoles,
-            jueves: jueves,
-            viernes: viernes,
-            sabado: sabado,
-            domingo: domingo,
+            lunes: lunes || false,
+            martes: martes || false,
+            miercoles: miercoles || false,
+            jueves: jueves || false,
+            viernes: viernes || false,
+            sabado: sabado || false,
+            domingo: domingo || false,
             horadesde: horadesde,
             horahasta: horahasta
+        };
+        $http({
+            url: '/json/',
+            dataType: 'json',
+            method: 'post',
+            data: JSON.stringify(reproduccion),
+            contentType: 'application/json; charset=utf-8'}).then(function () {
+            $scope.cargar();
+        });
+    };
+    $scope.eliminarprogramadereproduccion=function (nombre, diadesemana, strhoradesde, strhorahasta) {
+        var reproduccion = {
+            nombre: nombre,
+            diadesemana: diadesemana,
+            strhoradesde: strhoradesde,
+            strhorahasta: strhorahasta,
+            eliminar: true
         };
         $http({
             url: '/json/',
@@ -358,10 +377,50 @@ app.controller("AlbumsController", function ($http, $scope, $interval, $location
     $scope.cargar();
 })
 ;
-app.controller("ListadoController", ['$scope', '$http', '$interval', '$location', function ($scope, $http, $interval, $location) {
+app.controller("ListadoController", ['i18nService', '$scope', '$http', '$interval', 'uiGridConstants', '$location', '$filter', function (i18nService, $scope, $http, $interval, $location, uiGridConstants, $filter) {
     if (!$scope.sesion()) {
         $location.path('/').replace();
     }
+
+   /* $scope.listadomultimedia.onRegisterApi = function(gridApi){
+        //set gridApi on scope
+        $scope.gridApi = gridApi;
+        gridApi.selection.on.rowSelectionChanged($scope,function(row){
+            var msg = 'row selected ' + row.isSelected;
+            $log.log(msg);
+        });
+
+        gridApi.selection.on.rowSelectionChangedBatch($scope,function(rows){
+            var msg = 'rows changed ' + rows.length;
+            $log.log(msg);
+        });
+    };*/
+    i18nService.setCurrentLang('es');
+    $scope.info = {};
+    $scope.listadomultimedia = {
+        enableRowSelection: true,
+        enableSelectAll: true,
+        selectionRowHeaderWidth: 35,
+        rowHeight: 35,
+        showGridFooter:true,
+        onRegisterApi: function( gridApi ) {
+            $scope.listadomultimediaop = gridApi;
+        }
+    };
+    $scope.seleccionartodos = function() {
+        //$scope.listadomultimedia.selectAll(true);
+        $scope.listadomultimediaop.selection.selectAllRows();
+    };
+    $scope.listadomultimedia.lang = 'es';
+    $scope.listadomultimedia.columnDefs = [
+        { name: 'nombre', field : 'nombre', filter: {
+                term: ''}},
+        { name: 'ruta', visible : false},
+        { name: 'album' },
+        { name: 'anulado' }
+    ];
+    $scope.listadomultimedia.multiSelect = true;
+
     $scope.titulo = "Listado de Archivos Multimedia";
     $scope.canciones = [];
     $scope.albumes = [];
@@ -370,112 +429,78 @@ app.controller("ListadoController", ['$scope', '$http', '$interval', '$location'
     $scope.mostrarporalbum = function (nombredealbum) {
         $scope.albumseleccionado = nombredealbum;
     };
-    $scope.seleccionartodos = function () {
+  /*  $scope.seleccionartodos = function () {
         for (var i = 0; i < $scope.canciones.length; i++) {
             $scope.canciones[i].seleccionado = true;
         }
         $scope.cancionesseleccionadas = $scope.canciones.length;
         $scope.$apply;
-    }
+    }*/
     $scope.desseleccionartodos = function () {
-        for (var i = 0; i < $scope.canciones.length; i++) {
-            $scope.canciones[i].seleccionado = false;
-        }
-        $scope.cancionesseleccionadas = 0;
-        $scope.$apply;
-    }
-    $scope.invertirseleccion = function () {
-        var cantidad = 0;
-        for (var i = 0; i < $scope.canciones.length; i++) {
-            switch ($scope.canciones[i].seleccionado) {
-                case true:
-                    $scope.canciones[i].seleccionado = false;
-                    break;
-                case false:
-                    $scope.canciones[i].seleccionado = true;
-                    cantidad += 1;
-                    break;
-            }
-        }
-        $scope.cancionesseleccionadas = cantidad;
-        $scope.$apply;
-    }
-    $scope.seleccionar = function (cancion) {
-        cancion.seleccionado = true;
-        var cantidad = 0;
-        for (var i = 0; i < $scope.canciones.length; i++) {
-            if ($scope.canciones[i].seleccionado)
-                cantidad += 1;
-        }
-        $scope.cancionesseleccionadas = cantidad;
-        $scope.$apply;
-    }
+        $scope.listadomultimediaop.selection.clearSelectedRows();
+        /*$scope.listadomultimediaop.grid.columns['nombre'].filter[0] = {
+            term: $scope.buscar
+        };*/
+        /*$scope.listadomultimediaop.grid.dataSource.filter({
+            field: "nombre",
+            operator: "eq",
+            value: $scope.buscar
+        });*/
+        //$scope.listadomultimedia.data = $filter('filter')($scope.canciones, $scope.buscar);
 
-    $scope.desseleccionar = function (cancion) {
-        cancion.seleccionado = false;
-        var cantidad = 0;
-        for (var i = 0; i < $scope.canciones.length; i++) {
-            if ($scope.canciones[i].seleccionado)
-                cantidad += 1;
-        }
-        $scope.cancionesseleccionadas = cantidad;
-        $scope.$apply;
+        //$scope.listadomultimedia.columnDefs[0].headerCellFilter = 'laura';
+    }
+    $scope.buscarcambia = function () {
+        $scope.listadomultimedia.data = $filter('filter')($scope.canciones, $scope.buscar);
+    }
+    $scope.mostraronorutas=function () {
+        $scope.listadomultimedia.columnDefs[1].visible=!$scope.listadomultimedia.columnDefs[1].visible;
+        $scope.listadomultimediaop.grid.refresh();
+
     }
     $scope.habilitarseleccionados = function () {
-        for (var i = 0; i < $scope.canciones.length; i++) {
-            if ($scope.canciones[i].seleccionado) {
-                $http.get('/json/' + encodeURI('habilitar:' + $scope.canciones[i].nombre));
-                console.log('habilitar');
-            }
+        var seleccionados = $scope.listadomultimediaop.selection.getSelectedRows();
+        for (var i = 0; i < seleccionados.length; i++) {
+                $http.get('/json/' + encodeURI('habilitar:' + seleccionados[i].nombre));
         }
         $scope.cargar;
     }
     $scope.anularseleccionados = function () {
-        for (var i = 0; i < $scope.canciones.length; i++) {
-            if ($scope.canciones[i].seleccionado) {
-                $http.get('/json/' + encodeURI('anular:' + $scope.canciones[i].nombre));
-                console.log('anular');
-            }
-        }
-        $scope.cargar;
-    }
-    $scope.borrarseleccionados = function () {
-        for (var i = 0; i < $scope.canciones.length; i++) {
-            if ($scope.canciones[i].seleccionado) {
-                $http.get('/json/' + encodeURI('borrar:' + $scope.canciones[i].nombre));
-            }
-        }
-        $scope.cargar;
-    }
-    $scope.cambiaralbum = function (albumnombre) {
-        for (var i = 0; i < $scope.canciones.length; i++) {
-            if ($scope.canciones[i].seleccionado) {
-                $http.get('/json/' + encodeURI('cambiaralbum:' + $scope.canciones[i].nombre + ':' + albumnombre));
-            }
+        var seleccionados = $scope.listadomultimediaop.selection.getSelectedRows();
+        for (var i = 0; i < seleccionados.length; i++) {
+                $http.get('/json/' + encodeURI('anular:' + seleccionados[i].nombre));
         }
         $scope.cargar;
     };
-    $scope.cargar = function () {
-        console.log("ejecutando listado");
+    $scope.borrarseleccionados = function () {
+        var seleccionados = $scope.listadomultimediaop.selection.getSelectedRows();
+        for (var i = 0; i < seleccionados.length; i++) {
+                $http.get('/json/' + encodeURI('borrar:' + seleccionados[i].nombre));
+        }
+        $scope.cargar;
+    };
+    $scope.cambiaralbum = function (albumnombre) {
+        var seleccionados = $scope.listadomultimediaop.selection.getSelectedRows();
+        for (var i = 0; i < seleccionados.length; i++) {
+                $http.get('/json/' + encodeURI('cambiaralbum:' + seleccionados[i].nombre + ':' + albumnombre));
+        }
+        $scope.cargar;
+    };
+    $scope.cargar=function () {
         $http.get('/json/' + encodeURI('album')).then(function (response) {
             $scope.albumes = response.data.mensajes;
         });
         $http.get('/json/' + encodeURI('lista')).then(function (response) {
             $scope.canciones = [];
             $scope.canciones = response.data.listadecanciones;
-            $(document).ready(function () {
-                $('#listadomultimedia').DataTable();
-            });
+            $scope.listadomultimedia.data =$scope.canciones
+            //$scope.data =
         });
     };
     $scope.btnmostrarrutas = function () {
         $scope.mostrarrutas = !$scope.mostrarrutas;
         $scope.$apply;
     };
-    $scope.borrarseleccionadas = function () {
-
-    };
-
     $scope.cargar();
 }]);
 app.controller('sesion', function ($location, $scope, $localStorage, $sessionStorage, $window) {

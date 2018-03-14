@@ -2,8 +2,8 @@
     <h5 class="text-center">Centro de configuración de reproducción de música</h5>
     <div class="alert alert-info text-center text-capitalize">
         <strong>Información:</strong> Cada reproducción es representada por un album de musica, y siempre debe haber al
-        menos un album sin programación del cual se obtiene la musica para reproducir continuamente. Siempre debe haber
-        al menos una reproducción maestra, y siempre habilitada.
+        menos una Reproducción principal del cual se obtiene la musica para reproducir continuamente. El siempre corregirá automaticamente las opciones si no hay
+        al menos una reproducción maestra, y  que esta este habilitada.
     </div>
     <div class="btn-group">
         <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown"
@@ -73,10 +73,14 @@
                         <div class="bg-primary text-white letrapequeña">
                             {{dia(n);}}
                         </div>
-                        <div class="flex-sm-column" ng-repeat="dia in datosdereproduccion.diadesemana track by $index" ng-show="dia == n">
-                            <div ng-show="datosdereproduccion.horadesde[$index] != ''" class="letrapequeña">
+                        <div class="flex-sm-column" ng-repeat="dia in datosdereproduccion.diadesemana track by $index"
+                             ng-show="dia == n">
+                            <button type="button" class="button btn-sm btn-outline-dark letrapequeña"
+                                    ng-show="datosdereproduccion.horadesde[$index] != ''" data-toggle="tooltip"
+                                    data-placement="top" title="Eliminar"
+                                    ng-click="eliminarprogramadereproduccion(datosdereproduccion.nombre, dia , datosdereproduccion.horadesde[$index], datosdereproduccion.horahasta[$index])">
                                 {{datosdereproduccion.horadesde[$index]}}-{{datosdereproduccion.horahasta[$index]}}
-                            </div>
+                            </button>
                         </div>
                     </td>
 
@@ -223,4 +227,7 @@
             </div>
         </div>
     </div>
+    <script>
+
+    </script>
 </div>

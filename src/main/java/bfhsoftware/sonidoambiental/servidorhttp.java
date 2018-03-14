@@ -148,11 +148,13 @@ public class servidorhttp implements Runnable {
     }
 
     private class reproduccionmensaje {
-        public Boolean lunes, martes, miercoles, jueves, viernes, sabado, domingo;
-        public String nombre;
+        public Boolean lunes=false, martes=false, miercoles=false, jueves=false, viernes=false, sabado=false, domingo=false, eliminar=false;
+        public String nombre="";
+        public int diadesemana=0;
         public Long horahasta, horadesde;
-        public String mensaje;
+        public String mensaje="", strhorahasta="", strhoradesde="";
     }
+
     /* Clase privada necesaria para obtener una consulta en JSON */
     private class ConsultaMensaje {
         private String mensaje;
@@ -176,6 +178,7 @@ public class servidorhttp implements Runnable {
         private matriz[] mensajes;
 
         private boolean error = false;
+
         public RespuestaMatriz(String mensaje, boolean error) {
             comunicacion com = new comunicacion();
             switch (mensaje) {
@@ -214,15 +217,18 @@ public class servidorhttp implements Runnable {
             this.error = error;
         }
     }
+
     private class Respuestareproducciones {
         private reproducciones[] datosdereproduccion;
         private boolean error = false;
+
         public Respuestareproducciones(String mensaje, boolean error) {
             comunicacion lis = new comunicacion();
             this.datosdereproduccion = lis.obtenerreproducciones().clone();
             this.error = error;
         }
     }
+
     class raiz implements HttpHandler {
         @Override
         public void handle(HttpExchange he) throws IOException {
@@ -305,7 +311,7 @@ public class servidorhttp implements Runnable {
                 switch (he.getRequestMethod().toUpperCase()) {
                     case "GET":
                         /* Creamos una instancia de Respuesta para ser convertida en JSON */
-                       // System.out.println(he.getRequestURI());
+                        // System.out.println(he.getRequestURI());
                         switch (he.getRequestURI().getPath().substring(he.getHttpContext().getPath().length())) {
                             case "lista":
                                 Respuestalistadecanciones respuesta4;
@@ -341,11 +347,15 @@ public class servidorhttp implements Runnable {
                         if (s.hasNext()) {
                             reproduccionmensaje consulta = gson.fromJson(s.next(), reproduccionmensaje.class);
                             comunicacion com = new comunicacion();
-                            for(int i=1; i<8; i++){
-                                Boolean agregar=false;
-                                if ((consulta.lunes && i == 1) || (consulta.martes && i == 2)|| (consulta.miercoles && i == 3)|| (consulta.jueves && i == 4)|| (consulta.viernes && i == 5)|| (consulta.sabado && i == 6)|| (consulta.domingo && i == 7)){
-                                    com.agregarprogramaciondereproduccion(consulta.nombre, i, consulta.horadesde, consulta.horahasta);
+                            if (!consulta.eliminar) {
+                                for (int i = 1; i < 8; i++) {
+                                    if ((consulta.lunes && i == 1) || (consulta.martes && i == 2) || (consulta.miercoles && i == 3) || (consulta.jueves && i == 4) || (consulta.viernes && i == 5) || (consulta.sabado && i == 6) || (consulta.domingo && i == 7)) {
+                                        com.agregarprogramaciondereproduccion(consulta.nombre, i, consulta.horadesde, consulta.horahasta);
+                                    }
                                 }
+                            } else {
+                                com.eliminarprogramaciondereproduccion(consulta.nombre, consulta.diadesemana, consulta.strhoradesde, consulta.strhorahasta);
+                                System.out.println(consulta.nombre+consulta.diadesemana+consulta.strhoradesde + consulta.strhorahasta);
                             }
                             respuesta = new RespuestaMensaje("", false);
                         } else {

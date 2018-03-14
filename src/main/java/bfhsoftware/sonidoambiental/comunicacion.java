@@ -384,6 +384,7 @@ public class comunicacion {
         Date date2 = new Date(horahasta);
         String horadesdestr = new SimpleDateFormat("HH:mm").format(date1);
         String horahastastr = new SimpleDateFormat("HH:mm").format(date2);
+        //System.out.println(horadesdestr + " " + horahastastr);
         try {
             consulta = regre.consulta("INSERT INTO programareproduccion (idreproduccion, diadesemana, horadesde, horahasta) VALUES ((SELECT id FROM reproduccion WHERE nombre = ? LIMIT 1), ?, ?, ?);");
             consulta.setString(1, nombre);
@@ -395,6 +396,23 @@ public class comunicacion {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             log.warning("Error al obtener reproduccion: " + e.getMessage());
+        }
+    }
+
+    public void eliminarprogramaciondereproduccion(String nombre, Integer diadesemana, String horadesdestr, String horahastastr) {
+        PreparedStatement consulta;
+        basededatos regre = new basededatos();
+        try {
+            consulta = regre.consulta("DELETE FROM programareproduccion WHERE idreproduccion = (SELECT id FROM reproduccion WHERE nombre = ? LIMIT 1) AND diadesemana = ? AND horadesde = ? AND horahasta = ?;");
+            consulta.setString(1, nombre);
+            consulta.setInt(2, diadesemana);
+            consulta.setString(3, horadesdestr);
+            consulta.setString(4, horahastastr);
+            consulta.execute();
+            consulta.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            log.warning("Error al eliminar programa de reproduccion: " + e.getMessage());
         }
     }
 
@@ -1118,7 +1136,6 @@ System.out.println(e.getMessage());
 
                     if (files.endsWith(".mp3") || files.endsWith(".MP3") || files.endsWith(".mP3") || files.endsWith(".Mp3")) {
                         //System.out.println(" obtenido " + (Paths.get(listOfFile.getAbsolutePath())).getFileName().toString());
-
                         registrarmusica(files);
                     }
                 } else if (listOfFile.isDirectory()) {
