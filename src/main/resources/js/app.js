@@ -43,13 +43,97 @@ var app = angular.module('sonidoambiental', ['ngRoute', 'ngStorage']).config(['$
         controller: "ReproduccionController"
     }).otherwise({redirectTo: '/'});
 }]);
-app.controller("ReproduccionController", function ($scope) {
+app.controller("ReproduccionController", function ($scope, $http) {
     if (!$scope.sesion()) {
         $location.path('/').replace();
     }
+    $scope.agregarprogramacion = false;
+    $scope.verporalbum = true;
+    $scope.verporprogramacion = false;
+    $scope.abriralbum = function (reproduccion) {
+        $('#agregarprogramacion').modal('show');
+        $scope.ver = reproduccion;
+        $scope.horahasta = new Date(1970, 0, 1, 23, 59, 0);
+        $scope.horadesde = new Date(1970, 0, 1, 0, 0, 0);
+    };
+    $scope.dia=function (diadesemana) {
+        switch (diadesemana) {
+            case 1:
+                return 'Lunes';
+                break;
+            case 2:
+                return 'Martes';
+                break;
+            case 3:
+                return 'Miércoles';
+                break;
+            case 4:
+                return 'Jueves';
+                break;
+            case 5:
+                return 'Viernes';
+                break;
+            case 6:
+                return 'Sábado';
+                break;
+            case 7:
+                return 'Domingo';
+                break;
+            default :
+                return '';
+        }
+    };
+    $scope.rango = function(min, max, step) {
+        step = step || 1;
+        var input = [];
+        for (var i = min; i <= max; i += step) {
+            input.push(i);
+        }
+        return input;
+    };
+    $scope.enviar=function (nombre, lunes, martes, miercoles, jueves, viernes, sabado, domingo, horadesde, horahasta) {
+        var reproduccion = {
+            nombre: nombre,
+            lunes: lunes,
+            martes: martes,
+            miercoles: miercoles,
+            jueves: jueves,
+            viernes: viernes,
+            sabado: sabado,
+            domingo: domingo,
+            horadesde: horadesde,
+            horahasta: horahasta
+        };
+        $http({
+            url: '/json/',
+            dataType: 'json',
+            method: 'post',
+            data: JSON.stringify(reproduccion),
+            contentType: 'application/json; charset=utf-8'}).then(function () {
+            $scope.cargar();
+        });
+    };
+    $scope.verificardia = function (lista, dia) {
+        for (var i = 0; i < lista.length; i++) {
+            if (lista[i] == dia)
+                return true;
+        }
+        return false;
+    };
+    $scope.poralbum = function () {
+        $scope.verporalbum = true;
+        $scope.verporprogramacion = false;
+    };
+    $scope.porprogramacion = function () {
+        $scope.verporalbum = false;
+        $scope.verporprogramacion = true;
+    };
     $scope.datosdereproduccion = [];
-    $scope.agregaralbumareproduccion =function (reproduccion, album) {
-        $.ajax({
+    $scope.agregaralbumareproduccion = function (reproduccion, album) {
+        $http.get('/json/' + encodeURI('agregaralbum:' + reproduccion + ":" + album)).then(function (response) {
+            $scope.cargar();
+        });
+        /*$.ajax({
             url: '/json/' + encodeURI('agregaralbum:' + reproduccion + ":"+ album),
             dataType: 'json',
             method: 'get',
@@ -58,116 +142,48 @@ app.controller("ReproduccionController", function ($scope) {
                     $scope.cargar();
                 }
             }
-        });
+        });*/
     };
-    $scope.deshabilitar=function (nombre) {
-        $.ajax({
-            url: '/json/' + encodeURI('deshabilitarreproduccion:' + nombre),
-            dataType: 'json',
-            method: 'get',
-            success: function (datos) {
-                if (typeof datos.error !== 'undefined' && datos.error === false) {
-                    $scope.cargar();
-                }
-            }
+    $scope.deshabilitar = function (nombre) {
+        $http.get('/json/' + encodeURI('deshabilitarreproduccion:' + nombre)).then(function (response) {
+            $scope.cargar();
         });
     };
     $scope.haceralbummaestro = function (nombre) {
-        $.ajax({
-            url: '/json/' + encodeURI('hacerreproduccionmaestra:' + nombre),
-            dataType: 'json',
-            method: 'get',
-            success: function (datos) {
-                if (typeof datos.error !== 'undefined' && datos.error === false) {
-                    $scope.cargar();
-                }
-            }
+
+        $http.get('/json/' + encodeURI('hacerreproduccionmaestra:' + nombre)).then(function (response) {
+            $scope.cargar();
         });
     };
     $scope.deshaceralbummaestro = function (nombre) {
-        $.ajax({
-            url: '/json/' + encodeURI('deshacerreproduccionmaestra:' + nombre),
-            dataType: 'json',
-            method: 'get',
-            success: function (datos) {
-                if (typeof datos.error !== 'undefined' && datos.error === false) {
-                    $scope.cargar();
-                }
-            }
+        $http.get('/json/' + encodeURI('deshacerreproduccionmaestra:' + nombre)).then(function (response) {
+            $scope.cargar();
         });
     };
     $scope.eliminarreproduccion = function (nombre) {
-        $.ajax({
-            url: '/json/' + encodeURI('eliminarreproduccion:' + nombre),
-            dataType: 'json',
-            method: 'get',
-            success: function (datos) {
-                if (typeof datos.error !== 'undefined' && datos.error === false) {
-                    $scope.cargar();
-                }
-            }
+        $http.get('/json/' + encodeURI('eliminarreproduccion:' + nombre)).then(function (response) {
+            $scope.cargar();
         });
     };
-    $scope.habilitar=function (nombre) {
-        $.ajax({
-            url: '/json/' + encodeURI('habilitarreproduccion:' + nombre),
-            dataType: 'json',
-            method: 'get',
-            success: function (datos) {
-                if (typeof datos.error !== 'undefined' && datos.error === false) {
-                    $scope.cargar();
-                }
-            }
+    $scope.habilitar = function (nombre) {
+        $http.get('/json/' + encodeURI('habilitarreproduccion:' + nombre)).then(function (response) {
+            $scope.cargar();
         });
     };
-    $scope.quitaralbumde=function (reproduccion, album) {
-        $.ajax({
-            url: '/json/' + encodeURI('quitaralbum:' + reproduccion + ":"+ album),
-            dataType: 'json',
-            method: 'get',
-            success: function (datos) {
-                if (typeof datos.error !== 'undefined' && datos.error === false) {
-                $scope.cargar();
-                } else {
-                    console.log("error al recibir canciones");
-                }
-            }
+    $scope.quitaralbumde = function (reproduccion, album) {
+        $http.get('/json/' + encodeURI('quitaralbum:' + reproduccion + ":" + album)).then(function (response) {
+            $scope.cargar();
         });
-
     };
     $scope.cargar = function () {
-        $.ajax({
-            url: '/json/' + encodeURI('reproduccion'),
-            dataType: 'json',
-            method: 'get',
-            success: function (datos) {
-                if (typeof datos.error !== 'undefined' && datos.error === false) {
-                    $scope.datosdereproduccion = [];
-                    $scope.datosdereproduccion = datos.datosdereproduccion;
-                    $scope.$apply();
-                    /*$(document).ready(function () {
-                        $('#listadereproduccion').DataTable();
-                    });*/
-                } else {
-                    console.log("error al recibir canciones");
-                }
-            }
+        $http.get('/json/' + encodeURI('reproduccion')).then(function (response) {
+            $scope.datosdereproduccion = [];
+            $scope.datosdereproduccion = response.data.datosdereproduccion;
         });
-
     };
-    $scope.crearreproduccion=function (nombredereproduccionnueva) {
-        console.log('nuevareproduccion:' + nombredereproduccionnueva)
-        $.ajax({
-            url: '/json/' + encodeURI('nuevareproduccion:' + nombredereproduccionnueva),
-            dataType: 'json',
-            method: 'get',
-            success: function (datos) {
-                if (typeof datos.error !== 'undefined' && datos.error === false) {
-                $scope.cargar();
-                } else {
-                    console.log("error al crear nueva reproduccion");
-                }
-            }
+    $scope.crearreproduccion = function (nombredereproduccionnueva) {
+        $http.get('/json/' + encodeURI('nuevareproduccion:' + nombredereproduccionnueva)).then(function (response) {
+            $scope.cargar();
         });
     };
 
@@ -190,6 +206,50 @@ app.controller("barraprincipal", function ($scope, $interval, $location) {
         $location.path('/reproduccion').replace();
     }
 });
+/*app.directive('verificadordefechasdesde', function () {
+    return {
+        require: ['ngModel', '^form'],
+        link: function(scope, element, attrs, ctrls) {
+        console.log(ctrls);
+        function myValidation(value) {
+            console.log(value);
+        }
+        if (value.getTime() < (ctrls.horahasta.getTime())) {
+            ctrls.horadesde.$setValidity(true);
+        } else {
+            ctrls.horadesde.$setValidity(false);
+        }
+        return value;
+    }
+    ctrls.horadesde.$parsers.push(myValidation);
+
+    }*/
+     /*   require: 'ngModel',
+    link: function (scope, element, attr, mCtrl) {
+        console.log(mCtrl);
+        function myValidation(value) {
+            if (value.getTime() < (horahasta.getTime())) {
+                mCtrl.$setValidity(true);
+            } else {
+                mCtrl.$setValidity(false);
+            }
+            return value;
+        }
+        mCtrl.$parsers.push(myValidation);
+    }
+}
+
+})
+;*/
+/*app.directive('Verificadordefechashasta', function () {
+    return {
+        require: 'ngModel',
+        link: function (scope, element, attr, m) {
+
+        }
+    }
+
+});
 /*app.controller("MensajeamostrarController", function ($scope) {
     $scope.erroramostrarmensaje = "";
     $scope.error = true;
@@ -209,7 +269,7 @@ app.controller("barraprincipal", function ($scope, $interval, $location) {
     }
 });*/
 //function Listadodecanciones($scope, $http, $location) {
-app.controller("AlbumsController", function ($scope, $interval, $location) {
+app.controller("AlbumsController", function ($http, $scope, $interval, $location) {
     $scope.titulo = "Álbumes";
     $scope.cantidadseleccionadas = 0;
     $scope.albumes = [];
@@ -236,62 +296,30 @@ app.controller("AlbumsController", function ($scope, $interval, $location) {
     };
 
     $scope.cargar = function () {
-        $.ajax({
-            url: '/json/' + encodeURI('album'),
-            dataType: 'json',
-            method: 'get',
-            success: function (datos) {
-                if (typeof datos.error !== 'undefined' && datos.error === false) {
-                    $scope.albumes = datos.mensajes;
-                    $scope.$apply();
-                    console.log("cargar albumes");
-                } else {
-                    console.log("error al recibir albumes");
-                }
-            }
+        $http.get('/json/' + encodeURI('album')).then(function (response) {
+            $scope.albumes = response.data.mensajes;
         });
         $scope.cantidadseleccionadas = 0;
-        //$scope.$apply();
     };
     $scope.editaroagregaralbum = function (nombre, editaroagregar, nombrenuevo) {
         if (editaroagregar === "Agregar album") {
-            $.ajax({
-                url: '/json/' + encodeURI('crearalbum:' + nombre),
-                dataType: 'json',
-                method: 'get',
-                success: function (datos) {
-                    if (typeof datos.error !== 'undefined' && datos.error === false) {
-                        if (datos.mensaje == "existente") {
-                            $scope.mensaje("Existe un album con ese nombre");
-                        } else
-                            $('#editaroagregaralbum').collapse('hide');
-                    } else {
-                        $scope.mensaje("Error al intentar editar el nombre del album");
-                    }
-                    $scope.cargar();
-                }
+            $http.get('/json/' + encodeURI('crearalbum:' + nombre)).then(function (response) {
+                if (response.data.mensaje == "existente") {
+                    $scope.mensaje("Existe un album con ese nombre");
+                } else
+                    $('#editaroagregaralbum').collapse('hide');
+                $scope.cargar();
             });
         } else {
-            $.ajax({
-                url: '/json/' + encodeURI('editaralbum:' + nombrenuevo + ":" + nombre),
-                dataType: 'json',
-                method: 'get',
-                success: function (datos) {
-                    if (typeof datos.error !== 'undefined' && datos.error === false) {
-                        if (datos.mensaje == "existente") {
-                            $scope.mensaje("Existe un album con ese nombre");
-                            //$scope.erroramostrarmensaje("Existe un album con ese nombre");
-                        } else
-                            $('#editaroagregaralbum').collapse('hide');
-                    } else {
-                        $scope.mensaje("Error al intentar editar el nombre del album");
-                        //$scope.erroramostrarmensaje("Error al intentar editar el nombre del album");
-                    }
-                    $scope.cargar();
-                }
+            $http.get('/json/' + encodeURI('editaralbum:' + nombrenuevo + ":" + nombre)).then(function (response) {
+                if (response.data.mensaje == "existente") {
+                    $scope.mensaje("Existe un album con ese nombre");
+                } else
+                    $('#editaroagregaralbum').collapse('hide');
+                $scope.cargar();
             });
         }
-
+        ;
     };
     $scope.nombredealbumeseleccionado = function () {
         for (var i = 0; i < $scope.albumes.length; i++) {
@@ -303,20 +331,8 @@ app.controller("AlbumsController", function ($scope, $interval, $location) {
     $scope.eliminaralbum = function () {
         for (var i = 0; i < $scope.albumes.length; i++) {
             if ($scope.albumes[i].seleccionado) {
-                $.ajax({
-                    url: '/json/' + encodeURI('eliminaralbum:' + $scope.albumes[i].dato),
-                    dataType: 'json',
-                    method: 'get',
-                    success: function (datos) {
-                        if (typeof datos.error !== 'undefined' && datos.error === false) {
-                            if (datos.mensaje == "existente") {
-                                $scope.mensaje("Existe un album con ese nombre");
-                            }
-                        } else {
-                            $scope.mensaje("Error al intentar eliminar el album");
-                        }
-                        $scope.cargar();
-                    }
+                $http.get('/json/' + encodeURI('eliminaralbum:' + $scope.albumes[i].dato)).then(function (response) {
+                    $scope.cargar();
                 });
             }
         }
@@ -333,15 +349,16 @@ app.controller("AlbumsController", function ($scope, $interval, $location) {
         albumes.seleccionado = true;
         $scope.verificarcantidad();
         $scope.$apply;
-    }
+    };
     $scope.desseleccionar = function (albumes) {
         albumes.seleccionado = false;
         $scope.verificarcantidad();
         $scope.$apply;
-    }
+    };
     $scope.cargar();
-});
-app.controller("ListadoController", function ($scope, $interval, $location, $http) {
+})
+;
+app.controller("ListadoController", ['$scope', '$http', '$interval', '$location', function ($scope, $http, $interval, $location) {
     if (!$scope.sesion()) {
         $location.path('/').replace();
     }
@@ -407,126 +424,60 @@ app.controller("ListadoController", function ($scope, $interval, $location, $htt
     $scope.habilitarseleccionados = function () {
         for (var i = 0; i < $scope.canciones.length; i++) {
             if ($scope.canciones[i].seleccionado) {
-                $.ajax({
-                    url: '/json/' + encodeURI('habilitar:' + $scope.canciones[i].nombre),
-                    dataType: 'json',
-                    method: 'get',
-                });
+                $http.get('/json/' + encodeURI('habilitar:' + $scope.canciones[i].nombre));
                 console.log('habilitar');
             }
         }
         $scope.cargar;
-        $scope.$apply;
     }
     $scope.anularseleccionados = function () {
         for (var i = 0; i < $scope.canciones.length; i++) {
             if ($scope.canciones[i].seleccionado) {
-                $.ajax({
-                    url: '/json/' + encodeURI('anular:' + $scope.canciones[i].nombre),
-                    dataType: 'json',
-                    method: 'get',
-                });
+                $http.get('/json/' + encodeURI('anular:' + $scope.canciones[i].nombre));
                 console.log('anular');
             }
         }
         $scope.cargar;
-        $scope.$apply;
     }
     $scope.borrarseleccionados = function () {
         for (var i = 0; i < $scope.canciones.length; i++) {
             if ($scope.canciones[i].seleccionado) {
-                $.ajax({
-                    url: '/json/' + encodeURI('borrar:' + $scope.canciones[i].nombre),
-                    dataType: 'json',
-                    method: 'get',
-                });
+                $http.get('/json/' + encodeURI('borrar:' + $scope.canciones[i].nombre));
             }
         }
         $scope.cargar;
-        $scope.$apply;
     }
-    //console.log("
     $scope.cambiaralbum = function (albumnombre) {
         for (var i = 0; i < $scope.canciones.length; i++) {
             if ($scope.canciones[i].seleccionado) {
-                $.ajax({
-                    url: '/json/' + encodeURI('cambiaralbum:' + $scope.canciones[i].nombre + ':' + albumnombre),
-                    dataType: 'json',
-                    method: 'get',
-                });
+                $http.get('/json/' + encodeURI('cambiaralbum:' + $scope.canciones[i].nombre + ':' + albumnombre));
             }
         }
         $scope.cargar;
-        $scope.$apply;
-    }
-    console.log("ejecutando listado");
+    };
     $scope.cargar = function () {
-        /*$http({
-            method: 'GET',
-            url: '/json/' + encodeURI('lista')
-        }).then(function (datos){
-            console.log("respuesta");
-            $scope.canciones = datos.listadecanciones;
-            $scope.$apply();
+        console.log("ejecutando listado");
+        $http.get('/json/' + encodeURI('album')).then(function (response) {
+            $scope.albumes = response.data.mensajes;
+        });
+        $http.get('/json/' + encodeURI('lista')).then(function (response) {
+            $scope.canciones = [];
+            $scope.canciones = response.data.listadecanciones;
             $(document).ready(function () {
                 $('#listadomultimedia').DataTable();
             });
-        });*/
-        $.ajax({
-            url: '/json/' + encodeURI('album'),
-            dataType: 'json',
-            method: 'get',
-            success: function (datos) {
-                if (typeof datos.error !== 'undefined' && datos.error === false) {
-                    $scope.albumes = datos.mensajes;
-                    $scope.$apply();
-                    console.log("cargar albumes");
-                } else {
-                    console.log("error al recibir albumes");
-                }
-            }
-        });
-        $.ajax({
-            url: '/json/' + encodeURI('lista'),
-            dataType: 'json',
-            method: 'get',
-            success: function (datos) {
-                if (typeof datos.error !== 'undefined' && datos.error === false) {
-                    $scope.canciones = [];
-                    $scope.canciones = datos.listadecanciones;
-                    $scope.$apply();
-                    $(document).ready(function () {
-                        $('#listadomultimedia').DataTable();
-                    });
-
-                   /* if ( $.fn.dataTable.isDataTable( '#example' ) ) {
-                        table = $('#listadomultimedia').DataTable();
-                    }
-                    else {
-                        table = $('#listadomultimedia').DataTable( {
-                            paging: false
-                        } );
-                    }*/
-                    //$('#listadomultimedia').DataTable( {
-                    //    autoFill: true
-                    //} );
-                } else {
-                    console.log("error al recibir canciones");
-                }
-            }
         });
     };
     $scope.btnmostrarrutas = function () {
         $scope.mostrarrutas = !$scope.mostrarrutas;
         $scope.$apply;
-    }
+    };
     $scope.borrarseleccionadas = function () {
 
-    }
+    };
 
     $scope.cargar();
-});
-
+}]);
 app.controller('sesion', function ($location, $scope, $localStorage, $sessionStorage, $window) {
     $scope.iniciarsesion = function (nombredeusuario) {
         $localStorage.LocalMessage = "iniciada";
@@ -547,24 +498,19 @@ app.controller('sesion', function ($location, $scope, $localStorage, $sessionSto
         return regresa;
     }
     $scope.sesioniniciada = function () {
-        console.log($sessionStorage.SessionMessage);
+        //console.log($sessionStorage.SessionMessage);
+        if (typeof $sessionStorage.SessionMessage !== 'undefined')
+            $sessionStorage.SessionMessage = '';
         return $sessionStorage.SessionMessage;
     }
     $scope.obtenerstring = function (enviardatos) {
-        $.ajax({
-            url: '/json/' + encodeURI(enviardatos),
-            dataType: 'json',
-            method: 'get',
-            success: function (datos) {
-                if (typeof datos.error !== 'undefined' && datos.error === false) {
-                    return datos.mensaje;
-                }
-            }
+        $http.get('/json/' + encodeURI(enviardatos)).then(function (response) {
+            return response.data.mensaje;
         });
         return null;
     }
 });
-app.controller("InicioController", function ($scope, $interval, $location) {
+app.controller("InicioController", function ($http, $scope, $interval, $location) {
     $scope.titulo = "Inicio";
 
     function usuario(usuario, sha1) {
@@ -575,22 +521,14 @@ app.controller("InicioController", function ($scope, $interval, $location) {
         $scope.titulodeformulario = titulodeformulario;
         $scope.botoningresar = botoningresar;
         $scope.crearusuario = crearusuario;
-        $.ajax({
-            url: '/json/' + encodeURI('sinusuarios'),
-            dataType: 'json',
-            method: 'get',
-            success: function (datos) {
-                if (typeof datos.error !== 'undefined' && datos.error === false) {
-                    if (datos.mensaje === ' ') {
-                        titulodeformulario = "No hay usuario creado por favor ingrese los datos correspondientes";
-                        crearusuario = true;
-                        botoningresar = "Crear usuario";
-                        $scope.titulodeformulario = titulodeformulario;
-                        $scope.botoningresar = botoningresar;
-                        $scope.crearusuario = crearusuario;
-                        $scope.$apply();
-                    }
-                }
+        $http.get('/json/' + encodeURI('sinusuarios')).then(function (response) {
+            if (response.data.mensaje === ' ') {
+                titulodeformulario = "No hay usuario creado por favor ingrese los datos correspondientes";
+                crearusuario = true;
+                botoningresar = "Crear usuario";
+                $scope.titulodeformulario = titulodeformulario;
+                $scope.botoningresar = botoningresar;
+                $scope.crearusuario = crearusuario;
             }
         });
     };
@@ -602,28 +540,13 @@ app.controller("InicioController", function ($scope, $interval, $location) {
             //console.log('corriendo');
             // $scope.mensaje1 = preguntar('musica');
             // $scope.tiempo = preguntar('tiempo');
-            $.ajax({
-                url: '/json/' + encodeURI('musica'),
-                dataType: 'json',
-                method: 'get',
-                success: function (datos) {
-                    if (typeof datos.error !== 'undefined' && datos.error === false) {
-                        $scope.mensaje1 = datos.mensaje;
-                    }
-                }
+            $http.get('/json/' + encodeURI('musica')).then(function (response) {
+                $scope.mensaje1 = response.data.mensaje;
             });
-            $.ajax({
-                url: '/json/' + encodeURI('estado'),
-                dataType: 'json',
-                method: 'get',
-                success: function (datos) {
-                    if (typeof datos.error !== 'undefined' && datos.error === false) {
-                        $scope.estado = datos.mensaje;
-                    }
-                }
+            $http.get('/json/' + encodeURI('estado')).then(function (response) {
+                $scope.estado = response.data.mensaje;
             });
         }, 1500);
-
     };
     $scope.loguear = function () {
         var usuario = document.getElementsByName("Usuario")[0].value;
@@ -646,68 +569,51 @@ app.controller("InicioController", function ($scope, $interval, $location) {
         $scope.erroramostrar = "";
         if ($scope.titulodeformulario == "Ingrese sus datos") {
             console.log("logueo");
-            $.ajax({
-                url: '/json/' + encodeURI('LoGuEo:' + usuario + ':' + Sha1.hash(usuario + contrasena)),
-                dataType: 'json',
-                method: 'get',
-                success: function (datos) {
-                    if (typeof datos.error !== 'undefined' && datos.error === false) {
-                        console.log(datos.mensaje)
-                        switch (datos.mensaje) {
-                            case 'loguea':
-                                $scope.informacionamostrar = "El usuario " + usuario + " se logueo ";
-                                $scope.erroramostrar = "";
-                                $scope.iniciarsesion(usuario);
-                                console.log(sessionStorage.SessionMessage);
-                                $location.path('/listado').replace();
-                                $scope.$apply();
-                                return "logueado";
-                                break;
-                            default:
-                                $scope.erroramostrar = "No se encuentran registros de la información ingresada";
-                                $scope.informacionamostrar = "";
-                                $scope.$apply();
-                                return "error";
-                                break;
-                        }
-                    } else {
-                        $scope.erroramostrar = "Error de comunicacion!";
-                        $scope.informacionamostrar = "";
-                        $scope.$apply();
-                        return "error";
+            $http.get('/json/' + encodeURI('LoGuEo:' + usuario + ':' + Sha1.hash(usuario + contrasena))).then(function (response) {
+                    switch (response.data.mensaje) {
+                        case 'loguea':
+                            $scope.informacionamostrar = "El usuario " + usuario + " se logueo ";
+                            $scope.erroramostrar = "";
+                            $scope.iniciarsesion(usuario);
+                            console.log(sessionStorage.SessionMessage);
+                            $location.path('/listado').replace();
+                            return "logueado";
+                            break;
+                        default:
+                            $scope.erroramostrar = "No se encuentran registros de la información ingresada";
+                            $scope.informacionamostrar = "";
+                            return "error";
+                            break;
                     }
-                }
-            });
+                },
+                function (data) {
+                    $scope.erroramostrar = "Error de comunicacion!";
+                    $scope.informacionamostrar = "";
+                    return "error";
+                });
         }
         else {
             console.log("crear usuario")
             console.log('CrEaR:' + usuario + ':' + Sha1.hash(usuario + contrasena));
-            $.ajax({
-                url: '/json/' + encodeURI('CrEaR:' + usuario + ':' + Sha1.hash(usuario + contrasena)),
-                dataType: 'json',
-                method: 'get',
-                success: function (datos) {
-                    if (typeof datos.error !== 'undefined' && datos.error === false) {
-                        if (datos.mensaje == "existente") {
-                            $scope.erroramostrar = "El usuario " + usuario + " que esta intentando crear ya existe ";
-                            $scope.informacionamostrar = "";
-                        } else {
-                            $scope.informacionamostrar = "Se ha creado la cuenta de " + usuario + " satisfactoriamente";
-                            $scope.erroramostrar = "";
-                            titulodeformulario = "Ingrese sus datos";
-                            crearusuario = true;
-                            botoningresar = "Ingresar";
-                            $scope.titulodeformulario = titulodeformulario;
-                            $scope.botoningresar = botoningresar;
-                            $scope.crearusuario = crearusuario;
-                        }
-                    } else {
-                        $scope.erroramostrar = "Hubo errores en la creacion de la cuenta  " + usuario;
+            $http.get('/json/' + encodeURI('CrEaR:' + usuario + ':' + Sha1.hash(usuario + contrasena))).then(function (response) {
+                    if (response.data.mensaje == "existente") {
+                        $scope.erroramostrar = "El usuario " + usuario + " que esta intentando crear ya existe ";
                         $scope.informacionamostrar = "";
+                    } else {
+                        $scope.informacionamostrar = "Se ha creado la cuenta de " + usuario + " satisfactoriamente";
+                        $scope.erroramostrar = "";
+                        titulodeformulario = "Ingrese sus datos";
+                        crearusuario = true;
+                        botoningresar = "Ingresar";
+                        $scope.titulodeformulario = titulodeformulario;
+                        $scope.botoningresar = botoningresar;
+                        $scope.crearusuario = crearusuario;
                     }
-                    $scope.$apply
-                }
-            });
+                },
+                function (data) {
+                    $scope.erroramostrar = "Hubo errores en la creacion de la cuenta  " + usuario;
+                    $scope.informacionamostrar = "";
+                });
         }
         //alert("loguea:"+ usuarioqueloguea);
     };
@@ -725,28 +631,17 @@ var nombre = document.getElementById('nombre');
 app.controller('SubirArchivos', function ($scope, $http, $parse, $location) {
     $scope.titulo = "Subir Archivos";
     $scope.copalsa = true;
+    $scope.miestilo = "{}";
     $scope.albumes = [];
     $scope.obteneralbumseleccionado = function () {
         return $scope.aalbumasubir;
     }
 
     $scope.cargaralbums = function () {
-        $.ajax({
-            url: '/json/' + encodeURI('album'),
-            dataType: 'json',
-            method: 'get',
-            success: function (datos) {
-                if (typeof datos.error !== 'undefined' && datos.error === false) {
-                    $scope.albumes = datos.mensajes;
-                    $scope.$apply();
-                    console.log("cargar albumes");
-                } else {
-                    console.log("error al recibir albumes");
-                }
-            }
+        $http.get('/json/' + encodeURI('album')).then(function (response) {
+            $scope.albumes = response.data.mensajes;
         });
         $scope.cantidadseleccionadas = 0;
-        //$scope.$apply();
     };
     $scope.borrarseleccionado = function (file) {
         var i = $scope.files.indexOf(file);
@@ -768,44 +663,39 @@ app.controller('SubirArchivos', function ($scope, $http, $parse, $location) {
         var cantidad = 0;
         $scope.subiendoarchivos = true;
         $scope.porcentajesubido = 0;
-        $.ajax({
-            url: '/json/' + encodeURI('subirarchivos:' + $scope.aalbumasubir),
-            dataType: 'json',
-            method: 'get',
-            success: function (datos) {
-                if (typeof datos.error !== 'undefined' && datos.error === false) {
+        $http.get('/json/' + encodeURI('subirarchivos:' + $scope.aalbumasubir)).then(function (response) {
+            $('#mensajeaporcentaje').modal('show');
+            console.log("intentando subir");
+            console.log($scope.files.length);
+            angular.forEach($scope.files, function (item) {
+                var fd = new FormData();
+                fd.append('file', item);
+                $http.post("/upload/", fd, {
+                    transformRequest: angular.identity,
+                    headers: {'Content-Type': undefined}
+                }).then(function (success) {
+                    cantidad += 1;
+                    $scope.porcentajesubido = Math.round((cantidad * 100) / $scope.files.length);
+                    $scope.miestilo = {
+                        "width": $scope.porcentajesubido + "%"
+                    };
+                    if ($scope.porcentajesubido == 100) {
+                        $('#mensajeaporcentaje').modal('hide');
+                        $scope.subiendoarchivos = false;
+                        $scope.files.length = 0;
+                    }
                     $scope.$apply;
-                    console.log("intentando subir");
-                    console.log($scope.files.length);
-                    angular.forEach($scope.files, function (item) {
-                        var fd = new FormData();
-                        fd.append('file', item);
-                        $http.post("/upload/", fd, {
-                            transformRequest: angular.identity,
-                            headers: {'Content-Type': undefined}
-                        }).then(function (success) {
-                            cantidad += 1;
-                            $scope.porcentajesubido = Math.round((cantidad * 100) / $scope.files.length);
-                            if ($scope.porcentajesubido == 100) {
-                                $scope.subiendoarchivos = false;
-                                $scope.files.length = 0;
-                            }
-                            $scope.$apply;
-                            console.log("subido :D");
-                            return success.data.data;
-                        });
-                    });
-
-
-                } else {
-                    console.log("error al intentar comenzar la subida de archivos");
-                }
-            }
+                    console.log("subido :D");
+                    return success.data.data;
+                });
+            });
         });
-    };
+    }
     $scope.cargaralbums();
 });
+
 app.directive('ngFileModel', ['$parse', function ($parse) {
+    console.log("controlando");
     return {
         restrict: 'A',
         link: function (scope, element, attrs) {
@@ -816,21 +706,6 @@ app.directive('ngFileModel', ['$parse', function ($parse) {
                 var values = [];
                 angular.forEach(element[0].files, function (item) {
                     if (item.name.endsWith("mp3")) {
-                        //console.log(document.getElementById('directorioseleccionado').value);
-
-                        //var tmppath = URL.createObjectURL(item);
-                        //console.log($("img").fadeIn("fast").attr('src',tmppath));
-
-
-                        //                                console.log(item.val());
-                        //console.log(item.webkitRelativePath);
-                        //document.getElementsByName("Contrasena")[0].value
-                        /*var value = {
-                            name: item.name,
-                            size: item.size,
-                            url: URL.createObjectURL(item),
-                            _file: item
-                        };*/
                         values.push(item);
                     }
                 });
@@ -847,27 +722,3 @@ app.directive('ngFileModel', ['$parse', function ($parse) {
         }
     }
 }]);
-/* app.controller('SubirArchivos', function($scope, $http) {
-            $scope.name = 'World';
-            $scope.files = []; 
-            $scope.upload = function () {
-
-        app.controller('myCtrl', ['$scope', 'fileUpload', function($scope, fileUpload){
-
-            $scope.uploadFile = function(){
-                var file = $scope.myFile;
-                console.log('file is ' );
-                console.dir(file);
-                var uploadUrl = "/upload/";
-                fileUpload.uploadFileToUrl(file, uploadUrl);
-            };
-
-        }]);*/
-
-/*        function cambiarFile(){
-            const input = document.getElementById('inputFileServer');
-            if(input.files && input.files[0])
-                console.log("File Seleccionado : ", input.files[0]);
-
-        }
-        console.log("Sin Archivo Seleccionado " + document.getElementById('inputFileServer').files[0]);*/

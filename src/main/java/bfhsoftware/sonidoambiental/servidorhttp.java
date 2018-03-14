@@ -8,6 +8,8 @@ package bfhsoftware.sonidoambiental;
 import bfhsoftware.sonidoambiental.comunicacion.canciones;
 import bfhsoftware.sonidoambiental.comunicacion.matriz;
 import bfhsoftware.sonidoambiental.comunicacion.reproducciones;
+
+//import bfhsoftware.sonidoambiental.comunicacion.;
 import com.google.gson.*;
 import com.sun.net.httpserver.*;
 
@@ -56,9 +58,9 @@ public class servidorhttp implements Runnable {
             comunicacion logueo = new comunicacion();
             reproductor repo = new reproductor();
             if (mensaje.startsWith("LoGuEo:") && mensaje.substring(7).length() != 0) {
-                System.out.println((mensaje.substring(7, 7 + mensaje.substring(7).indexOf(":"))) + " " + mensaje.substring(8 + mensaje.substring(7).indexOf(":")));
+                //System.out.println((mensaje.substring(7, 7 + mensaje.substring(7).indexOf(":"))) + " " + mensaje.substring(8 + mensaje.substring(7).indexOf(":")));
                 mensaje = logueo.loguear((mensaje.substring(7, 7 + mensaje.substring(7).indexOf(":"))), mensaje.substring(8 + mensaje.substring(7).indexOf(":")));
-                System.out.println(mensaje);
+                //System.out.println(mensaje);
             }
             if (mensaje.startsWith("CrEaR:") && mensaje.substring(6).length() > 1) {
                 mensaje = logueo.crearusuario((mensaje.substring(6, 6 + mensaje.substring(6).indexOf(":"))), mensaje.substring(7 + mensaje.substring(6).indexOf(":")));
@@ -81,7 +83,7 @@ public class servidorhttp implements Runnable {
             }
             if (mensaje.startsWith("editaralbum:") && mensaje.substring(12).length() > 1) {
                 mensaje = logueo.editaralbum((mensaje.substring(12, 12 + mensaje.substring(12).indexOf(":"))), mensaje.substring(13 + mensaje.substring(12).indexOf(":")));
-                System.out.println(mensaje);
+                //System.out.println(mensaje);
             }
             if (mensaje.startsWith("cambiaralbum:") && mensaje.substring(13).length() > 1) {
                 logueo.cambiardealbum((mensaje.substring(13, 13 + mensaje.substring(13).indexOf(":"))), mensaje.substring(14 + mensaje.substring(13).indexOf(":")));
@@ -145,6 +147,12 @@ public class servidorhttp implements Runnable {
         }
     }
 
+    private class reproduccionmensaje {
+        public Boolean lunes, martes, miercoles, jueves, viernes, sabado, domingo;
+        public String nombre;
+        public Long horahasta, horadesde;
+        public String mensaje;
+    }
     /* Clase privada necesaria para obtener una consulta en JSON */
     private class ConsultaMensaje {
         private String mensaje;
@@ -154,6 +162,7 @@ public class servidorhttp implements Runnable {
             return mensaje;
         }
     }
+
 
     private matriz[] delistadoamatriz(ArrayList<String> listado) {
         matriz[] retorna = new matriz[listado.size()];
@@ -296,6 +305,7 @@ public class servidorhttp implements Runnable {
                 switch (he.getRequestMethod().toUpperCase()) {
                     case "GET":
                         /* Creamos una instancia de Respuesta para ser convertida en JSON */
+                       // System.out.println(he.getRequestURI());
                         switch (he.getRequestURI().getPath().substring(he.getHttpContext().getPath().length())) {
                             case "lista":
                                 Respuestalistadecanciones respuesta4;
@@ -329,8 +339,15 @@ public class servidorhttp implements Runnable {
                         Scanner s = new Scanner(he.getRequestBody(), StandardCharsets.UTF_8.toString()).useDelimiter("\\A");
                         /* Si no hay ningún problema */
                         if (s.hasNext()) {
-                            ConsultaMensaje consulta = gson.fromJson(s.next(), ConsultaMensaje.class);
-                            respuesta = new RespuestaMensaje(consulta.getMensaje(), false);
+                            reproduccionmensaje consulta = gson.fromJson(s.next(), reproduccionmensaje.class);
+                            comunicacion com = new comunicacion();
+                            for(int i=1; i<8; i++){
+                                Boolean agregar=false;
+                                if ((consulta.lunes && i == 1) || (consulta.martes && i == 2)|| (consulta.miercoles && i == 3)|| (consulta.jueves && i == 4)|| (consulta.viernes && i == 5)|| (consulta.sabado && i == 6)|| (consulta.domingo && i == 7)){
+                                    com.agregarprogramaciondereproduccion(consulta.nombre, i, consulta.horadesde, consulta.horahasta);
+                                }
+                            }
+                            respuesta = new RespuestaMensaje("", false);
                         } else {
                             respuesta = new RespuestaMensaje("Error recibiendo datos", true);
                         }

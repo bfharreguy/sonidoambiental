@@ -6,7 +6,8 @@
         al menos una reproducción maestra, y siempre habilitada.
     </div>
     <div class="btn-group">
-        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+        <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown"
+                aria-haspopup="true"
                 aria-expanded="false">
             Agregar nueva reproducción
         </button>
@@ -17,10 +18,20 @@
                     <input type="text" ng-model="nombredenuevareproduccion" class="form-control"
                            id="nombredenuevareproduccion" placeholder="clasicos">
                 </div>
-                <button type="submit" ng-click="crearreproduccion(nombredenuevareproduccion);nombredenuevareproduccion='';" class="btn btn-primary">
+                <button type="submit"
+                        ng-click="crearreproduccion(nombredenuevareproduccion);nombredenuevareproduccion='';"
+                        class="btn btn-primary">
                     Crear reproducción
                 </button>
             </form>
+        </div>
+        <div class="btn-group btn-sm btn-group-toggle" data-toggle="buttons">
+            <label class="btn btn-outline-success active btn-sm" ng-click="poralbum();">
+                <input type="radio" name="options" id="option1" autocomplete="off" checked> Ver albums que las componen
+            </label>
+            <label class="btn btn-outline-success btn-sm" ng-click="porprogramacion();">
+                <input type="radio" name="options" id="option2" autocomplete="off"> Ver programación
+            </label>
         </div>
     </div>
 
@@ -28,10 +39,12 @@
         <thead>
         <tr>
             <th scope="col">Reproducción</th>
-            <th scope="col">Álbumes que representa</th>
+            <th scope="col" ng-show="verporprogramacion;">Programación</th>
+            <th scope="col" ng-show="verporalbum;">Álbumes que representa</th>
             <th scope="col">Habilitado</th>
-            <th scope="col">Es maestra</th>
+            <th scope="col">Es principal</th>
         </tr>
+
         </thead>
         <tbody>
         <tr ng-repeat="datosdereproduccion in datosdereproduccion track by $index">
@@ -43,7 +56,34 @@
                     </button>
                 </div>
             </td>
-            <td>
+            <td ng-show="verporprogramacion;">
+                <div class="container" ng-show="datosdereproduccion.albummaestro">
+                    Sin programación es principal
+                </div>
+                <table class="table borderless d-flex justify-content-start"
+                       ng-show="!datosdereproduccion.albummaestro">
+                    <tbody>
+                    <td>
+                        <button type="button" ng-click="abriralbum(datosdereproduccion);"
+                                class="btn btn-outline-success btn-sm"
+                                data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false"><span class="glyphicon glyphicon-plus-sign"></span></button>
+                    </td>
+                    <td ng-repeat="n in rango(1,7)" ng-show="verificardia(datosdereproduccion.diadesemana, n)">
+                        <div class="bg-primary text-white letrapequeña">
+                            {{dia(n);}}
+                        </div>
+                        <div class="flex-sm-column" ng-repeat="dia in datosdereproduccion.diadesemana track by $index" ng-show="dia == n">
+                            <div ng-show="datosdereproduccion.horadesde[$index] != ''" class="letrapequeña">
+                                {{datosdereproduccion.horadesde[$index]}}-{{datosdereproduccion.horahasta[$index]}}
+                            </div>
+                        </div>
+                    </td>
+
+                    </tbody>
+                </table>
+            </td>
+            <td ng-show="verporalbum;">
                 <div class="d-flex justify-content-start">
                     <div ng-show="datosdereproduccion.albumsaagregar.length>0" class="btn-group">
                         <button type="button" class="btn btn-outline-success btn-sm dropdown-toggle"
@@ -99,4 +139,88 @@
         </tr>
         </tbody>
     </table>
+    <div class="modal" id="agregarprogramacion" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Agregar programación a {{ver.nombre}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="agregarprograma" class="px-4 py-3">
+                    <div class="modal-body">
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" ng-model="todos"
+                                   ng-checked="(lunes && martes && miercoles && jueves && viernes && sabado && domingo)"
+                                   ng-click="lunes=todos;martes = todos; miercoles = todos; jueves = todos; viernes = todos; sabado = todos; domingo = todos"
+                                   id="todos">
+                            <label class="form-check-label" for="todos">
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" ng-model="lunes" value="" id="lunes">
+                            <label class="form-check-label" for="lunes">
+                                Lunes
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" ng-model="martes" value="" id="martes">
+                            <label class="form-check-label" for="martes">
+                                martes
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" ng-model="miercoles" value=""
+                                   id="miercoles">
+                            <label class="form-check-label" for="miercoles">
+                                miércoles
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" ng-model="jueves" id="jueves">
+                            <label class="form-check-label" for="jueves">
+                                jueves
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" ng-model="viernes" id="viernes">
+                            <label class="form-check-label" for="viernes">
+                                viernes
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" ng-model="sabado" id="sabado">
+                            <label class="form-check-label" for="sabado">
+                                sábado
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" ng-model="domingo" id="domingo">
+                            <label class="form-check-label" for="domingo">
+                                domingo
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="horadesde">Desde la hora:</label>
+                            <input id="horadesde" placeholder="HH:mm" type="time" ng-model="horadesde">
+                        </div>
+                        <div class="form-group">
+                            <label for="horahasta">Hasta la hora: </label>
+                            <input id="horahasta" placeholder="HH:mm" type="time" ng-model="horahasta">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button"
+                                ng-disabled="!(lunes || martes || miercoles || jueves || viernes || sabado || domingo)"
+                                class="btn btn-secondary"
+                                ng-click="enviar(ver.nombre, lunes, martes, miercoles, jueves, viernes, sabado, domingo, horadesde.getTime(), horahasta.getTime())"
+                                data-dismiss="modal">Aceptar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>

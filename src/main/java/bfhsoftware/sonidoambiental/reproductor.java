@@ -68,7 +68,7 @@ public class reproductor implements Runnable {
             //Long.valueOf(String s).longValue();
             //System.out.println(((System.currentTimeMillis() / 1000L) - (Long.valueOf((String) com.opcion("ultimavezqueseverificaalbum")).longValue() )));
             //System.out.println(Long.valueOf((String) com.opcion("ultimavezqueseverificaalbum")).longValue() );
-            if ((((System.currentTimeMillis() / 1000L) - (Long.valueOf((String) com.opcion("ultimavezqueseverificaalbum")).longValue() ))>900)){
+            if ((((System.currentTimeMillis() / 1000L) - (Long.valueOf((String) com.opcion("ultimavezqueseverificaalbum", Objects.toString((System.currentTimeMillis() / 1000L), null))).longValue() ))>900)){
                 com.verificarmusica();
                 if (!reproduciendo){
                     ordendereproducir = true;
@@ -76,6 +76,7 @@ public class reproductor implements Runnable {
             }
         }
     };
+
     private synchronized void tareaviva() {
 
         while (true) {
