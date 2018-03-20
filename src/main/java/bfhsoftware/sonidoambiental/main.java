@@ -17,6 +17,9 @@ public class main {
     }
 
     public static void main(final String... args) {
+        //subir el volumen al mango y sacar silencio
+        audio.setMasterOutputVolume(1);
+        audio.setMasterOutputMute(false);
         //iniciar sucesos o logging
         susesos iniciarsusesos = new susesos();
         System.out.println(System.getProperty("os.name"));

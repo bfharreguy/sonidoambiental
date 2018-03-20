@@ -51,11 +51,6 @@
             <version>4.1.1.4</version>
             <scope>provided</scope>            
         </dependency>
-        <dependency>
-            <groupId>javazoom</groupId>
-            <artifactId>jlayer</artifactId>
-            <version>1.0.1</version>
-        </dependency>
         <!-- https://mvnrepository.com/artifact/com.sun.net.httpserver/http -->
         <dependency>
             <groupId>com.sun.net.httpserver</groupId>
@@ -102,10 +97,7 @@
                         </goals>
                         <configuration>
                             <outputDirectory>${basedir}/target/clases</outputDirectory>
-                            <overWriteReleases>false</overWriteReleases>
-                            <overWriteSnapshots>false</overWriteSnapshots>
-                            <overWriteIfNewer>true</overWriteIfNewer>
-                            <resources>          
+                                 <resources>
                                 <resource>
                                     <directory>${basedir}/src/main/resources</directory>
                                     <filtering>false</filtering>

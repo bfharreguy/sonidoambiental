@@ -78,7 +78,7 @@
                             <button type="button" class="button btn-sm btn-outline-dark letrapequeña"
                                     ng-show="datosdereproduccion.horadesde[$index] != ''" data-toggle="tooltip"
                                     data-placement="top" title="Eliminar"
-                                    ng-click="eliminarprogramadereproduccion(datosdereproduccion.nombre, dia , datosdereproduccion.horadesde[$index], datosdereproduccion.horahasta[$index])">
+                                    ng-click="editarprogramadereproduccion(datosdereproduccion.nombre, dia , datosdereproduccion.horadesde[$index], datosdereproduccion.horahasta[$index])">
                                 {{datosdereproduccion.horadesde[$index]}}-{{datosdereproduccion.horahasta[$index]}}
                             </button>
                         </div>
@@ -227,7 +227,43 @@
             </div>
         </div>
     </div>
-    <script>
 
-    </script>
+    <div class="modal" id="editarprogramacion" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Programación de reproducción seleccionada </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <p>Programacion seleccionada: {{aeditar.nombre}}</p>
+                <p>Día de la semana: {{dia(aeditar.diadesemana)}}</p>
+                <form id="editarprogramacionseleccionada" class="px-4 py-3">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="horadesdeseleccionada">Desde la hora:</label>
+                            <input id="horadesdeseleccionada" placeholder="HH:mm" type="time" ng-model="horadesdeseleccionada">
+                        </div>
+                        <div class="form-group">
+                            <label for="horahastaseleccionada">Hasta la hora: </label>
+                            <input id="horahastaseleccionada" placeholder="HH:mm" type="time" ng-model="horahastaseleccionada">
+                        </div>
+                    </div>
+                    <div class="modal-footer d-flex justify-content-end">
+                        <button type="button"
+                                class="btn btn-secondary"
+                                ng-click="eliminarprogramadereproduccion(aeditar.nombre, aeditar.diadesemana, aeditar.horadesde, aeditar.horahasta); $('#editarprogramacion').modal('hide');"
+                                data-dismiss="modal">Eliminar
+                        </button>
+                        <button type="button"
+                                class="btn btn-secondary"
+                                ng-click="modificarprogramadereproduccion(aeditar.nombre, aeditar.diadesemana, aeditar.horadesde, aeditar.horahasta, horadesdeseleccionada.getTime(), horahastaseleccionada.getTime())"
+                                data-dismiss="modal">Modificar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>

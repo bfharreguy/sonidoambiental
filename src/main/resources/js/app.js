@@ -94,6 +94,7 @@ app.controller("ReproduccionController", function ($scope, $http) {
     $scope.enviar=function (nombre, lunes, martes, miercoles, jueves, viernes, sabado, domingo, horadesde, horahasta) {
         console.log(miercoles);
         var reproduccion = {
+            modificar: false,
             eliminar: false,
             nombre: nombre,
             lunes: lunes || false,
@@ -115,13 +116,46 @@ app.controller("ReproduccionController", function ($scope, $http) {
             $scope.cargar();
         });
     };
+    $scope.editarprogramadereproduccion=function (nombre, diadesemana, strhoradesde, strhorahasta) {
+        $('#editarprogramacion').modal('show');
+        var ediciondeprogramacion = {
+            nombre: nombre,
+            diadesemana: diadesemana || 0,
+            horadesde: strhoradesde ,
+            horahasta: strhorahasta
+        };
+        $scope.aeditar = ediciondeprogramacion;
+        $scope.horadesdeseleccionada = new Date(1970, 0, 1, parseInt(strhoradesde.substring(0,2)), parseInt(strhoradesde.substring(3,5)), 0);
+        $scope.horahastaseleccionada = new Date(1970, 0, 1, parseInt(strhorahasta.substring(0,2)), parseInt(strhorahasta.substring(3,5)), 0);
+    };
+    $scope.modificarprogramadereproduccion=function (nombre, diadesemana, strhoradesde, strhorahasta, horadesde, horahasta) {
+        var reproduccion = {
+            nombre: nombre,
+            diadesemana: diadesemana,
+            strhoradesde: strhoradesde,
+            strhorahasta: strhorahasta,
+            horadesde: horadesde,
+            horahasta: horahasta,
+            eliminar: false,
+            modificar: true
+        };
+        $http({
+            url: '/json/',
+            dataType: 'json',
+            method: 'post',
+            data: JSON.stringify(reproduccion),
+            contentType: 'application/json; charset=utf-8'}).then(function () {
+            $scope.cargar();
+        });
+    };
     $scope.eliminarprogramadereproduccion=function (nombre, diadesemana, strhoradesde, strhorahasta) {
         var reproduccion = {
             nombre: nombre,
             diadesemana: diadesemana,
             strhoradesde: strhoradesde,
             strhorahasta: strhorahasta,
-            eliminar: true
+            eliminar: true,
+            modificar:false
         };
         $http({
             url: '/json/',
@@ -152,16 +186,6 @@ app.controller("ReproduccionController", function ($scope, $http) {
         $http.get('/json/' + encodeURI('agregaralbum:' + reproduccion + ":" + album)).then(function (response) {
             $scope.cargar();
         });
-        /*$.ajax({
-            url: '/json/' + encodeURI('agregaralbum:' + reproduccion + ":"+ album),
-            dataType: 'json',
-            method: 'get',
-            success: function (datos) {
-                if (typeof datos.error !== 'undefined' && datos.error === false) {
-                    $scope.cargar();
-                }
-            }
-        });*/
     };
     $scope.deshabilitar = function (nombre) {
         $http.get('/json/' + encodeURI('deshabilitarreproduccion:' + nombre)).then(function (response) {

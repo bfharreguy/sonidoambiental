@@ -5,6 +5,8 @@
  */
 package bfhsoftware.sonidoambiental;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
+
 import java.io.File;
 import java.nio.file.Paths;
 import java.sql.PreparedStatement;
@@ -24,6 +26,26 @@ public class comunicacion {
     public String directoriodemusica = "";
     public String sSistemaOperativo = System.getProperty("os.name");
     private boolean estadoverificandomusica = false;
+
+    public static class estadodearchivos {
+        public Boolean sinarchivos, reproduccionmaestra, todosreproducidos;
+
+        public estadodearchivos() {
+            this.sinarchivos = false;
+            this.reproduccionmaestra = false;
+            this.todosreproducidos=false;
+        }
+
+        public estadodearchivos(Boolean reproduccionmaestra, Boolean sinarchivos, Boolean todosreproducidos) {
+            this.sinarchivos = sinarchivos;
+            this.reproduccionmaestra = reproduccionmaestra;
+            this.todosreproducidos=todosreproducidos;
+        }
+
+        public estadodearchivos(Boolean sinarchivos) {
+            this.sinarchivos = sinarchivos;
+        }
+    }
 
     public static class matriz {
         private boolean seleccionado = false;
@@ -175,7 +197,7 @@ public class comunicacion {
 
     public void cambiardealbum(String cancion, String album) {
         Integer idalbum = 0;
-        System.out.println(cancion + " " + album);
+        //System.out.println(cancion + " " + album);
         try {
             PreparedStatement consulta;
             basededatos regre = new basededatos();
@@ -399,6 +421,29 @@ public class comunicacion {
         }
     }
 
+    public void modificarprogramaciondereproduccion(String nombre, Integer diadesemana, String horadesdestr, String horahastastr, Long horadesde, Long horahasta) {
+        Date date1 = new Date(horadesde);
+        Date date2 = new Date(horahasta);
+        String horadesdestr1 = new SimpleDateFormat("HH:mm").format(date1);
+        String horahastastr1 = new SimpleDateFormat("HH:mm").format(date2);
+        PreparedStatement consulta;
+        basededatos regre = new basededatos();
+        try {
+            consulta = regre.consulta("UPDATE programareproduccion SET horadesde = ?, horahasta = ? WHERE idreproduccion = (SELECT id FROM reproduccion WHERE nombre = ? LIMIT 1) AND horadesde = ? AND horahasta = ? AND diadesemana = ?;");
+            consulta.setString(1, horadesdestr1);
+            consulta.setString(2, horahastastr1);
+            consulta.setString(3, nombre);
+            consulta.setString(4, horadesdestr);
+            consulta.setString(5, horahastastr);
+            consulta.setInt(6, diadesemana);
+            consulta.execute();
+            consulta.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            log.warning("Error al modificar programa de reproduccion: " + e.getMessage());
+        }
+    }
+
     public void eliminarprogramaciondereproduccion(String nombre, Integer diadesemana, String horadesdestr, String horahastastr) {
         PreparedStatement consulta;
         basededatos regre = new basededatos();
@@ -415,7 +460,6 @@ public class comunicacion {
             log.warning("Error al eliminar programa de reproduccion: " + e.getMessage());
         }
     }
-
     public reproducciones[] obtenerreproducciones() {
         reproducciones respuesta[] = null;
         int tamaño = 0;
@@ -597,9 +641,9 @@ public class comunicacion {
     public void verificarbasededatos() {
         basededatos regre = new basededatos();
         regre.ejecutarquery("INSERT INTO albums (nombre) SELECT 'album1' WHERE ( SELECT COUNT(id) FROM albums ) = 0;");
-        regre.ejecutarquery("UPDATE musica SET album = (SELECT id FROM albums LIMIT 1) WHERE (SELECT COUNT(albums.id) FROM albums WHERE musica.album = albums.id) = 0;");
+        regre.ejecutarquery("UPDATE musica SET album = (SELECT id FROM albums LIMIT 1) WHERE (SELECT COUNT(albums.id) FROM albums INNER JOIN musica ON musica.album = albums.id) = 0;");
         regre.ejecutarquery("INSERT INTO reproduccion (nombre, esalbummaestro) SELECT 'reproduccion1', 1 WHERE (SELECT Count(id) FROM reproduccion)= 0;");
-        regre.ejecutarquery("UPDATE reproduccion SET habilitado = 1 WHERE (SELECT Count(id) FROM reproduccion WHERE habilitado = 1)= 0 ;");
+        regre.ejecutarquery("UPDATE reproduccion SET habilitado = 1 WHERE (SELECT Count(id) FROM reproduccion WHERE habilitado = 1) = 0 ;");
         regre.ejecutarquery("UPDATE reproduccion SET esalbummaestro = 1 WHERE (SELECT Count(id) FROM reproduccion WHERE esalbummaestro = 1 AND habilitado = 1)= 0 ;");
         regre.ejecutarquery("INSERT INTO contenidodereproduccion (idalbum, idreproduccion) SELECT (SELECT id FROM albums LIMIT 1), (SELECT id FROM reproduccion WHERE habilitado = 1 AND esalbummaestro = 1 LIMIT 1) WHERE (SELECT Count(contenidodereproduccion.id) FROM contenidodereproduccion INNER JOIN(reproduccion, albums) ON reproduccion.id = contenidodereproduccion.idreproduccion AND albums.id = contenidodereproduccion.idalbum WHERE reproduccion.habilitado = 1 and reproduccion.esalbummaestro = 1)= 0;");
         regre.ejecutarquery("UPDATE contenidodereproduccion SET idreproduccion = (SELECT id FROM reproduccion LIMIT 1) WHERE (SELECT COUNT(reproduccion.id) FROM reproduccion WHERE contenidodereproduccion.idreproduccion = reproduccion.id) = 0;");
@@ -891,9 +935,13 @@ System.out.println(e.getMessage());
         }
     }
 
-    void desmarcarreproducido() {
+    void desmarcarreproducido(Boolean reproduccionmaestra) {
+
         basededatos regre = new basededatos();
-        regre.ejecutarquery("UPDATE musica SET reproducido = 0;");
+        if (reproduccionmaestra)
+            regre.ejecutarquery("UPDATE musica SET reproducido = 0 WHERE id IN (SELECT musica.id FROM musica INNER JOIN (reproduccion, contenidodereproduccion) ON  musica.album = contenidodereproduccion.idalbum AND reproduccion.Id = contenidodereproduccion.idreproduccion  WHERE reproduccion.habilitado = 1 AND musica.anulado = 0 AND reproduccion.esalbummaestro = 1);");
+        else
+            regre.ejecutarquery("UPDATE musica SET reproducido = 0 WHERE id IN (SELECT musica.id FROM musica INNER JOIN (reproduccion, contenidodereproduccion, programareproduccion) ON  programareproduccion.idreproduccion = reproduccion.id AND musica.album = contenidodereproduccion.idalbum AND reproduccion.Id = contenidodereproduccion.idreproduccion  WHERE reproduccion.habilitado = 1 AND musica.anulado = 0 AND (diadesemana = cast(strftime('%w', date('now')) as integer) AND  time(strftime('%H:%M',datetime('now','localtime'))) > time(programareproduccion.horadesde) AND time(strftime('%H:%M',datetime('now','localtime'))) < time(programareproduccion.horahasta)));");
     }
 
     static void anularcancion(String nombre) {
@@ -949,92 +997,68 @@ System.out.println(e.getMessage());
         }
     }
 
+    public estadodearchivos verificarcanciones() {
+        estadodearchivos respuesta = new estadodearchivos();
+        try {
+            basededatos regre = new basededatos();
+            ResultSet rs = regre.regresardatos("SELECT COUNT(musica.id) FROM musica INNER JOIN (reproduccion, contenidodereproduccion, programareproduccion) ON  programareproduccion.idreproduccion = reproduccion.id AND musica.album = contenidodereproduccion.idalbum AND reproduccion.Id = contenidodereproduccion.idreproduccion  WHERE reproduccion.habilitado = 1 AND musica.anulado = 0 AND (diadesemana = cast(strftime('%w', date('now')) as integer) AND  time(strftime('%H:%M',datetime('now','localtime'))) > time(programareproduccion.horadesde) AND time(strftime('%H:%M',datetime('now','localtime'))) < time(programareproduccion.horahasta));");
+            if (rs.next()){
+                respuesta.sinarchivos = (rs.getInt(1) == 0);
+                respuesta.reproduccionmaestra = (rs.getInt(1) == 0);
+            }
+            rs.close();
+            if (respuesta.reproduccionmaestra) {
+                rs = regre.regresardatos("SELECT COUNT(musica.id) FROM musica INNER JOIN (reproduccion, contenidodereproduccion) ON  musica.album = contenidodereproduccion.idalbum AND reproduccion.Id = contenidodereproduccion.idreproduccion  WHERE reproduccion.habilitado = 1 AND musica.anulado = 0 AND reproduccion.esalbummaestro = 1;");
+                if (rs.next()) {
+                    respuesta.sinarchivos = (rs.getInt(1) == 0);
+                    respuesta.reproduccionmaestra = !(rs.getInt(1) == 0);
+                }
+                rs.close();
+            }
+            if (!respuesta.sinarchivos){
+                String consulta ="";
+                if (respuesta.reproduccionmaestra)
+                    consulta ="SELECT COUNT(musica.id) FROM musica INNER JOIN (reproduccion, contenidodereproduccion) ON musica.album = contenidodereproduccion.idalbum AND reproduccion.id = contenidodereproduccion.idreproduccion WHERE musica.reproducido = 0 AND reproduccion.habilitado = 1 AND musica.anulado = 0 AND reproduccion.esalbummaestro = 1;";
+                else
+                    consulta ="SELECT COUNT(musica.id) FROM musica INNER JOIN (reproduccion, contenidodereproduccion, programareproduccion) ON programareproduccion.idreproduccion = reproduccion.id AND musica.album = contenidodereproduccion.idalbum AND reproduccion.Id = contenidodereproduccion.idreproduccion  WHERE musica.reproducido = 0 AND reproduccion.habilitado = 1 AND musica.anulado = 0 AND ((diadesemana = cast(strftime('%w', date('now')) as integer) AND  time(strftime('%H:%M',datetime('now','localtime'))) > time(programareproduccion.horadesde) AND time(strftime('%H:%M',datetime('now','localtime'))) < time(programareproduccion.horahasta)));";
+                rs = regre.regresardatos(consulta);
+              if (rs.next()) {
+                  respuesta.todosreproducidos = (rs.getInt(1) == 0);
+              }
+            }
+        } catch (SQLException e) {
+            log.warning("Error al obtener estado de canciones: " + e.getMessage());
+            System.out.println(e.getMessage());
+        }
+        return respuesta;
+    }
+
     public String proximotema() {
         String temaelegido = "";
         try {
             basededatos regre = new basededatos();
-            Boolean reproduccionmaestra = false;
-            boolean sinarchivos = false;
+            estadodearchivos estadodecanciones;
             boolean archivoencontrado = false;
             comprobardirectorios();
-            /*do {
-            double cantidaddearchivosareproducir= 0;
+            ResultSet rs;
             do {
-            ResultSet rs = regresardatos("SELECT COUNT(musica.id) from musica inner join reproduccion on musica.album = reproduccion.idalbum  WHERE musica.reproducido = 0;");
-            while (rs.next()) {
-            cantidaddearchivosareproducir = rs.getInt(1) * .4;
-            }
-            System.out.println("CANTIDADDE TEMAS:" +  cantidaddearchivosareproducir +" Cantida");
-            if (cantidaddearchivosareproducir == 0)
-            desmarcarreproducido();
-            } while (cantidaddearchivosareproducir == 0);
-            int cancionelegida = ThreadLocalRandom.current().nextInt(1, (int) (cantidaddearchivosareproducir + 1));
-            
-            try {
-            ResultSet rs1 = regresardatos("SELECT nombreyruta FROM musica WHERE reproducido = 0; ");
-            int idelegida=0;
-            while (rs1.next()) {
-            idelegida ++;
-            if (idelegida == cancionelegida) {
-            temaelegido = rs1.getString("nombreyruta");
-            System.out.println(temaelegido);
-            }}
-            }catch (SQLException e) {
-            System.out.println(e.getMessage());
-            }*/
-            do {
-                //verifico si hay musica para reproducir
-                ResultSet rs = regre.regresardatos("SELECT COUNT(musica.id) FROM musica INNER JOIN (reproduccion, contenidodereproduccion, programareproduccion) ON  programareproduccion.idreproduccion = reproduccion.id AND musica.album = contenidodereproduccion.idalbum AND reproduccion.Id = contenidodereproduccion.idreproduccion  WHERE reproduccion.habilitado = 1 AND musica.anulado = 0 AND (diadesemana = cast(strftime('%w', date('now')) as integer) AND  time(strftime('%H:%M',datetime('now','localtime'))) > time(programareproduccion.horadesde) AND time(strftime('%H:%M',datetime('now','localtime'))) < time(programareproduccion.horahasta));");
-                if (!rs.next()) {
-                    sinarchivos = true;
-                    this.ultimotema = "";
-                } else {
-                    if (rs.getInt(1) == 0) {
-                        sinarchivos = true;
-                       // System.err.println("buscandocancion");
-                        this.ultimotema = "";
-                    }
-                }
-
-                rs.close();
-                if (sinarchivos) {
-                    rs = regre.regresardatos("SELECT COUNT(musica.id) FROM musica INNER JOIN (reproduccion, contenidodereproduccion) ON  musica.album = contenidodereproduccion.idalbum AND reproduccion.Id = contenidodereproduccion.idreproduccion  WHERE reproduccion.habilitado = 1 AND musica.anulado = 0 AND reproduccion.esalbummaestro = 1;");
-                    if (!rs.next()) {
-                        sinarchivos = true;
-                        this.ultimotema = "";
-                    } else {
-                        if (rs.getInt(1) == 0) {
-                            sinarchivos = true;
-                            System.err.println("buscandocancion");
-                            this.ultimotema = "";
-                        } else {
-                            sinarchivos = false;
-                            reproduccionmaestra = true;
-                        }
-                    }
-                }
-                rs.close();
-                if (sinarchivos == false) {
-                    if (reproduccionmaestra)
-                        rs = regre.regresardatos("SELECT COUNT(musica.id) FROM musica INNER JOIN (reproduccion, contenidodereproduccion) ON musica.album = contenidodereproduccion.idalbum WHERE musica.reproducido = 0 AND reproduccion.habilitado = 1 AND musica.anulado = 0 AND reproduccion.esalbummaestro = 1;");
-                    else
-                        rs = regre.regresardatos("SELECT COUNT(musica.id) FROM musica INNER JOIN (reproduccion, contenidodereproduccion, programareproduccion) ON programareproduccion.idreproduccion = reproduccion.id AND musica.album = contenidodereproduccion.idalbum AND reproduccion.Id = contenidodereproduccion.idreproduccion  WHERE musica.reproducido = 0 AND reproduccion.habilitado = 1 AND musica.anulado = 0 AND ((diadesemana = cast(strftime('%w', date('now')) as integer) AND  time(strftime('%H:%M',datetime('now','localtime'))) > time(programareproduccion.horadesde) AND time(strftime('%H:%M',datetime('now','localtime'))) < time(programareproduccion.horahasta)));");
-                    while (rs.next()) {
-                        if (rs.getInt(1) == 0) {
-                            desmarcarreproducido();
-                        }
-                    }
-                    rs.close();
-                    if (reproduccionmaestra)
+                estadodecanciones = verificarcanciones();
+                if (! estadodecanciones.sinarchivos ) {
+                    if (estadodecanciones.todosreproducidos)
+                        System.out.println("Desmarca");
+                            desmarcarreproducido(estadodecanciones.reproduccionmaestra);
+                    if (estadodecanciones.reproduccionmaestra)
                         rs = regre.regresardatos("SELECT c.nombreyruta FROM (SELECT m.nombreyruta FROM musica m INNER JOIN (reproduccion, contenidodereproduccion) ON m.album = contenidodereproduccion.idalbum AND reproduccion.id=contenidodereproduccion.idreproduccion WHERE m.reproducido = 0 AND reproduccion.habilitado = 1 AND m.anulado = 0 AND reproduccion.esalbummaestro = 1 ORDER BY datetime(ultimareproduccion, 'localtime') LIMIT (SELECT CAST(COUNT(musica.id) * 0.4 AS int) + 1 FROM musica INNER JOIN (reproduccion, contenidodereproduccion) ON musica.album = contenidodereproduccion.idalbum AND reproduccion.Id = contenidodereproduccion.idreproduccion WHERE musica.reproducido = 0 AND reproduccion.habilitado = 1 AND musica.anulado = 0 AND reproduccion.esalbummaestro = 1)) c ORDER BY RANDOM() LIMIT 1;");
-                        else
-                    rs = regre.regresardatos("SELECT c.nombreyruta FROM (SELECT m.nombreyruta FROM musica m INNER JOIN (reproduccion, contenidodereproduccion, programareproduccion) ON programareproduccion.idreproduccion = reproduccion.id AND m.album = contenidodereproduccion.idalbum AND reproduccion.id=contenidodereproduccion.idreproduccion WHERE m.reproducido = 0 AND reproduccion.habilitado = 1 AND m.anulado = 0 AND (diadesemana = cast(strftime('%w', date('now')) as integer) AND  time(strftime('%H:%M',datetime('now','localtime'))) > time(programareproduccion.horadesde) AND time(strftime('%H:%M',datetime('now','localtime'))) < time(programareproduccion.horahasta)) ORDER BY datetime(ultimareproduccion, 'localtime') LIMIT (SELECT CAST(COUNT(musica.id) * 0.4 AS int) + 1 FROM musica INNER JOIN (reproduccion, contenidodereproduccion, programareproduccion) ON programareproduccion.idreproduccion = reproduccion.id AND musica.album = contenidodereproduccion.idalbum AND reproduccion.Id = contenidodereproduccion.idreproduccion WHERE musica.reproducido = 0 AND reproduccion.habilitado = 1 AND musica.anulado = 0 AND (diadesemana = cast(strftime('%w', date('now')) as integer) AND  time(strftime('%H:%M',datetime('now','localtime'))) > time(programareproduccion.horadesde) AND time(strftime('%H:%M',datetime('now','localtime'))) < time(programareproduccion.horahasta)) )) c ORDER BY RANDOM() LIMIT 1;");
-                    while (rs.next()) {
+                    else
+                        rs = regre.regresardatos("SELECT c.nombreyruta FROM (SELECT m.nombreyruta FROM musica m INNER JOIN (reproduccion, contenidodereproduccion, programareproduccion) ON programareproduccion.idreproduccion = reproduccion.id AND m.album = contenidodereproduccion.idalbum AND reproduccion.id=contenidodereproduccion.idreproduccion WHERE m.reproducido = 0 AND reproduccion.habilitado = 1 AND m.anulado = 0 AND (diadesemana = cast(strftime('%w', date('now')) as integer) AND  time(strftime('%H:%M',datetime('now','localtime'))) > time(programareproduccion.horadesde) AND time(strftime('%H:%M',datetime('now','localtime'))) < time(programareproduccion.horahasta)) ORDER BY datetime(ultimareproduccion, 'localtime') LIMIT (SELECT CAST(COUNT(musica.id) * 0.4 AS int) + 1 FROM musica INNER JOIN (reproduccion, contenidodereproduccion, programareproduccion) ON programareproduccion.idreproduccion = reproduccion.id AND musica.album = contenidodereproduccion.idalbum AND reproduccion.Id = contenidodereproduccion.idreproduccion WHERE musica.reproducido = 0 AND reproduccion.habilitado = 1 AND musica.anulado = 0 AND (diadesemana = cast(strftime('%w', date('now')) as integer) AND  time(strftime('%H:%M',datetime('now','localtime'))) > time(programareproduccion.horadesde) AND time(strftime('%H:%M',datetime('now','localtime'))) < time(programareproduccion.horahasta)) )) c ORDER BY RANDOM() LIMIT 1;");
+                    if (rs.next()) {
                         temaelegido = rs.getString("nombreyruta");
+                    } else  {
+                        estadodecanciones.sinarchivos=true;
                     }
                     rs.close();
                     if (temaelegido.equals("")) {
-                        sinarchivos = true;
+                        estadodecanciones.sinarchivos=true;
                     } else {
 //System.err.println("Verificando tema :"+ temaelegido);
                         if (verificararchivo(temaelegido)) {
@@ -1047,7 +1071,7 @@ System.out.println(e.getMessage());
                     }
                 }
 
-            } while (!archivoencontrado && !sinarchivos);
+            } while (!archivoencontrado && !estadodecanciones.sinarchivos);
 
             this.ultimotema = new File(temaelegido).getName();
             //System.out.println("Reproduciendo: " + this.ultimotema);

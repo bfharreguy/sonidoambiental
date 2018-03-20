@@ -7,64 +7,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="271f9741-9e00-4178-9bf1-529418b29e01" name="Default" comment="">
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/audio.java" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__javazoom_jlayer_1_0_1.xml" afterPath="" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/Sonidoambiental.iml" afterPath="$PROJECT_DIR$/Sonidoambiental.iml" />
       <change beforePath="$PROJECT_DIR$/database.db" afterPath="$PROJECT_DIR$/database.db" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/ReproducirJava.java" afterPath="$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/ReproducirJava.java" />
       <change beforePath="$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/comunicacion.java" afterPath="$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/comunicacion.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/main.java" afterPath="$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/main.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/reproductor.java" afterPath="$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/reproductor.java" />
       <change beforePath="$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/servidorhttp.java" afterPath="$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/servidorhttp.java" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/index.html" afterPath="$PROJECT_DIR$/src/main/resources/index.html" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/js/app.js" afterPath="$PROJECT_DIR$/src/main/resources/js/app.js" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/listado.html" afterPath="$PROJECT_DIR$/src/main/resources/listado.html" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/node_modules/angular-upload/.bowerrc" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/node_modules/angular-upload/.editorconfig" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/node_modules/angular-upload/.jshintrc" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/node_modules/angular-upload/.npmignore" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/node_modules/angular-upload/.travis.yml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/node_modules/angular-upload/CHANGELOG.md" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/node_modules/angular-upload/Gruntfile.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/node_modules/angular-upload/LICENSE.md" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/node_modules/angular-upload/README.md" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/node_modules/angular-upload/angular-upload.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/node_modules/angular-upload/angular-upload.min.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/node_modules/angular-upload/bower.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/node_modules/angular-upload/example/index.html" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/node_modules/angular-upload/example/server.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/node_modules/angular-upload/example/uploads/camel.jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/node_modules/angular-upload/example/uploads/cows.jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/node_modules/angular-upload/example/uploads/frog.jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/node_modules/angular-upload/karma.conf.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/node_modules/angular-upload/package.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/node_modules/angular-upload/protractor.conf.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/node_modules/angular-upload/src/$module.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/node_modules/angular-upload/src/directives/btnUpload.less" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/node_modules/angular-upload/src/directives/btnUpload.min.css" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/node_modules/angular-upload/src/directives/uploadButton.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/node_modules/angular-upload/src/formDataUpload.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/node_modules/angular-upload/src/iFrameUpload.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/node_modules/angular-upload/src/upload.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/node_modules/angular-upload/test/directives/uploadButton.spec.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/node_modules/angular-upload/test/formDataUpload.spec.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/node_modules/angular-upload/test/iFrameUpload.spec.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/node_modules/angular-upload/test/upload.spec.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/node_modules/ng-file-upload/LICENSE" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/node_modules/ng-file-upload/README.md" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/node_modules/ng-file-upload/dist/FileAPI.flash.swf" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/node_modules/ng-file-upload/dist/FileAPI.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/node_modules/ng-file-upload/dist/FileAPI.min.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/node_modules/ng-file-upload/dist/ng-file-upload-all.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/node_modules/ng-file-upload/dist/ng-file-upload-all.min.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/node_modules/ng-file-upload/dist/ng-file-upload-shim.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/node_modules/ng-file-upload/dist/ng-file-upload-shim.min.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/node_modules/ng-file-upload/dist/ng-file-upload.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/node_modules/ng-file-upload/dist/ng-file-upload.min.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/node_modules/ng-file-upload/index.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/node_modules/ng-file-upload/package.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/package-lock.json" afterPath="$PROJECT_DIR$/src/main/resources/package-lock.json" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/package.json" afterPath="$PROJECT_DIR$/src/main/resources/package.json" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/reproduccion.html" afterPath="$PROJECT_DIR$/src/main/resources/reproduccion.html" />
       <change beforePath="$PROJECT_DIR$/target/classes/index.html" afterPath="$PROJECT_DIR$/target/classes/index.html" />
-      <change beforePath="$PROJECT_DIR$/target/classes/js/app.js" afterPath="$PROJECT_DIR$/target/classes/js/app.js" />
-      <change beforePath="$PROJECT_DIR$/target/classes/listado.html" afterPath="$PROJECT_DIR$/target/classes/listado.html" />
-      <change beforePath="$PROJECT_DIR$/target/classes/package.json" afterPath="$PROJECT_DIR$/target/classes/package.json" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -122,45 +79,12 @@
       <file leaf-file-name="tareasprogramadas.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/tareasprogramadas.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1391">
-              <caret line="231" column="5" lean-forward="true" selection-start-line="231" selection-start-column="5" selection-end-line="231" selection-end-column="5" />
+            <state relative-caret-position="1701">
+              <caret line="159" column="80" lean-forward="false" selection-start-line="159" selection-start-column="80" selection-end-line="159" selection-end-column="80" />
               <folding>
                 <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="reproductor.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/reproductor.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="76" column="4" lean-forward="false" selection-start-line="76" selection-start-column="4" selection-end-line="76" selection-end-column="4" />
-              <folding>
-                <element signature="e#1839#2759#0" expanded="true" />
-                <element signature="e#2758#2759#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="basededatos.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/basededatos.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="243">
-              <caret line="30" column="249" lean-forward="false" selection-start-line="30" selection-start-column="249" selection-end-line="30" selection-end-column="249" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="servidorhttp.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/servidorhttp.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="206">
-              <caret line="350" column="61" lean-forward="false" selection-start-line="350" selection-start-column="61" selection-end-line="350" selection-end-column="61" />
-              <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#7125#7126#0" expanded="true" />
+                <element signature="e#7184#7185#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -169,18 +93,60 @@
       <file leaf-file-name="comunicacion.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/comunicacion.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="185">
-              <caret line="386" column="10" lean-forward="false" selection-start-line="386" selection-start-column="10" selection-end-line="386" selection-end-column="10" />
+            <state relative-caret-position="140">
+              <caret line="423" column="4" lean-forward="false" selection-start-line="423" selection-start-column="4" selection-end-line="423" selection-end-column="4" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="reproductor.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/reproductor.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="285">
+              <caret line="71" column="42" lean-forward="false" selection-start-line="71" selection-start-column="42" selection-end-line="71" selection-end-column="42" />
+              <folding>
+                <element signature="e#1971#3297#0" expanded="true" />
+                <element signature="e#3296#3297#0" expanded="true" />
+                <element signature="e#4670#4671#0" expanded="true" />
+                <element signature="e#4703#4704#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ReproducirJava.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/ReproducirJava.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1018">
+              <caret line="42" column="38" lean-forward="true" selection-start-line="42" selection-start-column="38" selection-end-line="42" selection-end-column="38" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#2206#2207#0" expanded="true" />
-                <element signature="e#2241#2242#0" expanded="true" />
-                <element signature="e#3072#3073#0" expanded="true" />
-                <element signature="e#3118#3119#0" expanded="true" />
-                <element signature="e#3179#3180#0" expanded="true" />
-                <element signature="e#3233#3234#0" expanded="true" />
-                <element signature="e#48979#48980#0" expanded="true" />
-                <element signature="e#49017#49018#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="servidorhttp.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/servidorhttp.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="221">
+              <caret line="153" column="41" lean-forward="false" selection-start-line="153" selection-start-column="41" selection-end-line="153" selection-end-column="41" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="audio.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/audio.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-75">
+              <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+              <folding>
+                <element signature="e#4273#4280#0" expanded="true" />
+                <element signature="e#4866#4872#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -189,28 +155,28 @@
       <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/js/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="386">
-              <caret line="104" column="29" lean-forward="false" selection-start-line="104" selection-start-column="29" selection-end-line="104" selection-end-column="29" />
+            <state relative-caret-position="390">
+              <caret line="128" column="24" lean-forward="false" selection-start-line="128" selection-start-column="24" selection-end-line="128" selection-end-column="24" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="reproduccion.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="reproduccion.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/reproduccion.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="5" column="61" lean-forward="false" selection-start-line="5" selection-start-column="61" selection-end-line="5" selection-end-column="61" />
+            <state relative-caret-position="403">
+              <caret line="256" column="61" lean-forward="true" selection-start-line="256" selection-start-column="61" selection-end-line="256" selection-end-column="61" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="listado.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/listado.html">
+      <file leaf-file-name="main.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/main.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="240">
-              <caret line="16" column="20" lean-forward="false" selection-start-line="16" selection-start-column="20" selection-end-line="16" selection-end-column="20" />
+              <caret line="26" column="32" lean-forward="false" selection-start-line="26" selection-start-column="32" selection-end-line="26" selection-end-column="32" />
               <folding />
             </state>
           </provider>
@@ -219,8 +185,8 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="366">
-              <caret line="73" column="73" lean-forward="true" selection-start-line="73" selection-start-column="73" selection-end-line="73" selection-end-column="73" />
+            <state relative-caret-position="-343">
+              <caret line="27" column="77" lean-forward="false" selection-start-line="27" selection-start-column="77" selection-end-line="27" selection-end-column="77" />
               <folding />
             </state>
           </provider>
@@ -232,25 +198,13 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Singleton" />
-        <option value="Class" />
         <option value="HTML File" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>datosdereproduccion.</find>
-      <find>obtener</find>
-      <find>System.out</find>
-      <find>enviar</find>
-      <find>proximo</find>
-      <find>horadesde</find>
-      <find>proximotema</find>
-      <find>obtenido</find>
-      <find>programacion.esalbummaestro</find>
-      <find>programareproduccion.idreproduccion</find>
-      <find>listadocontro</find>
-      <find>cargar</find>
       <find>listadocon</find>
       <find>seleccion</find>
       <find>listadocont</find>
@@ -260,15 +214,27 @@
       <find>mostrar</find>
       <find>registrar</find>
       <find>canciones</find>
-      <find>regi</find>
       <find>reproduccionmensaj</find>
       <find>eliminar</find>
       <find>reproduccioncontro</find>
-      <find>reproduccionmensaje</find>
-      <find>db</find>
-      <find>reproduccionmensa</find>
       <find>agregarprogra</find>
+      <find>reproduciendo:</find>
+      <find>System.out</find>
+      <find>reproduccionmensa</find>
+      <find>verificarbase</find>
+      <find>proxi</find>
+      <find>proximotema</find>
+      <find>regi</find>
+      <find>estado</find>
+      <find>estadode</find>
+      <find>db</find>
+      <find>system.out</find>
       <find>||</find>
+      <find>$scope.ver</find>
+      <find>reproduccionmensaje</find>
+      <find>reproduccionmen</find>
+      <find>programac</find>
+      <find>proximo</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -303,22 +269,24 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/ReproducirJava.java" />
         <option value="$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/susesos.java" />
         <option value="$PROJECT_DIR$/src/main/resources/js/datatables.min.js" />
         <option value="$PROJECT_DIR$/src/main/resources/albums.html" />
         <option value="$PROJECT_DIR$/src/main/resources/inicio.html" />
-        <option value="$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/tareasprogramadas.java" />
-        <option value="$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/main.java" />
-        <option value="$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/reproductor.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/subirarchivos.html" />
         <option value="$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/basededatos.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/index.html" />
         <option value="$PROJECT_DIR$/src/main/resources/listado.html" />
+        <option value="$PROJECT_DIR$/src/main/resources/index.html" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/tareasprogramadas.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/reproductor.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/audio.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/main.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/subirarchivos.html" />
         <option value="$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/comunicacion.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/js/app.js" />
         <option value="$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/servidorhttp.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/js/app.js" />
         <option value="$PROJECT_DIR$/src/main/resources/reproduccion.html" />
+        <option value="$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/ReproducirJava.java" />
       </list>
     </option>
   </component>
@@ -539,23 +507,6 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="Sonidoambiental" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Sonidoambiental" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="node_modules" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Sonidoambiental" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Sonidoambiental" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="node_modules" type="462c0819:PsiDirectoryNode" />
-              <item name="angular-ui-grid" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -740,7 +691,7 @@
       <workItem from="1520288325607" duration="5262000" />
       <workItem from="1520345771717" duration="70157000" />
       <workItem from="1520862028619" duration="35253000" />
-      <workItem from="1521026184412" duration="31939000" />
+      <workItem from="1521026184412" duration="71872000" />
     </task>
     <task id="LOCAL-00001" summary="problemas de dependencias">
       <created>1518710327366</created>
@@ -784,11 +735,18 @@
       <option name="project" value="LOCAL" />
       <updated>1521043515474</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Primer version funcional sin reproduccion, algunos bugs que reparar">
+      <created>1521067342600</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1521067342600</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="310017000" />
+    <option name="totallyTimeSpent" value="349950000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -801,7 +759,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="25" width="1440" height="851" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1889986" sideWeight="0.49583334" order="6" side_tool="false" content_ui="tabs" />
@@ -812,7 +769,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25105783" sideWeight="0.5143472" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30747533" sideWeight="0.49722221" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20422535" sideWeight="0.4856528" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20422535" sideWeight="0.4856528" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32952926" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -889,7 +846,8 @@
     <MESSAGE value="migracion a bootstrap 4 y primer releese" />
     <MESSAGE value="ultttttttttimas aaaaaaactualizaccccccccciones, albums funcionales" />
     <MESSAGE value="modificaciones para varias reproducciones, solo interfaz, falta motor cambiar" />
-    <option name="LAST_COMMIT_MESSAGE" value="modificaciones para varias reproducciones, solo interfaz, falta motor cambiar" />
+    <MESSAGE value="Primer version funcional sin reproduccion, algunos bugs que reparar" />
+    <option name="LAST_COMMIT_MESSAGE" value="Primer version funcional sin reproduccion, algunos bugs que reparar" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -902,56 +860,22 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/tareasprogramadas.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2325">
-          <caret line="162" column="33" lean-forward="false" selection-start-line="162" selection-start-column="33" selection-end-line="162" selection-end-column="33" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/js/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6825">
-          <caret line="455" column="52" lean-forward="true" selection-start-line="455" selection-start-column="52" selection-end-line="455" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/ReproducirJava.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/reproductor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="975">
-          <caret line="71" column="141" lean-forward="false" selection-start-line="71" selection-start-column="141" selection-end-line="71" selection-end-column="141" />
-          <folding>
-            <element signature="e#1839#2759#0" expanded="true" />
-            <element signature="e#2758#2759#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/comunicacion.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2310">
           <caret line="165" column="25" lean-forward="false" selection-start-line="165" selection-start-column="16" selection-end-line="165" selection-end-column="25" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2206#2207#0" expanded="true" />
-            <element signature="e#2241#2242#0" expanded="true" />
-            <element signature="e#3072#3073#0" expanded="true" />
-            <element signature="e#3118#3119#0" expanded="true" />
-            <element signature="e#3179#3180#0" expanded="true" />
-            <element signature="e#3233#3234#0" expanded="true" />
-            <element signature="e#48979#48980#0" expanded="true" />
-            <element signature="e#49017#49018#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#1523#1524#0" expanded="false" />
+            <element signature="e#1577#1578#0" expanded="false" />
+            <element signature="e#2954#2955#0" expanded="false" />
+            <element signature="e#2989#2990#0" expanded="false" />
+            <element signature="e#3820#3821#0" expanded="false" />
+            <element signature="e#3866#3867#0" expanded="false" />
+            <element signature="e#3927#3928#0" expanded="false" />
+            <element signature="e#3981#3982#0" expanded="false" />
+            <element signature="e#51061#51062#0" expanded="false" />
+            <element signature="e#51099#51100#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -978,6 +902,8 @@
           <caret line="162" column="33" lean-forward="false" selection-start-line="162" selection-start-column="33" selection-end-line="162" selection-end-column="33" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#7125#7126#0" expanded="true" />
+            <element signature="e#7184#7185#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1012,15 +938,17 @@
         <state relative-caret-position="7830">
           <caret line="532" column="48" lean-forward="false" selection-start-line="532" selection-start-column="40" selection-end-line="532" selection-end-column="48" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2206#2207#0" expanded="true" />
-            <element signature="e#2241#2242#0" expanded="true" />
-            <element signature="e#3072#3073#0" expanded="true" />
-            <element signature="e#3118#3119#0" expanded="true" />
-            <element signature="e#3179#3180#0" expanded="true" />
-            <element signature="e#3233#3234#0" expanded="true" />
-            <element signature="e#48979#48980#0" expanded="true" />
-            <element signature="e#49017#49018#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#1523#1524#0" expanded="false" />
+            <element signature="e#1577#1578#0" expanded="false" />
+            <element signature="e#2954#2955#0" expanded="false" />
+            <element signature="e#2989#2990#0" expanded="false" />
+            <element signature="e#3820#3821#0" expanded="false" />
+            <element signature="e#3866#3867#0" expanded="false" />
+            <element signature="e#3927#3928#0" expanded="false" />
+            <element signature="e#3981#3982#0" expanded="false" />
+            <element signature="e#51061#51062#0" expanded="false" />
+            <element signature="e#51099#51100#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1030,8 +958,10 @@
         <state relative-caret-position="840">
           <caret line="61" column="0" lean-forward="false" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
           <folding>
-            <element signature="e#1839#2759#0" expanded="true" />
-            <element signature="e#2758#2759#0" expanded="true" />
+            <element signature="e#1971#3297#0" expanded="true" />
+            <element signature="e#3296#3297#0" expanded="true" />
+            <element signature="e#4670#4671#0" expanded="true" />
+            <element signature="e#4703#4704#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1115,13 +1045,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/ReproducirJava.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1290">
-          <caret line="97" column="98" lean-forward="false" selection-start-line="97" selection-start-column="16" selection-end-line="97" selection-end-column="101" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/inicio.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
@@ -1166,26 +1089,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/subirarchivos.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="244">
-          <caret line="71" column="16" lean-forward="true" selection-start-line="60" selection-start-column="4" selection-end-line="78" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/albums.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="182">
           <caret line="59" column="25" lean-forward="false" selection-start-line="50" selection-start-column="4" selection-end-line="71" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="12" column="24" lean-forward="false" selection-start-line="12" selection-start-column="24" selection-end-line="12" selection-end-column="24" />
           <folding />
         </state>
       </provider>
@@ -1208,14 +1115,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="366">
-          <caret line="73" column="73" lean-forward="true" selection-start-line="73" selection-start-column="73" selection-end-line="73" selection-end-column="73" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/listado.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
@@ -1224,39 +1123,78 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/tareasprogramadas.java">
+    <entry file="jar:///opt/java/jdk1.8.0_162/jre/lib/rt.jar!/sun/nio/ch/SocketDispatcher.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1391">
-          <caret line="231" column="5" lean-forward="true" selection-start-line="231" selection-start-column="5" selection-end-line="231" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="221">
+          <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/reproductor.java">
+    <entry file="jar:///opt/java/jdk1.8.0_162/jre/lib/rt.jar!/sun/nio/ch/IOUtil.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="76" column="4" lean-forward="false" selection-start-line="76" selection-start-column="4" selection-end-line="76" selection-end-column="4" />
-          <folding>
-            <element signature="e#1839#2759#0" expanded="true" />
-            <element signature="e#2758#2759#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="161">
+          <caret line="36" column="0" lean-forward="false" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="314">
+          <caret line="99" column="26" lean-forward="false" selection-start-line="99" selection-start-column="26" selection-end-line="99" selection-end-column="26" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/basededatos.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
+        <state relative-caret-position="270">
           <caret line="30" column="249" lean-forward="false" selection-start-line="30" selection-start-column="249" selection-end-line="30" selection-end-column="249" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/tareasprogramadas.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1701">
+          <caret line="159" column="80" lean-forward="false" selection-start-line="159" selection-start-column="80" selection-end-line="159" selection-end-column="80" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#7125#7126#0" expanded="true" />
+            <element signature="e#7184#7185#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/subirarchivos.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="303">
+          <caret line="72" column="82" lean-forward="false" selection-start-line="72" selection-start-column="82" selection-end-line="72" selection-end-column="82" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="26" column="32" lean-forward="false" selection-start-line="26" selection-start-column="32" selection-end-line="26" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-343">
+          <caret line="27" column="77" lean-forward="false" selection-start-line="27" selection-start-column="77" selection-end-line="27" selection-end-column="77" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/servidorhttp.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="350" column="61" lean-forward="false" selection-start-line="350" selection-start-column="61" selection-end-line="350" selection-end-column="61" />
+        <state relative-caret-position="221">
+          <caret line="153" column="41" lean-forward="false" selection-start-line="153" selection-start-column="41" selection-end-line="153" selection-end-column="41" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1265,35 +1203,59 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/comunicacion.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="185">
-          <caret line="386" column="10" lean-forward="false" selection-start-line="386" selection-start-column="10" selection-end-line="386" selection-end-column="10" />
+        <state relative-caret-position="140">
+          <caret line="423" column="4" lean-forward="false" selection-start-line="423" selection-start-column="4" selection-end-line="423" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/reproductor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="71" column="42" lean-forward="false" selection-start-line="71" selection-start-column="42" selection-end-line="71" selection-end-column="42" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2206#2207#0" expanded="true" />
-            <element signature="e#2241#2242#0" expanded="true" />
-            <element signature="e#3072#3073#0" expanded="true" />
-            <element signature="e#3118#3119#0" expanded="true" />
-            <element signature="e#3179#3180#0" expanded="true" />
-            <element signature="e#3233#3234#0" expanded="true" />
-            <element signature="e#48979#48980#0" expanded="true" />
-            <element signature="e#49017#49018#0" expanded="true" />
+            <element signature="e#1971#3297#0" expanded="true" />
+            <element signature="e#3296#3297#0" expanded="true" />
+            <element signature="e#4670#4671#0" expanded="true" />
+            <element signature="e#4703#4704#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/audio.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-75">
+          <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+          <folding>
+            <element signature="e#4273#4280#0" expanded="true" />
+            <element signature="e#4866#4872#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/js/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="386">
-          <caret line="104" column="29" lean-forward="false" selection-start-line="104" selection-start-column="29" selection-end-line="104" selection-end-column="29" />
+        <state relative-caret-position="390">
+          <caret line="128" column="24" lean-forward="false" selection-start-line="128" selection-start-column="24" selection-end-line="128" selection-end-column="24" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/reproduccion.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="61" lean-forward="false" selection-start-line="5" selection-start-column="61" selection-end-line="5" selection-end-column="61" />
+        <state relative-caret-position="403">
+          <caret line="256" column="61" lean-forward="true" selection-start-line="256" selection-start-column="61" selection-end-line="256" selection-end-column="61" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/ReproducirJava.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1018">
+          <caret line="42" column="38" lean-forward="true" selection-start-line="42" selection-start-column="38" selection-end-line="42" selection-end-column="38" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

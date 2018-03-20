@@ -148,7 +148,7 @@ public class servidorhttp implements Runnable {
     }
 
     private class reproduccionmensaje {
-        public Boolean lunes=false, martes=false, miercoles=false, jueves=false, viernes=false, sabado=false, domingo=false, eliminar=false;
+        public Boolean lunes=false, martes=false, miercoles=false, jueves=false, viernes=false, sabado=false, domingo=false, eliminar=false, modificar=false;
         public String nombre="";
         public int diadesemana=0;
         public Long horahasta, horadesde;
@@ -347,16 +347,16 @@ public class servidorhttp implements Runnable {
                         if (s.hasNext()) {
                             reproduccionmensaje consulta = gson.fromJson(s.next(), reproduccionmensaje.class);
                             comunicacion com = new comunicacion();
-                            if (!consulta.eliminar) {
+                            if (!consulta.eliminar && !consulta.modificar) {
                                 for (int i = 1; i < 8; i++) {
                                     if ((consulta.lunes && i == 1) || (consulta.martes && i == 2) || (consulta.miercoles && i == 3) || (consulta.jueves && i == 4) || (consulta.viernes && i == 5) || (consulta.sabado && i == 6) || (consulta.domingo && i == 7)) {
                                         com.agregarprogramaciondereproduccion(consulta.nombre, i, consulta.horadesde, consulta.horahasta);
                                     }
                                 }
-                            } else {
+                            } else if (consulta.eliminar)
                                 com.eliminarprogramaciondereproduccion(consulta.nombre, consulta.diadesemana, consulta.strhoradesde, consulta.strhorahasta);
-                                System.out.println(consulta.nombre+consulta.diadesemana+consulta.strhoradesde + consulta.strhorahasta);
-                            }
+                                else if (consulta.modificar)
+                                com.modificarprogramaciondereproduccion(consulta.nombre, consulta.diadesemana, consulta.strhoradesde, consulta.strhorahasta, consulta.horadesde, consulta.horahasta);
                             respuesta = new RespuestaMensaje("", false);
                         } else {
                             respuesta = new RespuestaMensaje("Error recibiendo datos", true);
@@ -465,6 +465,7 @@ public class servidorhttp implements Runnable {
                         registrarmusic.agregarmusica(file.getAbsolutePath());
                 }
                 os.close();
+                reproductor.getInstance().iniciarreproduccion = true;
             } catch (Exception e) {
                 e.printStackTrace();
                 log.warning("Error de subida de archivos en el servicio web: " + e.getMessage());
