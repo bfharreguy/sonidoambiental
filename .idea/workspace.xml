@@ -6,16 +6,8 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="271f9741-9e00-4178-9bf1-529418b29e01" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/publicidad.html" afterDir="false" />
+    <list default="true" id="271f9741-9e00-4178-9bf1-529418b29e01" name="Default" comment="reproductorjava cambios a javafx actualizado, muchos bugs arreglados">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database.db" beforeDir="false" afterPath="$PROJECT_DIR$/database.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/reproductor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bfhsoftware/sonidoambiental/reproductor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/js/app.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -495,10 +487,10 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="Global Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.39839265" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="GitLabConfigurableProvider" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -600,7 +592,7 @@
   </component>
   <component name="SpellCheckerSettings" BundledDictionaries="0" Folders="1" Folder0="$APPLICATION_HOME_DIR$" CustomDictionaries="1" CustomDictionary0="$APPLICATION_HOME_DIR$/spanish.dic" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="project-level" UseSingleDictionary="true" />
   <component name="SvnConfiguration">
-    <configuration />
+    <configuration>$USER_HOME$/.subversion</configuration>
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -647,7 +639,8 @@
       <workItem from="1524576013032" duration="3951000" />
       <workItem from="1526129747522" duration="31000" />
       <workItem from="1526478412608" duration="1361000" />
-      <workItem from="1528473805804" duration="382000" />
+      <workItem from="1528473805804" duration="1202000" />
+      <workItem from="1528475246489" duration="317000" />
     </task>
     <task id="LOCAL-00001" summary="problemas de dependencias">
       <created>1518710327366</created>
@@ -712,11 +705,18 @@
       <option name="project" value="LOCAL" />
       <updated>1521585973978</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="reproductorjava cambios a javafx actualizado, muchos bugs arreglados">
+      <created>1528474441567</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1528474441567</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="374015000" />
+    <option name="totallyTimeSpent" value="375152000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -729,24 +729,24 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="25" width="1922" height="1031" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49583334" weight="0.18820861" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
       <window_info id="Image Layers" order="7" />
       <window_info anchor="right" id="Capture Analysis" order="5" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5143472" side_tool="true" weight="0.25105783" />
+      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5096051" side_tool="true" visible="true" weight="0.30612245" />
       <window_info anchor="right" id="Maven Projects" order="4" />
       <window_info anchor="bottom" id="Database Changes" order="8" weight="0.32993197" />
-      <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.49722221" weight="0.30612245" />
+      <window_info active="true" anchor="bottom" id="Version Control" order="8" sideWeight="0.4903949" visible="true" weight="0.30612245" />
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4856528" weight="0.19774011" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="9" visible="true" weight="0.32879817" />
+      <window_info anchor="bottom" id="Terminal" order="9" weight="0.32879817" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="3" />
       <window_info anchor="bottom" id="Problems" order="11" weight="0.32879817" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.29402348" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.29722518" />
       <window_info anchor="right" id="Database" order="8" weight="0.32998565" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32863188" />
       <window_info id="Learn" order="5" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.24964131" />
@@ -755,26 +755,25 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
-      <window_info anchor="bottom" id="Messages" order="10" sideWeight="0.4722222" weight="0.2062147" />
+      <window_info id="Captures" order="2" />
       <window_info anchor="right" id="Gradle" order="4" />
       <window_info id="Build Variants" order="2" side_tool="true" />
-      <window_info id="Captures" order="2" />
       <window_info anchor="right" id="Android Model" order="4" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Build" order="7" sideWeight="0.49444443" weight="0.32872927" />
-      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Messages" order="10" sideWeight="0.4722222" weight="0.2062147" />
       <window_info anchor="bottom" id="Android Monitor" order="7" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32863188" />
     </layout>
     <layout-to-restore>
       <window_info anchor="bottom" id="Build" order="9" sideWeight="0.49444443" weight="0.32872927" />
       <window_info id="Designer" order="5" />
       <window_info anchor="right" id="Palette" order="3" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49166667" visible="true" weight="0.23342541" />
       <window_info id="Build Variants" order="2" side_tool="true" />
-      <window_info id="Image Layers" order="9" />
-      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49166667" visible="true" weight="0.23342541" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="6" />
@@ -783,8 +782,10 @@
       <window_info id="Captures" order="4" />
       <window_info id="Capture Tool" order="3" />
       <window_info anchor="right" id="Capture Analysis" order="7" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5083333" side_tool="true" visible="true" weight="0.23342541" />
       <window_info anchor="bottom" id="Messages" order="12" sideWeight="0.475" weight="0.21132597" />
+      <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49583334" weight="0.18922652" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Problems" order="13" />
       <window_info anchor="bottom" id="Version Control" order="10" weight="0.18544936" />
@@ -795,7 +796,7 @@
       <window_info id="Learn" order="7" />
       <window_info anchor="right" id="Database" order="10" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49583334" weight="0.18922652" />
+      <window_info id="Image Layers" order="9" />
       <window_info anchor="right" id="Palette&#9;" order="9" />
       <window_info anchor="right" id="Theme Preview" order="8" />
       <window_info anchor="right" id="Maven Projects" order="4" />
@@ -1164,8 +1165,8 @@
         <settings>
           <artifact-editor>
             <show-content>
-              <type id="artifact" />
               <type id="library" />
+              <type id="artifact" />
             </show-content>
           </artifact-editor>
           <last-edited>Sonidoambiental:jar</last-edited>
@@ -1221,7 +1222,6 @@
             <option name="proportions">
               <list>
                 <option value="0.39839265" />
-                <option value="0.6" />
               </list>
             </option>
           </splitter-proportions>
@@ -1245,7 +1245,7 @@
           <splitter-proportions>
             <option name="proportions">
               <list>
-                <option value="0.17795637" />
+                <option value="0.39839265" />
               </list>
             </option>
           </splitter-proportions>

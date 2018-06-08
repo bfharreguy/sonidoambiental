@@ -51,7 +51,7 @@ public class servidorhttp implements Runnable {
         private boolean error = false;
 
         /*  public void cambiarmensaje(String mensaje){
-        this.mensaje = mensaje;
+        this.mensaje = mensaje;456
         }*/
         public RespuestaMensaje(String mensaje, boolean error) {
             String caso = "";
