@@ -33,6 +33,9 @@ public class reproductor implements Runnable {
     //PlaybackListener escuchar = playbackFinished();
     public void reproducir() {
         if (!reproduciendo) {
+            //subir el volumen al mango y sacar silencio
+            audio.setMasterOutputVolume(1);
+            audio.setMasterOutputMute(false);
             //System.out.println("bfhsoftware.sonidoambiental.reproductor.reproducir()");
             String proximotema = com.proximotema();
             temaactual = (Paths.get(proximotema)).getFileName().toString();
@@ -89,29 +92,10 @@ public class reproductor implements Runnable {
             }
         }
     };
-
-    private synchronized void tareaviva() {
-
-        while (true) {
-            try {
-                this.wait(20);
-            } catch (InterruptedException e) {
-
-                e.printStackTrace();
-            }
-            System.out.println("esta viva");
-            // System.out.println(cancionesaregistrar().size());
-            while (!muerto && ordendereproducir) {
-                reproducir();
-                //System.out.println( "reproducir");
-            }
-
-        }
-    }
-
-    //private static reproductor ourInstance = new reproductor();
+       //private static reproductor ourInstance = new reproductor();
 
     static reproductor getInstance() {
+
         //System.out.println("bfhsoftware.sonidoambiental.reproductor.getInstance()");
         if (main.isandroid()) {
             //System.out.println("reproducir android");

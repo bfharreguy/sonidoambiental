@@ -38,6 +38,9 @@ var app = angular.module('sonidoambiental', ['ngRoute', 'ngStorage', 'ui.grid', 
     }).when('/subir', {
         templateUrl: 'subirarchivos.html',
         controller: "SubirArchivos"
+    }).when('/publicidad', {
+        templateUrl: 'publicidad.html',
+        controller: "PublicidadController"
     }).when('/reproduccion', {
         templateUrl: 'reproduccion.html',
         controller: "ReproduccionController"
